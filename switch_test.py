@@ -17,41 +17,44 @@ time_old = time.ticks_ms()
 def sw_1_interrupt(sw_1):
     global time_old, sw_1_count
     time_new = time.ticks_ms()
-    if(time_new - time_old) > 200:
+    if (time_new - time_old) > 200:
         print("Switch 1 Hit!")
         sw_1_count += 1
         print(sw_1_count)
         time_old = time_new
-    
+
+
 def sw_2_interrupt(sw_2):
     global time_old, sw_2_count
     time_new = time.ticks_ms()
-    if(time_new - time_old) > 200:
+    if (time_new - time_old) > 200:
         print("Switch 2 Hit!")
         sw_2_count += 1
         print(sw_2_count)
         time_old = time_new
-        
+
+
 def sw_3_interrupt(sw_3):
     global time_old, sw_3_count
     time_new = time.ticks_ms()
-    if(time_new - time_old) > 200:
+    if (time_new - time_old) > 200:
         print("Switch 3 Hit!")
         sw_3_count += 1
         print(sw_3_count)
         time_old = time_new
-    
+
+
 def sw_4_interrupt(sw_4):
     global time_old, sw_4_count
     time_new = time.ticks_ms()
-    if(time_new - time_old) > 200:
+    if (time_new - time_old) > 200:
         print("Switch 4 Hit!")
         sw_4_count += 1
         print(sw_4_count)
         time_old = time_new
-    
-sw_1.irq(trigger=Pin.IRQ_FALLING,handler=sw_1_interrupt)
-sw_2.irq(trigger=Pin.IRQ_FALLING,handler=sw_2_interrupt)
-sw_3.irq(trigger=Pin.IRQ_FALLING,handler=sw_3_interrupt)
-sw_4.irq(trigger=Pin.IRQ_FALLING,handler=sw_4_interrupt)
 
+
+sw_1.irq(trigger=Pin.IRQ_FALLING, handler=sw_1_interrupt)
+sw_2.irq(trigger=Pin.IRQ_FALLING, handler=sw_2_interrupt)
+sw_3.irq(trigger=Pin.IRQ_FALLING, handler=sw_3_interrupt)
+sw_4.irq(trigger=Pin.IRQ_FALLING, handler=sw_4_interrupt)
