@@ -1,5 +1,6 @@
-from machine import Pin
 import time
+
+from machine import Pin
 
 sw_1 = machine.Pin(21, machine.Pin.IN, machine.Pin.PULL_UP)
 sw_2 = machine.Pin(20, machine.Pin.IN, machine.Pin.PULL_UP)
