@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://dmf44vxvrbwf0"]
+
+[node name="PlotControl" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.575343, 0.854855, 0.795487, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer3" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="Control" type="ColorRect" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.35
