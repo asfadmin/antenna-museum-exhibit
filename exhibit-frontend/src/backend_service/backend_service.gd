@@ -1,6 +1,7 @@
 class_name BackendService extends HTTPRequest
 
 const URL = 'http://localhost:8080'
+const DEFAULT_HEADERS = []
 
 # API ENDPOINTS
 const CUSTOM_ENDPOINT = '/custom'
@@ -8,6 +9,7 @@ const HOME_ENDPOINT = '/home'
 const PATH_ENDPOINT = '/path'
 const STATUS_ENDPOINT = '/status'
 const STOW_ENDPOINT = '/stow'
+
 
 enum AXIS {
 	ALL,
@@ -48,7 +50,7 @@ func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METH
 	var url_template = "%s%s"
 	var url = url_template % [self.URL, endpoint]
 
-	var error = self.request(url, PackedStringArray(), method, body_str)
+	var error = self.request(url, PackedStringArray(DEFAULT_HEADERS), method, body_str)
 
 	if error != OK:
 		push_error("An error occurred while querying the backend service.")
