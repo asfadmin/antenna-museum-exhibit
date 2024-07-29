@@ -28,7 +28,7 @@ func Home(axis: AXIS):
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST, body)
 
 func Path(path: int):
-	## POSTs which pre-defined path for the atenna to follow at the /path endpoint
+	## POSTs which pre-defined path for the antenna to follow at the /path endpoint
 	var body = {'q': path}
 	self._make_request(self.PATH_ENDPOINT, HTTPClient.METHOD_POST, body)
 
