@@ -1,6 +1,6 @@
 class_name BackendService extends HTTPRequest
 
-const URL = 'http://localhost:8080'
+const URL = 'http://localhost:8000'
 const DEFAULT_HEADERS = []
 
 # API ENDPOINTS
@@ -24,7 +24,8 @@ func Custom(data: Dictionary):
 
 func Home(axis: AXIS):
 	## POSTs axis to zero-out to /home endpoint
-	var body = {'axis': AXIS.keys()[axis]}
+	var axis_str = str(AXIS.keys()[axis]).to_lower()
+	var body = {'axis': axis_str}
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST, body)
 
 func Path(path: int):
