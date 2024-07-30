@@ -18,6 +18,17 @@ enum AXIS {
 	ELEVATION
 }
 
+enum SATELLITES {
+	SMAP,
+	AURA,
+	AQUA,
+	SCISAT,
+	OCO2,
+	ICESAT,
+	IC2,
+	CUSTOM
+}
+
 func Custom(data: Dictionary):
 	## POSTs values for train, azimuth, and elevation to /custom endpoint
 	self._make_request(self.CUSTOM_ENDPOINT, HTTPClient.METHOD_POST, data)
@@ -27,9 +38,12 @@ func Home(axis: AXIS):
 	var body = {'axis': AXIS.keys()[axis]}
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST, body)
 
-func Path(path: int):
+func Path(satellite: SATELLITES, path: Array[Dictionary] = []):
 	## POSTs which pre-defined path for the antenna to follow at the /path endpoint
-	var body = {'q': path}
+	var body = {'satellite': SATELLITES.keys()[satellite]}
+	if satellite == SATELLITES.CUSTOM:
+		body['path'] = path
+	
 	self._make_request(self.PATH_ENDPOINT, HTTPClient.METHOD_POST, body)
 
 func Status():
