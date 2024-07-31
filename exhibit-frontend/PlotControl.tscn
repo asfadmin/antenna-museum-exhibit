@@ -120,11 +120,16 @@ script = ExtResource("1_02d54")
 x_max = 360.0
 x_label = "Time (sec)"
 show_x_ticks = false
+x_step = 60
 y_max = 6.0
+y_step = 1
 grid_horizontal_visible = true
+grid_horizontal_color = Color(0.364706, 1, 1, 1)
 grid_vertical_visible = true
+grid_vertical_color = Color(0.364706, 1, 1, 1)
 
 [node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
