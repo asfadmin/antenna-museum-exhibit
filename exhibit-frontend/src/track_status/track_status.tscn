@@ -1,8 +1,227 @@
 [gd_scene load_steps=3 format=3 uid="uid://pyqxiujpu271"]
 
 [ext_resource type="Script" path="res://src/track_status/track_status.gd" id="1_u6mlq"]
-[ext_resource type="FontFile" uid="uid://d2g2aiqsn56d7" path="res://assets/CutiveMono-Regular.ttf" id="2_en4r3"]
+[ext_resource type="FontFile" uid="uid://d2g2aiqsn56d7" path="res://assets/CutiveMono-Regular.ttf" id="2_4komm"]
 
-[node name="TrackStatus" type="Node2D"]
+[node name="Control" type="Control"]
+z_index = 2
+custom_minimum_size = Vector2(200, 200)
+layout_mode = 3
+anchors_preset = 0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+
+[node name="AspectRatioContainer" type="AspectRatioContainer" parent="."]
+layout_mode = 0
+offset_right = 1081.0
+offset_bottom = 1081.0
+
+[node name="background" type="ColorRect" parent="AspectRatioContainer"]
+unique_name_in_owner = true
+z_as_relative = false
+layout_mode = 2
+color = Color(0, 0, 0, 1)
 script = ExtResource("1_u6mlq")
-font = ExtResource("2_en4r3")
+line_width = 3.0
+
+[node name="East" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = 6
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -48.0
+offset_top = -11.5
+offset_right = -24.0
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]E[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="North" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.5
+offset_top = 19.0
+offset_right = 17.5
+offset_bottom = 43.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]N[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Key" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.803423
+anchor_right = 0.803423
+offset_left = -6.5
+offset_top = 19.0
+offset_right = 193.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#FF0000\"]Limit[/color]
+[color=\"#FFFF55\"]Track[/color]
+[color=\"#00FF00\"]Autotrack[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="SatInfo" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0180389
+anchor_top = -0.00925069
+anchor_right = 0.0180389
+anchor_bottom = -0.00925069
+offset_left = -6.5
+offset_top = 19.0
+offset_right = 343.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "MissionNamePlaceholder"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="PeakEl" type="Label" parent="AspectRatioContainer/background/SatInfo"]
+layout_mode = 0
+offset_top = 34.0
+offset_right = 40.0
+offset_bottom = 53.0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4komm")
+theme_override_font_sizes/font_size = 24
+text = "Peak El:"
+
+[node name="ElevationValue" type="RichTextLabel" parent="AspectRatioContainer/background/SatInfo/PeakEl"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.510991
+anchor_top = 0.520009
+anchor_right = 0.510991
+anchor_bottom = 0.520009
+offset_left = 66.725
+offset_top = -14.0402
+offset_right = 366.725
+offset_bottom = 85.9598
+grow_horizontal = 2
+theme_override_colors/default_color = Color(0, 1, 1, 1)
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "PlaceHolder"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="ElevationInfo" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.0180389
+anchor_top = 0.953747
+anchor_right = 0.0180389
+anchor_bottom = 0.953747
+offset_left = -6.5
+offset_top = 19.0
+offset_right = 343.5
+offset_bottom = 119.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]Elevation:[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="Value" type="Label" parent="AspectRatioContainer/background/ElevationInfo"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 19.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4komm")
+theme_override_font_sizes/font_size = 24
+text = "PlaceHolder"
+
+[node name="AzimuthInfo" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = 3
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -350.0
+offset_top = -30.0
+grow_horizontal = 0
+grow_vertical = 0
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]Azimuth:[/color]"
+scroll_active = false
+
+[node name="Value" type="Label" parent="AspectRatioContainer/background/AzimuthInfo"]
+layout_mode = 1
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -40.0
+offset_bottom = 19.0
+grow_horizontal = 0
+theme_override_colors/font_color = Color(0, 1, 1, 1)
+theme_override_fonts/font = ExtResource("2_4komm")
+theme_override_font_sizes/font_size = 24
+text = "PlaceHolder"
+
+[node name="South" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -6.5
+offset_top = 1037.0
+offset_right = 17.5
+offset_bottom = 1061.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]S[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
+[node name="West" type="RichTextLabel" parent="AspectRatioContainer/background"]
+layout_mode = 1
+anchors_preset = 4
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 27.0
+offset_top = -11.5
+offset_right = 51.0
+offset_bottom = 12.5
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]W[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
