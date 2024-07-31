@@ -1,11 +1,20 @@
-[gd_scene format=3 uid="uid://dmf44vxvrbwf0"]
+[gd_scene load_steps=3 format=3 uid="uid://dmf44vxvrbwf0"]
 
-[node name="PlotControl" type="PanelContainer"]
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_02d54"]
+[ext_resource type="Script" path="res://plot_control.gd" id="1_2ljep"]
+
+[node name="PlotControl" type="MarginContainer" node_paths=PackedStringArray("graph_node")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_2ljep")
+graph_node = NodePath("HBoxContainer/Graph")
 
 [node name="ColorRect" type="ColorRect" parent="."]
 layout_mode = 2
@@ -103,7 +112,19 @@ text = "-10
 "
 horizontal_alignment = 2
 
-[node name="Control" type="ColorRect" parent="HBoxContainer"]
+[node name="Graph" type="Control" parent="HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 7.35
+script = ExtResource("1_02d54")
+x_max = 360.0
+x_label = "Time (sec)"
+show_x_ticks = false
+y_max = 6.0
+grid_horizontal_visible = true
+grid_vertical_visible = true
+
+[node name="Timer" type="Timer" parent="."]
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
