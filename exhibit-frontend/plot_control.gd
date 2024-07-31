@@ -8,7 +8,8 @@ var xband_plot: PlotItem
 var lhc_line = []
 var rhc_line = []
 var xband_line = []
-var x_max = 360
+var x_max = 0
+var x_min = -360
 var x = x_max
 var looped = false
 var shift_width = 5
@@ -52,7 +53,7 @@ func shift(line):
 
 
 func _on_timer_timeout() -> void:
-	if x > 0:
+	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
 			lhc_line.push_front(Vector2(x_max, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
@@ -71,7 +72,7 @@ func _on_timer_timeout() -> void:
 			rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
 			xband_line.push_back(Vector2(x, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
 		x -= shift_width
-	elif x == 0:
+	elif x == x_min:
 		lhc_line.push_back(Vector2(x, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
 		rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
 		xband_line.push_back(Vector2(x_max, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
