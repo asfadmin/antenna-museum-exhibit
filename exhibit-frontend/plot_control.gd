@@ -8,8 +8,25 @@ var xband_plot: PlotItem
 var lhc_line = []
 var rhc_line = []
 var xband_line = []
-var x := 360
+var x_max = 360
+var x = x_max
 var looped = false
+var shift_width = 5
+
+var ranges = {
+	"lhc": {
+		"low": 1,
+		"high": 1.25,
+	},
+	"rhc": {
+		"low": 3,
+		"high": 3.25,
+	},
+	"xband": {
+		"low": 5,
+		"high": 5.25,
+	},
+}
 
 
 func _ready() -> void:
@@ -25,10 +42,10 @@ func redraw(line, plot: PlotItem):
 
 
 func shift(line):
-	# Sub 60 from each x in the line
+	# Sub shift_width from each x in the line
 	var shifted = []
 	for point in line:
-		point.x -=  60
+		point.x -=  shift_width
 		shifted.append(point)
 
 	return shifted
@@ -38,28 +55,28 @@ func _on_timer_timeout() -> void:
 	if x > 0:
 		if looped:
 			lhc_line = shift(lhc_line)
-			lhc_line.push_front(Vector2(360, randf_range(0, 2)))
+			lhc_line.push_front(Vector2(x_max, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			rhc_line.push_front(Vector2(360, randf_range(2, 4)))
+			rhc_line.push_front(Vector2(x_max, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			xband_line.push_front(Vector2(360, randf_range(4, 6)))
+			xband_line.push_front(Vector2(x_max, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
 			xband_line.pop_back()
-			x = 360
+			x = x_max
 		else:
-			lhc_line.append(Vector2(x, randf_range(0, 2)))
-			rhc_line.append(Vector2(x, randf_range(2, 4)))
-			xband_line.append(Vector2(x, randf_range(4, 6)))
-		x -= 60
+			lhc_line.push_back(Vector2(x, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
+			rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
+			xband_line.push_back(Vector2(x, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
+		x -= shift_width
 	elif x == 0:
-		lhc_line.append(Vector2(x, randf_range(0, 2)))
-		rhc_line.append(Vector2(x, randf_range(2, 4)))
-		xband_line.append(Vector2(x, randf_range(4, 6)))
+		lhc_line.push_back(Vector2(x, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
+		rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
+		xband_line.push_back(Vector2(x_max, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
 		looped = true
-		x = 360
+		x = x_max
 
 	redraw(lhc_line, lhc_plot)
 	redraw(rhc_line, rhc_plot)
