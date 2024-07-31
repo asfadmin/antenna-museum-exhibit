@@ -37,7 +37,7 @@ expand_margin_right = 1.0
 expand_margin_bottom = 7.0
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_84e45"]
-bg_color = Color(0.918581, 0.886328, 0.888962, 1)
+bg_color = Color(0.964324, 0.949989, 0.951135, 1)
 
 [resource]
 Button/colors/font_color = Color(0, 0, 0, 1)

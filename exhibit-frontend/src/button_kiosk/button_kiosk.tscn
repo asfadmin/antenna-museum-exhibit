@@ -56,7 +56,7 @@ layout_mode = 2
 size_flags_horizontal = 3
 size_flags_vertical = 3
 
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control"]
+[node name="Path1Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control"]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -274,6 +274,13 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 1.5
+theme_override_constants/separation = 15
+
+[node name="Label" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer"]
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "ANTENNA"
+horizontal_alignment = 1
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer"]
 layout_mode = 2
@@ -514,9 +521,10 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "CCW"
+text = "DWN"
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="ElevationSliderLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -527,10 +535,11 @@ horizontal_alignment = 1
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
-text = "CW"
+text = "UP"
 horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ElevationSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -570,7 +579,8 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "CCW"
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="AzimuthSliderLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -584,7 +594,8 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "CW"
 horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AzimuthSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 
@@ -623,7 +634,8 @@ size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "CCW"
 
-[node name="Label3" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+[node name="TrainSliderLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_colors/font_color = Color(0, 0, 0, 1)
@@ -637,7 +649,12 @@ theme_override_colors/font_color = Color(0, 0, 0, 1)
 text = "CW"
 horizontal_alignment = 2
 
-[node name="HSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="TrainSlider" type="HSlider" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
 
