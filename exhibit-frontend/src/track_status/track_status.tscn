@@ -1,7 +1,14 @@
-[gd_scene load_steps=3 format=3 uid="uid://pyqxiujpu271"]
+[gd_scene load_steps=5 format=3 uid="uid://pyqxiujpu271"]
 
 [ext_resource type="Script" path="res://src/track_status/track_status.gd" id="1_u6mlq"]
 [ext_resource type="FontFile" uid="uid://d2g2aiqsn56d7" path="res://assets/CutiveMono-Regular.ttf" id="2_4komm"]
+[ext_resource type="Script" path="res://src/track_status/track_course.gd" id="3_ibwx6"]
+
+[sub_resource type="Curve2D" id="Curve2D_203gu"]
+_data = {
+"points": PackedVector2Array(-17.7004, -39.6812, 17.7004, 39.6812, 750, 103, 91.342, -125.921, -91.342, 125.921, 602, 357, 0, 0, 0, 0, 136, 560)
+}
+point_count = 3
 
 [node name="Control" type="Control"]
 z_index = 2
@@ -225,3 +232,23 @@ bbcode_enabled = true
 text = "[color=\"#00FFFF\"]W[/color]"
 scroll_active = false
 metadata/_edit_use_anchors_ = true
+
+[node name="ProjectedCourse" type="Line2D" parent="AspectRatioContainer/background"]
+width = 5.0
+default_color = Color(0.783531, 0.329321, 0.349288, 1)
+script = ExtResource("3_ibwx6")
+
+[node name="CompletedCourse" type="Line2D" parent="AspectRatioContainer/background/ProjectedCourse"]
+default_color = Color(1, 0.149469, 0.350274, 1)
+
+[node name="Path2D" type="Path2D" parent="AspectRatioContainer/background/ProjectedCourse"]
+curve = SubResource("Curve2D_203gu")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="AspectRatioContainer/background/ProjectedCourse/Path2D"]
+position = Vector2(750, 103)
+rotation = 1.15122
+loop = false
+
+[node name="sat_pos" type="ColorRect" parent="AspectRatioContainer/background/ProjectedCourse"]
+offset_right = 10.0
+offset_bottom = 10.0
