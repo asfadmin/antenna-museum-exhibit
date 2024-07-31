@@ -46,6 +46,11 @@ extends Control
 	set(value):
 		show_horizontal_line = value
 		_update_graph()
+@export var x_step: int = _get_min_step(x_min, x_max):
+	set(value):
+		x_step = value
+		_update_graph()
+		assert(not is_inf(x_step), "x_step is infinite!")
 
 @export_group("Y Axis")
 ## Minimun value on Y-axis
@@ -88,6 +93,11 @@ extends Control
 	set(value):
 		show_vertical_line = value
 		_update_graph()
+@export var y_step: int = _get_min_step(y_min, y_max):
+	set(value):
+		y_step = value
+		_update_graph()
+		assert(not is_inf(y_step), "y_step is infinite!")
 		
 @export_group("Background")
 ## Background color of graph
@@ -244,15 +254,15 @@ func _update_graph() -> void:
 	get_node("PlotArea").offset_bottom = -margin_bottom
 	
 	# Vertical Graduation
-	var y_step = _get_min_step(y_min, y_max)
-	assert(not is_inf(y_step), "y_step is infinite!")
+	# var y_step = _get_min_step(y_min, y_max)
+	# assert(not is_inf(y_step), "y_step is infinite!")
 
 	var y_axis_range: float = y_max - y_min
 	var vert_grad_number = _get_graduation_num(y_min, y_max, y_step, "vert")
 	
 	# Horizontal Graduation
-	var x_step = _get_min_step(x_min, x_max)
-	assert(not is_inf(x_step), "y_step is infinite!")
+	# var x_step = _get_min_step(x_min, x_max)
+	# assert(not is_inf(x_step), "x_step is infinite!")
 	
 	var x_axis_range: float = x_max - x_min
 	var hor_grad_number = _get_graduation_num(x_min, x_max, x_step, "hor")
