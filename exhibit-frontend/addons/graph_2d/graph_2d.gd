@@ -9,11 +9,25 @@ extends Control
 
 #region Export variables
 
+@export_group("Grid extras")
+@export var show_labels: bool = false:
+	set(value):
+		show_labels = value
+@export var show_coordinates: bool = false:
+	set(value):
+		show_coordinates = value
+
 @export_group("X Axis")
 ## Minimun value on X-axis
 @export var x_min: float = 0.0:
 	set(value):
-		if value < x_max:
+		if value < 0:
+			print("Using negative values for x, undesired behavior may occur.")
+			x_min = value
+			_x_step = (x_max - x_min) / 2
+			_update_graph()
+			_update_plots()
+		elif value < x_max:
 			_x_step = _get_min_step(value, x_max)
 			x_min = _get_min_value(value, x_max, _x_step)
 			_update_graph()
@@ -21,6 +35,12 @@ extends Control
 ## Maximum value on X-axis
 @export var x_max: float = 10.0:
 	set(value):
+		if x_min < 0:
+			print("Using negative values for x, undesired behavior may occur.")
+			x_max = value
+			_x_step = (x_max - x_min) / 2
+			_update_graph()
+			_update_plots()
 		if value > x_min:
 			_x_step = _get_min_step(x_min, value)
 			x_max = _get_max_value(x_min, value, _x_step)
@@ -176,8 +196,9 @@ func _ready():
 	var legend = _Graph2DLegend.new()
 	plot_area.add_child(legend)
 	
-	var coordinate = _Graph2DCoord.new()
-	plot_area.add_child(coordinate)
+	if show_coordinates:
+		var coordinate = _Graph2DCoord.new()
+		plot_area.add_child(coordinate)
 	
 	resized.connect(_on_Graph_resized)
 	plot_area.resized.connect(_on_plot_area_resized)
@@ -190,20 +211,21 @@ func _ready():
 	_update_graph()
 
 func _input(event: InputEvent) -> void:
-
-	if event is InputEventMouseMotion:
-		var plot_rect: Rect2 = Rect2(Vector2.ZERO, get_node("PlotArea").size)
-		
-		if plot_rect.has_point(get_node("PlotArea").get_local_mouse_position()):
-			var pos: Vector2i = get_node("PlotArea").get_local_mouse_position()
-			var point = _pixel_to_coordinate(pos)
-			get_node("PlotArea/Coordinate").text = "(%.3f, %.3f)" % [point.x, point.y]
+	if show_coordinates:
+		if event is InputEventMouseMotion:
+			var plot_rect: Rect2 = Rect2(Vector2.ZERO, get_node("PlotArea").size)
+			
+			if plot_rect.has_point(get_node("PlotArea").get_local_mouse_position()):
+				var pos: Vector2i = get_node("PlotArea").get_local_mouse_position()
+				var point = _pixel_to_coordinate(pos)
+				get_node("PlotArea/Coordinate").text = "(%.3f, %.3f)" % [point.x, point.y]
 
 ## Add plot to the graph and return an instance of plot.
 func add_plot_item(label = "", color = Color.WHITE, width = 1.0) -> PlotItem:
 	var plot = PlotItem.new(self, label, color, width)
 	_plots.append(plot)
-	_update_legend()
+	if show_labels:
+		_update_legend()
 	return plot
 
 ## Remove plot from the graph.
@@ -213,7 +235,8 @@ func remove_plot_item(plot: PlotItem):
 	_plots = new_plot_list
 
 	plot.delete()
-	_update_legend()
+	if show_labels:
+		_update_legend()
 
 ## Remove all plots inside graph.
 func remove_all() -> void:
