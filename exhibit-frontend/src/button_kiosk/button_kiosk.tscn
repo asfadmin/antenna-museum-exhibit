@@ -1,25 +1,20 @@
-[gd_scene load_steps=5 format=3 uid="uid://knpf8lihjx0u"]
+[gd_scene load_steps=8 format=3 uid="uid://knpf8lihjx0u"]
 
 [ext_resource type="Script" path="res://src/button_kiosk/button_kiosk.gd" id="1_i307g"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h3e4l"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_rls3x"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_h1hvf"]
-bg_color = Color(1, 1, 1, 1)
-border_width_left = 1
-border_width_top = 1
-border_width_right = 1
-border_width_bottom = 1
-border_color = Color(0, 0, 0, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8j0i"]
+bg_color = Color(0.485703, 0.485704, 0.485703, 1)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_eo7j6"]
-bg_color = Color(1, 1, 1, 1)
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1wgu"]
+bg_color = Color(0.486275, 0.486275, 0.486275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj7u6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aot28"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3f6s"]
 
 [node name="ButtonKiosk" type="PanelContainer"]
 anchors_preset = 15
@@ -37,238 +32,6 @@ theme_override_constants/separation = 0
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_constants/separation = 0
-
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer" type="GridContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-columns = 3
-
-[node name="Control" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Path1Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 15
-text = "Path 1"
-
-[node name="Control2" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control2"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Path 2"
-
-[node name="Control3" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control3"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Path 3"
-
-[node name="Control4" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control4"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Path 4"
-
-[node name="Control5" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control5"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-text = "Path 5"
-
-[node name="Control6" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control6"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-disabled = true
-text = "Spectrum"
-
-[node name="Control7" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control7"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-disabled = true
-text = "PTP 1"
-
-[node name="Control8" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control8"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-disabled = true
-text = "PTP 2"
-
-[node name="Control9" type="Control" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="Button" type="Button" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer/HBoxContainer/Control9"]
-layout_mode = 1
-anchors_preset = 8
-anchor_left = 0.5
-anchor_top = 0.5
-anchor_right = 0.5
-anchor_bottom = 0.5
-offset_left = -42.5
-offset_top = -15.5
-offset_right = 42.5
-offset_bottom = 15.5
-grow_horizontal = 2
-grow_vertical = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-disabled = true
-text = "Matrix"
-
-[node name="HSeparator" type="HSeparator" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-
-[node name="HBoxContainer2" type="HBoxContainer" parent="VBoxContainer/HBoxContainer/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="VSeparator2" type="VSeparator" parent="VBoxContainer/HBoxContainer"]
-layout_mode = 2
 
 [node name="AntennaStatsContainer" type="VBoxContainer" parent="VBoxContainer/HBoxContainer"]
 layout_mode = 2
@@ -289,7 +52,7 @@ alignment = 1
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer"]
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h3e4l")
+theme_override_styles/panel = SubResource("StyleBoxFlat_rls3x")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -350,7 +113,7 @@ text = "ACTUAL:"
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ActualElevationLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
 unique_name_in_owner = true
@@ -362,7 +125,7 @@ horizontal_alignment = 2
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ActualAzimuthLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
 unique_name_in_owner = true
@@ -374,7 +137,7 @@ horizontal_alignment = 2
 [node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ActualTrainLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer3"]
 unique_name_in_owner = true
@@ -397,7 +160,7 @@ text = "COMMAND:"
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="CommandElevationLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
 unique_name_in_owner = true
@@ -409,7 +172,7 @@ horizontal_alignment = 2
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="CommandAzimuthLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2"]
 unique_name_in_owner = true
@@ -421,7 +184,7 @@ horizontal_alignment = 2
 [node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1wgu")
 
 [node name="CommandTrainLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3"]
 unique_name_in_owner = true
@@ -444,7 +207,7 @@ text = "ERROR:"
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ErrorElevationLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer"]
 unique_name_in_owner = true
@@ -456,7 +219,7 @@ horizontal_alignment = 2
 [node name="PanelContainer2" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ErrorAzimuthLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer2"]
 unique_name_in_owner = true
@@ -468,7 +231,7 @@ horizontal_alignment = 2
 [node name="PanelContainer3" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
 custom_minimum_size = Vector2(100, 0)
 layout_mode = 2
-theme_override_styles/panel = SubResource("StyleBoxFlat_h1hvf")
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
 
 [node name="ErrorTrainLabel" type="Label" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer3"]
 unique_name_in_owner = true
@@ -501,7 +264,7 @@ vertical_alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eo7j6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_sj7u6")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer"]
 layout_mode = 2
@@ -557,7 +320,7 @@ horizontal_alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eo7j6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_aot28")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer"]
 layout_mode = 2
@@ -612,7 +375,7 @@ horizontal_alignment = 1
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_styles/panel = SubResource("StyleBoxFlat_eo7j6")
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3f6s")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer"]
 layout_mode = 2
