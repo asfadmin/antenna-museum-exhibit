@@ -9,6 +9,9 @@ extends Camera3D
 @export var MOUSE_ZOOM_SPEED: float = 10
 @export var TOUCH_INVERT_ZOOM: bool = false
 
+@export var max_distance: float = 30
+@export var min_distance: float = 3
+@export var min_x: float = 0
 # Event var
 var _move_speed: Vector2
 var _scroll_speed: float
@@ -44,19 +47,22 @@ func _process_transformation(delta: float):
 	if _rotation.x > PI/2:
 		_rotation.x = PI/2
 	_move_speed = Vector2()
-	
+	if _rotation.x > min_x:
+		_rotation.x = 0
 	# Update distance
 	_distance += _scroll_speed * delta
 	if _distance < 0:
 		_distance = 0
 	_scroll_speed = 0
-	
+
+	_distance = clamp(_distance, min_distance, max_distance)
+
 	self.set_identity()
 	self.translate_object_local(Vector3(0,0,_distance))
 	_anchor_node.set_identity()
 	_anchor_node.transform.basis = Basis(Quaternion.from_euler(_rotation))
 
-func _input(event):
+func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventScreenDrag:
 		_process_touch_rotation_event(event)
 	elif event is InputEventMouseMotion:

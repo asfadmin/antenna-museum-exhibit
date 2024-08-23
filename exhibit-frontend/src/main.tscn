@@ -51,14 +51,18 @@ transform = Transform3D(0.56019, 0.38831, -0.731712, 0.0632303, 0.8607, 0.505171
 shadow_enabled = true
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60173, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27339, 0.597056, 0)
 
 [node name="OrbitCamera" type="Camera3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.33023)
+keep_aspect = 0
+h_offset = -2.165
+fov = 37.8493
 script = ExtResource("2_v2ihe")
-DEFAULT_DISTANCE = 10.0
+ZOOM_SPEED = 7.215
 ROTATE_SPEED = 0.74
 ANCHOR_NODE_PATH = NodePath("..")
+min_distance = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.9195, 0)
