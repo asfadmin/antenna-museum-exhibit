@@ -1,18 +1,65 @@
-[gd_scene load_steps=2 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=11 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
+[ext_resource type="Script" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 
-[node name="Main" type="Control"]
-layout_mode = 3
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
+[sub_resource type="CylinderMesh" id="CylinderMesh_yklx4"]
+height = 4.0
+
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
+offset = Vector3(0, 0, 8.55)
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_rtbbw"]
+seamless = true
+noise = SubResource("FastNoiseLite_1glr8")
+
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_v8pn4"]
+sky_cover = SubResource("NoiseTexture2D_rtbbw")
+sky_cover_modulate = Color(0.299547, 0.299547, 0.299547, 1)
+
+[sub_resource type="Sky" id="Sky_k2a3y"]
+sky_material = SubResource("ProceduralSkyMaterial_v8pn4")
+
+[sub_resource type="Environment" id="Environment_e7uxs"]
+background_mode = 2
+sky = SubResource("Sky_k2a3y")
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_urn08"]
+albedo_color = Color(0.310617, 0.310617, 0.310617, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_pmi3b"]
+material = SubResource("StandardMaterial3D_urn08")
+size = Vector3(5, 20, 5)
+
+[node name="Main" type="Node3D"]
 
 [node name="ButtonKiosk" parent="." instance=ExtResource("1_5oyyh")]
-layout_mode = 1
-offset_left = 25.0
-offset_top = 505.0
-offset_right = -718.0
-offset_bottom = -17.0
+offset_left = 1.0
+offset_top = 512.0
+offset_right = -1408.0
+offset_bottom = -10.0
+
+[node name="SatelliteAntenna" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0805206, 0)
+mesh = SubResource("CylinderMesh_yklx4")
+
+[node name="WorldEnvironment" type="WorldEnvironment" parent="."]
+environment = SubResource("Environment_e7uxs")
+
+[node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
+transform = Transform3D(0.56019, 0.38831, -0.731712, 0.0632303, 0.8607, 0.505171, 0.825947, -0.329258, 0.457603, -10.7337, 0, 0)
+shadow_enabled = true
+
+[node name="Node3D" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.60173, 0)
+
+[node name="OrbitCamera" type="Camera3D" parent="Node3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.33023)
+script = ExtResource("2_v2ihe")
+DEFAULT_DISTANCE = 10.0
+ROTATE_SPEED = 0.74
+ANCHOR_NODE_PATH = NodePath("..")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.9195, 0)
+mesh = SubResource("BoxMesh_pmi3b")
