@@ -1,0 +1,136 @@
+[gd_scene load_steps=3 format=3 uid="uid://dmf44vxvrbwf0"]
+
+[ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_02d54"]
+[ext_resource type="Script" path="res://plot_control.gd" id="1_2ljep"]
+
+[node name="PlotControl" type="MarginContainer" node_paths=PackedStringArray("graph_node")]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/margin_left = 20
+theme_override_constants/margin_top = 20
+theme_override_constants/margin_right = 20
+theme_override_constants/margin_bottom = 20
+script = ExtResource("1_2ljep")
+graph_node = NodePath("HBoxContainer/Graph")
+
+[node name="ColorRect" type="ColorRect" parent="."]
+layout_mode = 2
+color = Color(0.575343, 0.854855, 0.795487, 1)
+
+[node name="CanvasLayer" type="CanvasLayer" parent="."]
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Close"
+
+[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="GridContainer3" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "50"
+horizontal_alignment = 2
+
+[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "SB -LHC dB"
+horizontal_alignment = 1
+
+[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "29.570"
+
+[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+layout_mode = 2
+text = "-10
+"
+horizontal_alignment = 2
+
+[node name="Graph" type="Control" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 7.35
+script = ExtResource("1_02d54")
+x_min = -360.0
+x_max = 0.0
+x_label = "Time (sec)"
+show_x_ticks = false
+x_step = 60
+y_max = 6.0
+y_step = 1
+grid_horizontal_visible = true
+grid_horizontal_color = Color(0.364706, 1, 1, 1)
+grid_vertical_visible = true
+grid_vertical_color = Color(0.364706, 1, 1, 1)
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 0.5
+autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
