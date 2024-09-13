@@ -16,97 +16,96 @@ theme_override_constants/margin_bottom = 20
 script = ExtResource("1_2ljep")
 graph_node = NodePath("HBoxContainer/Graph")
 
-[node name="ColorRect" type="ColorRect" parent="."]
-layout_mode = 2
-color = Color(0.575343, 0.854855, 0.795487, 1)
-
-[node name="CanvasLayer" type="CanvasLayer" parent="."]
-
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
 
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.55
+
+[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-text = "Close"
-
-[node name="HSeparator" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="GridContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GridContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
-layout_mode = 2
-
-[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
-[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "SB -LHC dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "29.570"
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer"]
+[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
 layout_mode = 2
 text = "-10
 "
 horizontal_alignment = 2
 
-[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator2" type="HSeparator" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GridContainer2" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="GridContainer2" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
-[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+[node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "SB -LHC dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "29.570"
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer2"]
+[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "-10
 "
 horizontal_alignment = 2
 
-[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/VBoxContainer"]
+[node name="HSeparator3" type="HSeparator" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="GridContainer3" type="VBoxContainer" parent="HBoxContainer/VBoxContainer"]
+[node name="GridContainer3" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TopRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
-[node name="LHC" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+[node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "SB -LHC dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "29.570"
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/VBoxContainer/GridContainer3"]
+[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "-10
 "

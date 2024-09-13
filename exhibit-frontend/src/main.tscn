@@ -135,30 +135,37 @@ alignment = 1
 
 [node name="AQUAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "AIRSAR"
 
 [node name="AURAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "AURA"
 
 [node name="IC2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "IC2"
 
 [node name="ICESATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "ICESAT"
 
 [node name="OCO2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "OCO2"
 
 [node name="SCIS0ATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "SCISAT"
 
 [node name="SMAPButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
+size_flags_vertical = 3
 text = "SMAP"
 
 [node name="Control2" type="Control" parent="PanelContainer/VBoxContainer"]
