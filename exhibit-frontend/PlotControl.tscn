@@ -1,4 +1,4 @@
-[gd_scene load_steps=3 format=3 uid="uid://dmf44vxvrbwf0"]
+[gd_scene load_steps=3 format=3 uid="uid://cvfg2agde6b5d"]
 
 [ext_resource type="Script" path="res://addons/graph_2d/graph_2d.gd" id="1_02d54"]
 [ext_resource type="Script" path="res://plot_control.gd" id="1_2ljep"]

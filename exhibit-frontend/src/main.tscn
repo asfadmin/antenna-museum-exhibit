@@ -1,7 +1,8 @@
-[gd_scene load_steps=11 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=13 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
 [ext_resource type="Script" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
+[ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://PlotControl.tscn" id="3_kylsy"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yklx4"]
 height = 4.0
@@ -31,13 +32,10 @@ albedo_color = Color(0.310617, 0.310617, 0.310617, 1)
 material = SubResource("StandardMaterial3D_urn08")
 size = Vector3(5, 20, 5)
 
-[node name="Main" type="Node3D"]
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcpyd"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
-[node name="ButtonKiosk" parent="." instance=ExtResource("1_5oyyh")]
-offset_left = 1.0
-offset_top = 512.0
-offset_right = -1408.0
-offset_bottom = -10.0
+[node name="Main" type="Node3D"]
 
 [node name="SatelliteAntenna" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0805206, 0)
@@ -67,3 +65,114 @@ min_distance = 10.0
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.9195, 0)
 mesh = SubResource("BoxMesh_pmi3b")
+
+[node name="PanelContainer" type="PanelContainer" parent="."]
+offset_right = 1075.0
+offset_bottom = 1080.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.45
+
+[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_vertical = 3
+text = "Airsar is used primarily for things to do with really cool things. It can do really cool stuff, and has a lot of cool uses in a lot of geospatial science cases. Here’s some examples if we want to put some examples maybe, and maybe also what kind of data gets exported out from this."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Control" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+alignment = 1
+
+[node name="Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
+custom_minimum_size = Vector2(153.465, 0)
+layout_mode = 2
+text = "Track"
+
+[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_vcpyd")
+
+[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="AQUAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "AIRSAR"
+
+[node name="AURAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "AURA"
+
+[node name="IC2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "IC2"
+
+[node name="ICESATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "ICESAT"
+
+[node name="OCO2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "OCO2"
+
+[node name="SCIS0ATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SCISAT"
+
+[node name="SMAPButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "SMAP"
+
+[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="PlotControl" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_kylsy")]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 3.05
+
+[node name="ButtonKiosk" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_5oyyh")]
+layout_mode = 2
+size_flags_horizontal = 3

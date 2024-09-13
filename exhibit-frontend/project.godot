@@ -32,7 +32,6 @@ enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg", "res://addons/orbi
 [gui]
 
 theme/custom="res://src/main_theme.tres"
-theme/custom_font="res://assets/CutiveMono-Regular.ttf"
 
 [rendering]
 

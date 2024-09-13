@@ -10,7 +10,7 @@ _data = {
 }
 point_count = 3
 
-[node name="Control" type="Control"]
+[node name="TrackStatus" type="Control"]
 z_index = 2
 custom_minimum_size = Vector2(200, 200)
 layout_mode = 3
