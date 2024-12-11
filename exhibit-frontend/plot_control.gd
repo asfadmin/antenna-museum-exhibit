@@ -5,16 +5,16 @@ extends MarginContainer
 var lhc_plot: PlotItem
 var rhc_plot: PlotItem
 var xband_plot: PlotItem
-var lhc_line = []
-var rhc_line = []
-var xband_line = []
-var x_max = 0
-var x_min = -360
-var x = x_max
-var looped = false
-var shift_width = 5
+var lhc_line: Array[Variant] = []
+var rhc_line: Array[Variant] = []
+var xband_line: Array[Variant] = []
+var x_max: int = 0
+var x_min: int = -360
+var x: int = x_max
+var looped: bool = false
+var shift_width: int = 5
 
-var ranges = {
+const RANGES: Dictionary = {
 	"lhc": {
 		"low": 1,
 		"high": 1.25,
@@ -42,43 +42,47 @@ func redraw(line, plot: PlotItem):
 		plot.add_point(point)
 
 
-func shift(line):
+func shift(line) -> Array[Variant]:
 	# Sub shift_width from each x in the line
-	var shifted = []
+	var shifted: Array[Variant] = []
 	for point in line:
 		point.x -=  shift_width
 		shifted.append(point)
 
 	return shifted
-
-
-func _on_timer_timeout() -> void:
+	
+	
+func do_demo():
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
-			lhc_line.push_front(Vector2(x_max, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
+			lhc_line.push_front(Vector2(x_max, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			rhc_line.push_front(Vector2(x_max, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
+			rhc_line.push_front(Vector2(x_max, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			xband_line.push_front(Vector2(x_max, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
+			xband_line.push_front(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
 			xband_line.pop_back()
 			x = x_max
 		else:
-			lhc_line.push_back(Vector2(x, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
-			rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
-			xband_line.push_back(Vector2(x, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
+			lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
+			rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
+			xband_line.push_back(Vector2(x, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
 		x -= shift_width
 	elif x == x_min:
-		lhc_line.push_back(Vector2(x, randf_range(ranges["lhc"]["low"], ranges["lhc"]["high"])))
-		rhc_line.push_back(Vector2(x, randf_range(ranges["rhc"]["low"], ranges["rhc"]["high"])))
-		xband_line.push_back(Vector2(x_max, randf_range(ranges["xband"]["low"], ranges["xband"]["high"])))
+		lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
+		rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
+		xband_line.push_back(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
 		looped = true
 		x = x_max
 
 	redraw(lhc_line, lhc_plot)
 	redraw(rhc_line, rhc_plot)
 	redraw(xband_line, xband_plot)
+	
+
+func _on_timer_timeout() -> void:
+	do_demo()
