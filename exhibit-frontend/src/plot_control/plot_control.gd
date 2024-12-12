@@ -13,6 +13,10 @@ var x_min: int = -360
 var x: int = x_max
 var looped: bool = false
 var shift_width: int = 5
+var xband_column_data := []
+var lhc_column_data := []
+var rhc_column_data := []
+var max_range := 0
 const RANGES: Dictionary = {
 	"lhc": {
 		"low": 1,
@@ -64,9 +68,9 @@ func _ready() -> void:
 	var csv := get_csv(fname)
 	
 		
-	var xband_column_data := get_csv_column_data(csv["headers"][xband_column_name], csv["content"])
-	var lhc_column_data := get_csv_column_data(csv["headers"][lhc_column_name], csv["content"])
-	var rhc_column_data := get_csv_column_data(csv["headers"][rhc_column_name], csv["content"])
+	xband_column_data = get_csv_column_data(csv["headers"][xband_column_name], csv["content"])
+	lhc_column_data = get_csv_column_data(csv["headers"][lhc_column_name], csv["content"])
+	rhc_column_data = get_csv_column_data(csv["headers"][rhc_column_name], csv["content"])
 	
 	## Free up some memory because my debugger won't load variables when this has the full CSV in it
 	csv = {}
@@ -83,12 +87,16 @@ func _ready() -> void:
 	print("lhc range: [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
 	print("rhc range: [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
 	
+	max_range = get_max([xband_length, lhc_length, rhc_length])
 	graph_node.y_min = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])
-	# Setting y_max to be 3x the greatest distance ensures that there is no overlap between graphs
-	graph_node.y_max = get_max([xband_length, lhc_length, rhc_length]) * 3
+	# Setting y_max to be 3x the max range ensures that there is no overlap between graphs
+	graph_node.y_max =  max_range * 3
 	
-	graph_node.y_step = graph_node.y_max / 6
+	graph_node.y_step = (graph_node.y_max - graph_node.y_min) / 6
+	print("y-distance: %s" % (graph_node.y_max - graph_node.y_min))
+	print("y-step: %s" % graph_node.y_step)
 	
+	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
 	print()
 
 func redraw(line, plot: PlotItem):
@@ -152,61 +160,30 @@ func get_csv(fname: String) -> Dictionary:
 	}
 
 	
-func feed(xband_column_data, lhc_column_data, rhc_column_data):
+func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
-			lhc_line.push_front(Vector2(x_max, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
+			lhc_line.push_front(Vector2(x_max, lhc_column_data.pop_front() as float))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			rhc_line.push_front(Vector2(x_max, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
+			rhc_line.push_front(Vector2(x_max, rhc_column_data.pop_front() as float + offset))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			xband_line.push_front(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
+			xband_line.push_front(Vector2(x_max, xband_column_data.pop_front() as float + offset*2))
 			xband_line.pop_back()
 			x = x_max
 		else:
-			lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
-			rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
-			xband_line.push_back(Vector2(x, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
+			lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float))
+			rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + offset))
+			xband_line.push_back(Vector2(x, xband_column_data.pop_front() as float + offset*2))
 		x -= shift_width
 	elif x == x_min:
-		lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
-		rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
-		xband_line.push_back(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
-		looped = true
-		x = x_max
-
-	redraw(lhc_line, lhc_plot)
-	redraw(rhc_line, rhc_plot)
-	redraw(xband_line, xband_plot)
-
-func do_demo():
-	if x > x_min:
-		if looped:
-			lhc_line = shift(lhc_line)
-			lhc_line.push_front(Vector2(x_max, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
-			lhc_line.pop_back()
-
-			rhc_line = shift(rhc_line)
-			rhc_line.push_front(Vector2(x_max, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
-			rhc_line.pop_back()
-
-			xband_line = shift(xband_line)
-			xband_line.push_front(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
-			xband_line.pop_back()
-			x = x_max
-		else:
-			lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
-			rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
-			xband_line.push_back(Vector2(x, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
-		x -= shift_width
-	elif x == x_min:
-		lhc_line.push_back(Vector2(x, randf_range(RANGES["lhc"]["low"], RANGES["lhc"]["high"])))
-		rhc_line.push_back(Vector2(x, randf_range(RANGES["rhc"]["low"], RANGES["rhc"]["high"])))
-		xband_line.push_back(Vector2(x_max, randf_range(RANGES["xband"]["low"], RANGES["xband"]["high"])))
+		lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float))
+		rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + offset))
+		xband_line.push_back(Vector2(x_max, xband_column_data.pop_front() as float + offset*2))
 		looped = true
 		x = x_max
 
@@ -216,4 +193,4 @@ func do_demo():
 
 
 func _on_timer_timeout() -> void:
-	do_demo()
+	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
