@@ -1,7 +1,7 @@
 extends MarginContainer
 
-
 @export var graph_node: Graph2D
+
 var lhc_plot: PlotItem
 var rhc_plot: PlotItem
 var xband_plot: PlotItem
@@ -13,7 +13,6 @@ var x_min: int = -360
 var x: int = x_max
 var looped: bool = false
 var shift_width: int = 5
-
 const RANGES: Dictionary = {
 	"lhc": {
 		"low": 1,
@@ -34,9 +33,13 @@ func _ready() -> void:
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
-	
-	read_from_file("test_data.csv")
-	
+
+	var fname := "test_data.csv"
+	var column := "foos"
+	var csv := get_csv(fname)
+	var column_data := get_csv_column(csv["headers"][column], csv["content"])
+	print(column_data)
+
 
 func redraw(line, plot: PlotItem):
 	plot.remove_all()
@@ -52,9 +55,11 @@ func shift(line) -> Array[Variant]:
 		shifted.append(point)
 
 	return shifted
-	
-	
-func get_csv(fname) -> Dictionary:
+
+
+## Takes a filename `fname` and returns to memory a dictionaray containing the headers and the CSV
+## content of the file represented in `headers` and `content`. 
+func get_csv(fname: String) -> Dictionary:
 	var file: FileAccess = FileAccess.open("res://%s" % fname, FileAccess.READ)
 
 	# Get headers to index into content using column names
@@ -78,34 +83,20 @@ func get_csv(fname) -> Dictionary:
 		"headers": header_dict,
 		"content": content,
 	}
-	
-	
-func get_csv_column(column_index, content) -> Array:
+
+
+## Takes `column_index` and returns the column at that index in the CSV dictionary `content`.
+func get_csv_column(column_index: int, content: Dictionary) -> Array:
 	var column_data := []
 	var content_size: int = content.size()
-	
+
 	column_data.resize(content_size)
-	
+
 	for i in range(0, content_size):
 		column_data[i] = content[i][column_index]
-		
-	return column_data	
-	
-func read_from_file(fname):
-	var csv := get_csv(fname)
-	
-	print(csv["headers"])
-	print(csv["content"])
-	
-	var foos := get_csv_column(csv["headers"]["foos"], csv["content"])
-	var numbers := get_csv_column(csv["headers"]["numbers"], csv["content"])
-	var letters := get_csv_column(csv["headers"]["letters"], csv["content"])
-	
-	print(foos)
-	print(numbers)
-	print(letters)
-	
-	print()
+
+	return column_data
+
 	
 func do_demo():
 	if x > x_min:
@@ -137,7 +128,7 @@ func do_demo():
 	redraw(lhc_line, lhc_plot)
 	redraw(rhc_line, rhc_plot)
 	redraw(xband_line, xband_plot)
-	
+
 
 func _on_timer_timeout() -> void:
 	do_demo()
