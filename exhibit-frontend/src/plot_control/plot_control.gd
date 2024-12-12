@@ -29,17 +29,54 @@ const RANGES: Dictionary = {
 }
 
 
+func get_min(data: Array) -> float:
+	var m: float = float(data[0])
+	
+	for d in data:
+		d = float(d)
+		if d < m:
+			m = d
+		
+	return m
+	
+	
+func get_max(data: Array) -> float:
+	var m: float = float(data[0])
+
+	for d in data:
+		float(d)
+		if d > m:
+			m = d
+
+	return m
+
+
 func _ready() -> void:
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
 
-	var fname := "test_data.csv"
-	var column := "foos"
+	# var fname := "test_data.csv"
+	var fname := "aqa.csv"
+	var xband_column_name := "Antenna Control Unit X-Band Strength (dB)"
+	var lhc_column_name := "Antenna Control Unit S-LHC Strength (dB)"
+	var rhc_column_name := "Antenna Control Unit S-RHC Strength (dB)"
 	var csv := get_csv(fname)
-	var column_data := get_csv_column(csv["headers"][column], csv["content"])
-	print(column_data)
-
+	
+		
+	var xband_column_data := get_csv_column_data(csv["headers"][xband_column_name], csv["content"])
+	var lhc_column_data := get_csv_column_data(csv["headers"][lhc_column_name], csv["content"])
+	var rhc_column_data := get_csv_column_data(csv["headers"][rhc_column_name], csv["content"])
+	
+	## Free up some memory because my debugger won't load variables when this has the full CSV in it
+	csv = {}
+	
+	print("xband range: [{0}, {1}]".format([get_min(xband_column_data), get_max(xband_column_data)]))
+	print("lhc range: [{0}, {1}]".format([get_min(lhc_column_data), get_max(lhc_column_data)]))
+	print("rhc range: [{0}, {1}]".format([get_min(rhc_column_data), get_max(rhc_column_data)]))
+	
+	
+	print()
 
 func redraw(line, plot: PlotItem):
 	plot.remove_all()
@@ -57,8 +94,23 @@ func shift(line) -> Array[Variant]:
 	return shifted
 
 
+## Takes `column_index` and returns the column at that index in the 2d Array `content`.
+func get_csv_column_data(column_index: int, content: Array) -> Array:
+	var column_data := []
+	var content_size: int = content.size()
+
+	column_data.resize(content_size)
+
+	for i in range(0, content_size):
+		column_data[i] = content[i][column_index]
+
+	return column_data
+	
+	
 ## Takes a filename `fname` and returns to memory a dictionaray containing the headers and the CSV
-## content of the file represented in `headers` and `content`. 
+## content of the file represented in `headers` (a Dictionary) and `content` (an Array). 
+## TODO(gjclark): Godot 4.4. will allow us to bind types to the dictionary so
+## that we can type hint the return to Dictionary[Dictionary, Array].
 func get_csv(fname: String) -> Dictionary:
 	var file: FileAccess = FileAccess.open("res://%s" % fname, FileAccess.READ)
 
@@ -78,26 +130,15 @@ func get_csv(fname: String) -> Dictionary:
 			content.append(csv_line)
 		else:
 			print("Empty line")
-
+		
+	file.close()
+	
 	return {
 		"headers": header_dict,
 		"content": content,
 	}
 
 
-## Takes `column_index` and returns the column at that index in the CSV dictionary `content`.
-func get_csv_column(column_index: int, content: Dictionary) -> Array:
-	var column_data := []
-	var content_size: int = content.size()
-
-	column_data.resize(content_size)
-
-	for i in range(0, content_size):
-		column_data[i] = content[i][column_index]
-
-	return column_data
-
-	
 func do_demo():
 	if x > x_min:
 		if looped:
