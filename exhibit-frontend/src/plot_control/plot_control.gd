@@ -34,7 +34,9 @@ func _ready() -> void:
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
-
+	
+	read_from_file("test_data.csv")
+	
 
 func redraw(line, plot: PlotItem):
 	plot.remove_all()
@@ -51,6 +53,59 @@ func shift(line) -> Array[Variant]:
 
 	return shifted
 	
+	
+func get_csv(fname) -> Dictionary:
+	var file: FileAccess = FileAccess.open("res://%s" % fname, FileAccess.READ)
+
+	# Get headers to index into content using column names
+	var headers := file.get_csv_line()
+	var header_dict := {}
+
+	for i in headers.size():
+		header_dict[headers[i]] = i
+
+	var content := []
+	# Get the data itself (csv rows)
+	while file.get_position() < file.get_length():
+		var csv_line := file.get_csv_line()
+
+		if csv_line != null and csv_line.size() > 0:
+			content.append(csv_line)
+		else:
+			print("Empty line")
+
+	return {
+		"headers": header_dict,
+		"content": content,
+	}
+	
+	
+func get_csv_column(column_index, content) -> Array:
+	var column_data := []
+	var content_size: int = content.size()
+	
+	column_data.resize(content_size)
+	
+	for i in range(0, content_size):
+		column_data[i] = content[i][column_index]
+		
+	return column_data	
+	
+func read_from_file(fname):
+	var csv := get_csv(fname)
+	
+	print(csv["headers"])
+	print(csv["content"])
+	
+	var foos := get_csv_column(csv["headers"]["foos"], csv["content"])
+	var numbers := get_csv_column(csv["headers"]["numbers"], csv["content"])
+	var letters := get_csv_column(csv["headers"]["letters"], csv["content"])
+	
+	print(foos)
+	print(numbers)
+	print(letters)
+	
+	print()
 	
 func do_demo():
 	if x > x_min:
