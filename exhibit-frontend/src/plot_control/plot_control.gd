@@ -63,6 +63,7 @@ func get_max(data: Array) -> float:
 	
 func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array):
 	# Initialize the three lines to plot 
+	print("Initializing graph")
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
@@ -76,8 +77,8 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
 
 	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
-	print("lhc range: [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
-	print("rhc range: [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
+	print("lhc range:   [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
+	print("rhc range:   [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
 
 	max_range = get_max([xband_length, lhc_length, rhc_length])
 	
@@ -91,7 +92,7 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	graph_node.y_step = y_distance / 6
 	
 	print("y-distance: %s" % (graph_node.y_max - graph_node.y_min))
-	print("y-step: %s" % graph_node.y_step)
+	print("y-step:     %s" % graph_node.y_step)
 	
 
 func load_column_data() -> Dictionary:
@@ -107,6 +108,7 @@ func load_column_data() -> Dictionary:
 	csv = {}
 	
 	return column_data
+
 
 func _ready() -> void:
 	var column_data := load_column_data()
@@ -182,11 +184,7 @@ func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column
 	return xband_column_data.size() == 0 or lhc_column_data.size() == 0 or rhc_column_data.size() == 0
 		
 	
-func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float) -> bool:
-	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
-		# Do not continue feeding
-		return false
-	
+func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
@@ -196,13 +194,11 @@ func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Arr
 
 			rhc_line = shift(rhc_line)
 			var rhc_front = rhc_column_data.pop_front()
-			print("rhc_front: ", rhc_front)
 			rhc_line.push_front(Vector2(x_max, rhc_front as float + offset))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
 			var xband_front = xband_column_data.pop_front()
-			print("xband_front: ", xband_front)
 			xband_line.push_front(Vector2(x_max, xband_front as float + offset*2))
 			xband_line.pop_back()
 			x = x_max
@@ -222,17 +218,12 @@ func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Arr
 	redraw(rhc_line, rhc_plot)
 	redraw(xband_line, xband_plot)
 
-	# Continue feeding
-	return true
-
 	
 func _on_timer_timeout() -> void:
-	continue_feeding = feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
-	print("continue_feeding: ", continue_feeding)
-	if not continue_feeding:
-		print("Stopping timer and feed")
-		$Timer.stop()
-	print("Continuing")	
-		
-	
-		
+	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
+		print("Ran out of data, reloading arrays and continuing to feed")
+		var column_data := load_column_data()
+		lhc_column_data = column_data["lhc_column_data"]
+		rhc_column_data = column_data["rhc_column_data"]
+		xband_column_data = column_data["xband_column_data"]
+	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
