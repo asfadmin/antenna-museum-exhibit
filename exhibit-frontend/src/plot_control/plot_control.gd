@@ -17,6 +17,7 @@ var xband_column_data := []
 var lhc_column_data := []
 var rhc_column_data := []
 var max_range := 0
+var continue_feeding := false
 const RANGES: Dictionary = {
 	"lhc": {
 		"low": 1,
@@ -95,9 +96,6 @@ func _ready() -> void:
 	graph_node.y_step = (graph_node.y_max - graph_node.y_min) / 6
 	print("y-distance: %s" % (graph_node.y_max - graph_node.y_min))
 	print("y-step: %s" % graph_node.y_step)
-	
-	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
-	print()
 
 func redraw(line, plot: PlotItem):
 	plot.remove_all()
@@ -158,21 +156,34 @@ func get_csv(fname: String) -> Dictionary:
 		"headers": header_dict,
 		"content": content,
 	}
-
 	
-func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
+	
+func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array) -> bool:
+	return xband_column_data.size() == 0 or lhc_column_data.size() == 0 or rhc_column_data.size() == 0
+		
+	
+func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float) -> bool:
+	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
+		# Do not continue feeding
+		return false
+	
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
-			lhc_line.push_front(Vector2(x_max, lhc_column_data.pop_front() as float))
+			var lhc_front = lhc_column_data.pop_front()
+			lhc_line.push_front(Vector2(x_max, lhc_front as float))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			rhc_line.push_front(Vector2(x_max, rhc_column_data.pop_front() as float + offset))
+			var rhc_front = rhc_column_data.pop_front()
+			print("rhc_front: ", rhc_front)
+			rhc_line.push_front(Vector2(x_max, rhc_front as float + offset))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			xband_line.push_front(Vector2(x_max, xband_column_data.pop_front() as float + offset*2))
+			var xband_front = xband_column_data.pop_front()
+			print("xband_front: ", xband_front)
+			xband_line.push_front(Vector2(x_max, xband_front as float + offset*2))
 			xband_line.pop_back()
 			x = x_max
 		else:
@@ -191,6 +202,17 @@ func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Arr
 	redraw(rhc_line, rhc_plot)
 	redraw(xband_line, xband_plot)
 
+	# Continue feeding
+	return true
 
+	
 func _on_timer_timeout() -> void:
-	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
+	continue_feeding = feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
+	print("continue_feeding: ", continue_feeding)
+	if not continue_feeding:
+		print("Stopping timer and feed")
+		$Timer.stop()
+	print("Continuing")	
+		
+	
+		
