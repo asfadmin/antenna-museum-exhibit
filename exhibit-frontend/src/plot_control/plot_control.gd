@@ -32,6 +32,11 @@ const RANGES: Dictionary = {
 		"high": 5.25,
 	},
 }
+# var fname := "test_data.csv"
+var fname := "aqa.csv"
+const XBAND_COLUMN_NAME := "Antenna Control Unit X-Band Strength (dB)"
+const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
+const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
 
 
 func get_min(data: Array) -> float:
@@ -54,49 +59,64 @@ func get_max(data: Array) -> float:
 			m = d
 
 	return m
-
-
-func _ready() -> void:
+	
+	
+func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array):
+	# Initialize the three lines to plot 
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
 
-	# var fname := "test_data.csv"
-	var fname := "aqa.csv"
-	var xband_column_name := "Antenna Control Unit X-Band Strength (dB)"
-	var lhc_column_name := "Antenna Control Unit S-LHC Strength (dB)"
-	var rhc_column_name := "Antenna Control Unit S-RHC Strength (dB)"
-	var csv := get_csv(fname)
-	
-		
-	xband_column_data = get_csv_column_data(csv["headers"][xband_column_name], csv["content"])
-	lhc_column_data = get_csv_column_data(csv["headers"][lhc_column_name], csv["content"])
-	rhc_column_data = get_csv_column_data(csv["headers"][rhc_column_name], csv["content"])
-	
-	## Free up some memory because my debugger won't load variables when this has the full CSV in it
-	csv = {}
-	
 	var xband_range := [get_min(xband_column_data), get_max(xband_column_data)]
 	var lhc_range := [get_min(lhc_column_data), get_max(lhc_column_data)]
 	var rhc_range := [get_min(rhc_column_data), get_max(rhc_column_data)]
-	
+
 	var xband_length: float = xband_range.max() - xband_range.min()
 	var lhc_length: float = lhc_range.max() - lhc_range.min()
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
-	
+
 	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
 	print("lhc range: [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
 	print("rhc range: [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
-	
+
 	max_range = get_max([xband_length, lhc_length, rhc_length])
-	graph_node.y_min = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])
-	# Setting y_max to be 3x the max range ensures that there is no overlap between graphs
-	graph_node.y_max =  max_range * 3
 	
-	graph_node.y_step = (graph_node.y_max - graph_node.y_min) / 6
+	graph_node.y_min = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
+	# Setting y_max to be 3x the max range ensures that there is no overlap between graphs
+	graph_node.y_max = max_range * 3  # Upper y bound of the graph
+	
+	var y_distance: float = graph_node.y_max - graph_node.y_min
+
+	# Distance between each vertical tick
+	graph_node.y_step = y_distance / 6
+	
 	print("y-distance: %s" % (graph_node.y_max - graph_node.y_min))
 	print("y-step: %s" % graph_node.y_step)
+	
 
+func load_column_data() -> Dictionary:
+	var csv := get_csv(fname)
+	
+	var column_data := {
+		"lhc_column_data": get_csv_column_data(csv["headers"][LHC_COLUMN_NAME], csv["content"]),
+		"rhc_column_data": get_csv_column_data(csv["headers"][RHC_COLUMN_NAME], csv["content"]),
+		"xband_column_data": get_csv_column_data(csv["headers"][XBAND_COLUMN_NAME], csv["content"]),
+	}
+
+	# The csv data is heavy
+	csv = {}
+	
+	return column_data
+
+func _ready() -> void:
+	var column_data := load_column_data()
+	lhc_column_data = column_data["lhc_column_data"]
+	rhc_column_data = column_data["rhc_column_data"]
+	xband_column_data = column_data["xband_column_data"]
+	
+	initialize_graph(lhc_column_data, rhc_column_data, xband_column_data)
+
+	
 func redraw(line, plot: PlotItem):
 	plot.remove_all()
 	for point in line:
@@ -126,7 +146,7 @@ func get_csv_column_data(column_index: int, content: Array) -> Array:
 	return column_data
 	
 	
-## Takes a filename `fname` and returns to memory a dictionaray containing the headers and the CSV
+## Takes a filename `fname` and returns to memory a dictionary containing the headers and the CSV
 ## content of the file represented in `headers` (a Dictionary) and `content` (an Array). 
 ## TODO(gjclark): Godot 4.4. will allow us to bind types to the dictionary so
 ## that we can type hint the return to Dictionary[Dictionary, Array].
