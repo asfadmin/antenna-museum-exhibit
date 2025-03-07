@@ -1,8 +1,8 @@
 [gd_scene load_steps=5 format=3 uid="uid://pyqxiujpu271"]
 
-[ext_resource type="Script" path="res://src/track_status/track_status.gd" id="1_u6mlq"]
+[ext_resource type="Script" uid="uid://dnp1d84d1sas3" path="res://src/track_status/track_status.gd" id="1_u6mlq"]
 [ext_resource type="FontFile" uid="uid://d2g2aiqsn56d7" path="res://assets/CutiveMono-Regular.ttf" id="2_4komm"]
-[ext_resource type="Script" path="res://src/track_status/track_course.gd" id="3_ibwx6"]
+[ext_resource type="Script" uid="uid://i4rwwpot8fwr" path="res://src/track_status/track_course.gd" id="3_ibwx6"]
 
 [sub_resource type="Curve2D" id="Curve2D_203gu"]
 _data = {
