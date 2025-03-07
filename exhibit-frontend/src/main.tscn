@@ -1,8 +1,8 @@
 [gd_scene load_steps=13 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
-[ext_resource type="Script" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
-[ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://PlotControl.tscn" id="3_kylsy"]
+[ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
+[ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yklx4"]
 height = 4.0
