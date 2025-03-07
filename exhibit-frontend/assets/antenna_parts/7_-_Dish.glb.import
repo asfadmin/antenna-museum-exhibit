@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://bm5i4xkaggl25"
-path="res://.godot/imported/dish_modified.glb-a136226fe1a07b0e6dc50fcab10f25cf.scn"
+uid="uid://dtt1g4b4tdl84"
+path="res://.godot/imported/7_-_Dish.glb-b65812c17e2fbf1bd18b77a57f9ba047.scn"
 
 [deps]
 
-source_file="res://assets/antenna_parts/dish_modified.glb"
-dest_files=["res://.godot/imported/dish_modified.glb-a136226fe1a07b0e6dc50fcab10f25cf.scn"]
+source_file="res://assets/antenna_parts/7_-_Dish.glb"
+dest_files=["res://.godot/imported/7_-_Dish.glb-b65812c17e2fbf1bd18b77a57f9ba047.scn"]
 
 [params]
 

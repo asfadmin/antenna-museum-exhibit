@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cp2elb1041fff"
-path="res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1.glb-8a2f44ecb6e895477225cad8b7aea102.scn"
+uid="uid://dm35slvgaiaaw"
+path="res://.godot/imported/8_-_Dish_Prong.glb-371ec09bfd08bb041092762a5a38415d.scn"
 
 [deps]
 
-source_file="res://assets/antenna_parts/AS2_Mobile___Assembly_exploded_views__v1.glb"
-dest_files=["res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1.glb-8a2f44ecb6e895477225cad8b7aea102.scn"]
+source_file="res://assets/antenna_parts/8_-_Dish_Prong.glb"
+dest_files=["res://.godot/imported/8_-_Dish_Prong.glb-371ec09bfd08bb041092762a5a38415d.scn"]
 
 [params]
 

@@ -1,8 +1,18 @@
-[gd_scene load_steps=13 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=23 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
 [ext_resource type="Script" uid="uid://nuwitqjnjsod" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
+[ext_resource type="PackedScene" uid="uid://b3opwuplxgqx0" path="res://assets/antenna_parts/0_-_Block.glb" id="4_srxbw"]
+[ext_resource type="PackedScene" uid="uid://ba64rfu8sp68g" path="res://assets/antenna_parts/1_-_Base.glb" id="5_d3u4l"]
+[ext_resource type="PackedScene" uid="uid://ci1xtdqxnvljc" path="res://assets/antenna_parts/2_-_Base_2.glb" id="6_mlv6i"]
+[ext_resource type="PackedScene" uid="uid://bcvhemt7grexu" path="res://assets/antenna_parts/3_-_Pivot_Point.glb" id="7_tb146"]
+[ext_resource type="PackedScene" uid="uid://bdf8gvu1xau3i" path="res://assets/antenna_parts/4_-_R_Weight.glb" id="8_e7lu8"]
+[ext_resource type="PackedScene" uid="uid://c5twodvirj3d5" path="res://assets/antenna_parts/5_-_L_Weight.glb" id="9_okx7f"]
+[ext_resource type="PackedScene" uid="uid://b0mdtlw2s124b" path="res://assets/antenna_parts/6_-_Dish_Connector.glb" id="10_sta5p"]
+[ext_resource type="PackedScene" uid="uid://dtt1g4b4tdl84" path="res://assets/antenna_parts/7_-_Dish.glb" id="11_sif16"]
+[ext_resource type="PackedScene" uid="uid://dm35slvgaiaaw" path="res://assets/antenna_parts/8_-_Dish_Prong.glb" id="12_d7bab"]
+[ext_resource type="PackedScene" uid="uid://cvsfhkxsifivr" path="res://assets/antenna_parts/9_-_Dish_Wire.glb" id="13_ib8ht"]
 
 [sub_resource type="CylinderMesh" id="CylinderMesh_yklx4"]
 height = 4.0
@@ -39,6 +49,7 @@ bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
 [node name="SatelliteAntenna" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0805206, 0)
+visible = false
 mesh = SubResource("CylinderMesh_yklx4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -49,17 +60,18 @@ transform = Transform3D(0.56019, 0.38831, -0.731712, 0.0632303, 0.8607, 0.505171
 shadow_enabled = true
 
 [node name="Node3D" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.27339, 0.597056, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07865, 0.597056, 0)
 
 [node name="OrbitCamera" type="Camera3D" parent="Node3D"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.33023)
 keep_aspect = 0
-h_offset = -2.165
+h_offset = -6.0
 fov = 37.8493
 script = ExtResource("2_v2ihe")
 ZOOM_SPEED = 7.215
 ROTATE_SPEED = 0.74
 ANCHOR_NODE_PATH = NodePath("..")
+max_distance = 50.0
 min_distance = 10.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
@@ -183,3 +195,55 @@ size_flags_stretch_ratio = 3.05
 [node name="ButtonKiosk" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_5oyyh")]
 layout_mode = 2
 size_flags_horizontal = 3
+
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.84834, 0)
+size = Vector3(3, 1, 3)
+
+[node name="Antenna" type="Node3D" parent="."]
+transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.136787, -1.37393, 0.715678)
+
+[node name="0_-_Block" parent="Antenna" instance=ExtResource("4_srxbw")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -7.86131, 0)
+
+[node name="1_-_Base" parent="Antenna" instance=ExtResource("5_d3u4l")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.148741, 5.0558, -2.68437)
+
+[node name="2_-_Base_2" parent="Antenna" instance=ExtResource("6_mlv6i")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.760994, 14.9275, -2.17999)
+
+[node name="Horizontal Rotator" type="Node3D" parent="Antenna"]
+transform = Transform3D(0.463095, 0, -0.886309, 0, 1, 0, 0.886309, 0, 0.463095, -0.317264, 16.8599, -2.97598)
+
+[node name="3_-_Pivot_Point" parent="Antenna/Horizontal Rotator" instance=ExtResource("7_tb146")]
+transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -0.173912, 5.30043, -0.56586)
+
+[node name="Antenna Rotator" type="Node3D" parent="Antenna/Horizontal Rotator"]
+transform = Transform3D(1, 0, 0, 0, 0.978867, 0.204496, 0, -0.204496, 0.978867, 0, 6.11736, 0)
+
+[node name="Weight Rotator" type="Node3D" parent="Antenna/Horizontal Rotator/Antenna Rotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.11736, 0)
+
+[node name="6_-_Dish_Connector" parent="Antenna/Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("10_sta5p")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.208233, 9.13718, -1.32583)
+
+[node name="7_-_Dish" parent="Antenna/Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("11_sif16")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.375654, 13.9249, -2.21154)
+
+[node name="8_-_Dish_Prong" parent="Antenna/Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("12_d7bab")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.11995, 14.2106, -2.45432)
+
+[node name="9_-_Dish_Wire" parent="Antenna/Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("13_ib8ht")]
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0638612, 20.0196, -3.09923)
+
+[node name="RWeight" type="Node3D" parent="Antenna/Horizontal Rotator/Antenna Rotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72342, -0.0603981, -0.0636269)
+
+[node name="4_-_R_Weight" parent="Antenna/Horizontal Rotator/Antenna Rotator/RWeight" instance=ExtResource("8_e7lu8")]
+transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, 3.05649, -4.50705, -0.285395)
+
+[node name="LWeight" type="Node3D" parent="Antenna/Horizontal Rotator/Antenna Rotator"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65513, 0.205244, 0)
+
+[node name="5_-_L_Weight" parent="Antenna/Horizontal Rotator/Antenna Rotator/LWeight" instance=ExtResource("9_okx7f")]
+transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -2.66982, -4.89745, -0.142724)

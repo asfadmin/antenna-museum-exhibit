@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://cfkxhsf1c2bek"
-path="res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1_006.glb-159959e3415822fa6008318b0bdf4944.scn"
+uid="uid://ba64rfu8sp68g"
+path="res://.godot/imported/1_-_Base.glb-7aa8aa2f325911c88a0790ba3ec85ff7.scn"
 
 [deps]
 
-source_file="res://assets/antenna_parts/AS2_Mobile___Assembly_exploded_views__v1_006.glb"
-dest_files=["res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1_006.glb-159959e3415822fa6008318b0bdf4944.scn"]
+source_file="res://assets/antenna_parts/1_-_Base.glb"
+dest_files=["res://.godot/imported/1_-_Base.glb-7aa8aa2f325911c88a0790ba3ec85ff7.scn"]
 
 [params]
 

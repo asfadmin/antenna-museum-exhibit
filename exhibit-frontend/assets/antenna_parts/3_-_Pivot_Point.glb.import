@@ -3,13 +3,13 @@
 importer="scene"
 importer_version=1
 type="PackedScene"
-uid="uid://b3dvkvfl7jn0s"
-path="res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1_021.glb-2b319f8a9b8e8eae828d7efbe16f5fcf.scn"
+uid="uid://bcvhemt7grexu"
+path="res://.godot/imported/3_-_Pivot_Point.glb-31d16ed178c7a6b643266d96a300bb98.scn"
 
 [deps]
 
-source_file="res://assets/antenna_parts/AS2_Mobile___Assembly_exploded_views__v1_021.glb"
-dest_files=["res://.godot/imported/AS2_Mobile___Assembly_exploded_views__v1_021.glb-2b319f8a9b8e8eae828d7efbe16f5fcf.scn"]
+source_file="res://assets/antenna_parts/3_-_Pivot_Point.glb"
+dest_files=["res://.godot/imported/3_-_Pivot_Point.glb-31d16ed178c7a6b643266d96a300bb98.scn"]
 
 [params]
 
