@@ -5,27 +5,52 @@ var path_2d: Path2D
 var sat_position: ColorRect
 #var path_follow_2d: PathFollow2D
 var current_idx = 0
-
+var azimuth_data: Array[float] = []
+var elevation_data: Array[float] = []
 var expected_time: float = 5.0
 var cursor_pos: Vector2 = Vector2.ZERO
 @onready var viewport: SubViewport = get_parent() as SubViewport
+
+var fname := "aqa.csv"
+var ACTUAL_AZIMUTH_COLUMN = "Actual Az."
+var ACTUAL_ELEVATION_COLUMN = "Actual El."
+var COMMANDED_AZIMUTH_COLUMN = "Commanded Az."
+var COMMANDED_ELEVATION_COLUMN = "Commanded El."
+
 #var full_points = []
 # Called when the node enters the scene tree for the first time.
+
+func spherical_to_cartesian(lat:float, lon: float) -> Vector2:
+	lat = deg_to_rad(lat)
+	lon = deg_to_rad(lon)
+	var x = viewport.get_parent().size.x * cos(lat) * sin(lon)
+	var y = viewport.get_parent().size.y * cos(lat) * cos(lon)
+	#var z = 1.0 * sin(lat)
+	
+	return Vector2(x, y)
 func _ready() -> void:
+	var column_data := load_column_data()
+	azimuth_data = column_data["commanded_azimuth"]
+	elevation_data = column_data["commanded_elevation"]
+	print(azimuth_data)
 	self.completed_course = get_child(0)
 	
 	self.path_2d = get_child(1)
 	self.sat_position = get_node('sat_pos')
 	#self.path_follow_2d = self.path_2d.get_child(0)
 	
+	var azm_elev = []
+	for idx in range(0, len(azimuth_data)):
+		azm_elev.append(spherical_to_cartesian(azimuth_data[idx], elevation_data[idx]))
+
 	var _final_path = []
 	var viewport_parent = viewport.get_parent()
-	#var offset = Vector2(viewport.get_parent().size.x / 2, -viewport.get_parent().size.y) / 2.0
-	for point in self.path_2d.curve.get_baked_points():
+	var offset = Vector2(viewport.get_parent().size.x, viewport.get_parent().size.y) / 2.0
+	for point in azm_elev:
 		#var offset = Vector2(viewport.size.x, viewport.size.y) / 2.0
 		#print(viewport.size.x)
 		#print(offset)
-		_final_path.append(point) # + offset)
+		_final_path.append(point + offset)
 	
 	self.points = _final_path
 	#self.path_2d.curve.get_closest_point()
@@ -57,3 +82,59 @@ func _active_timer():
 		get_tree().create_timer(0.1).timeout.connect(_active_timer, CONNECT_ONE_SHOT)
 	else:
 		self.sat_position.visible = false
+
+func get_csv(fname: String) -> Dictionary:
+	var file: FileAccess = FileAccess.open("res://%s" % fname, FileAccess.READ)
+
+	# Get headers to index into content using column names
+	var headers := file.get_csv_line()
+	var header_dict := {}
+
+	for i in headers.size():
+		header_dict[headers[i]] = i
+
+	var content := []
+	# Get the data itself (csv rows)
+	while file.get_position() < file.get_length():
+		var csv_line := file.get_csv_line()
+
+		if csv_line != null and csv_line.size() > 0:
+			content.append(csv_line)
+		else:
+			print("Empty line")
+		
+	file.close()
+	
+	return {
+		"headers": header_dict,
+		"content": content,
+	}
+
+func load_column_data() -> Dictionary:
+	var csv := get_csv(fname)
+	
+	var column_data := {
+		"actual_azimuth": get_csv_column_data(csv["headers"][ACTUAL_AZIMUTH_COLUMN], csv["content"]),
+		"actual_elevation": get_csv_column_data(csv["headers"][ACTUAL_ELEVATION_COLUMN], csv["content"]),
+		"commanded_azimuth": get_csv_column_data(csv["headers"][COMMANDED_AZIMUTH_COLUMN], csv["content"]),
+		"commanded_elevation": get_csv_column_data(csv["headers"][COMMANDED_ELEVATION_COLUMN], csv["content"]),
+	}
+
+	# The csv data is heavy
+	csv = {}
+	
+	return column_data
+
+
+## Takes `column_index` and returns the column at that index in the 2d Array `content`.
+func get_csv_column_data(column_index: int, content: Array) -> Array[float]:
+	var column_data: Array[float] = []
+	var content_size: int = content.size()
+
+	column_data.resize(content_size)
+
+	for i in range(0, content_size):
+		column_data[i] = float(content[i][column_index])
+
+	return column_data
+	
