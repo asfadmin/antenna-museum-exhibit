@@ -1,12 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=13 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
 [ext_resource type="Script" uid="uid://nuwitqjnjsod" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
-
-[sub_resource type="CylinderMesh" id="CylinderMesh_yklx4"]
-height = 4.0
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
 offset = Vector3(0, 0, 8.55)
@@ -37,11 +34,6 @@ size = Vector3(5, 20, 5)
 bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
 [node name="Main" type="Node3D"]
-
-[node name="SatelliteAntenna" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.0805206, 0)
-visible = false
-mesh = SubResource("CylinderMesh_yklx4")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e7uxs")
