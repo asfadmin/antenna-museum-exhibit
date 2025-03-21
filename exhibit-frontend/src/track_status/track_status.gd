@@ -26,10 +26,10 @@ func _draw():
 
 	var size = self.size.x
 	#var border_scale_factor = 2.5
-	var origin = self.get_rect().get_center()
+	var origin = self.get_rect().get_center() + Vector2.DOWN * 20
 	#var origin = Vector2.ONE * size * (border_scale_factor / 2.0)
-	var min_radius = (size / 12) * .9
-	var max_radius = (size / 2) * .9
+	var min_radius = (size / 12) * .8
+	var max_radius = (size / 2) * .8
 	
 	#draw_rect(Rect2(0.0, 0.0, size * border_scale_factor, size * border_scale_factor), Color.BLACK)
 	# cyan circles

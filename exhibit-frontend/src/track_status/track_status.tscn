@@ -3,15 +3,10 @@
 [ext_resource type="Script" uid="uid://dnp1d84d1sas3" path="res://src/track_status/track_status.gd" id="1_u6mlq"]
 [ext_resource type="FontFile" uid="uid://d2g2aiqsn56d7" path="res://assets/CutiveMono-Regular.ttf" id="2_4komm"]
 [ext_resource type="Script" uid="uid://i4rwwpot8fwr" path="res://src/track_status/track_course.gd" id="3_ibwx6"]
+[ext_resource type="Curve2D" uid="uid://dnl2u4oxom4ux" path="res://src/track_status/track_status_test_curve.tres" id="4_h18ib"]
 
 [sub_resource type="ViewportTexture" id="ViewportTexture_pgbq5"]
 viewport_path = NodePath("SubViewport")
-
-[sub_resource type="Curve2D" id="Curve2D_203gu"]
-_data = {
-"points": PackedVector2Array(0, 0, -13.176, 48.962, 802.205, 49.841, 184.01, -77.806, -204.815, 111.556, 564.298, 246.847, 0, 0, 0, 0, 203.863, 327.045)
-}
-point_count = 3
 
 [node name="AspectRatioContainer" type="AspectRatioContainer"]
 offset_right = 1024.0
@@ -25,31 +20,13 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_u6mlq")
 line_width = 3.0
 
-[node name="East" type="RichTextLabel" parent="background"]
-layout_mode = 1
-anchors_preset = 6
-anchor_left = 1.0
-anchor_top = 0.5
-anchor_right = 1.0
-anchor_bottom = 0.5
-offset_left = -48.0
-offset_top = -11.5
-offset_right = -24.0
-offset_bottom = 12.5
-grow_horizontal = 0
-grow_vertical = 2
-theme_override_fonts/normal_font = ExtResource("2_4komm")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "[color=\"#00FFFF\"]E[/color]"
-scroll_active = false
-metadata/_edit_use_anchors_ = true
-
 [node name="North" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = 5
-anchor_left = 0.5
-anchor_right = 0.5
+anchors_preset = -1
+anchor_left = 0.500488
+anchor_top = 0.0507812
+anchor_right = 0.500488
+anchor_bottom = 0.0507812
 offset_left = -6.5
 offset_top = 19.0
 offset_right = 17.5
@@ -64,14 +41,12 @@ metadata/_edit_use_anchors_ = true
 
 [node name="Key" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.803423
-anchor_right = 0.803423
-offset_left = -6.5
-offset_top = 19.0
-offset_right = 193.5
-offset_bottom = 119.0
-grow_horizontal = 2
+anchors_preset = 1
+anchor_left = 1.0
+anchor_right = 1.0
+offset_left = -200.0
+offset_bottom = 100.0
+grow_horizontal = 0
 theme_override_fonts/normal_font = ExtResource("2_4komm")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
@@ -79,25 +54,18 @@ text = "[color=\"#FF0000\"]Limit[/color]
 [color=\"#FFFF55\"]Track[/color]
 [color=\"#00FF00\"]Autotrack[/color]"
 scroll_active = false
+horizontal_alignment = 2
 metadata/_edit_use_anchors_ = true
 
 [node name="SatInfo" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0180389
-anchor_top = -0.00925069
-anchor_right = 0.0180389
-anchor_bottom = -0.00925069
-offset_left = -6.5
-offset_top = 19.0
-offset_right = 343.5
-offset_bottom = 119.0
-grow_horizontal = 2
+offset_right = 350.0
+offset_bottom = 100.0
 theme_override_colors/default_color = Color(0, 1, 1, 1)
 theme_override_fonts/normal_font = ExtResource("2_4komm")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
-text = "MissionNamePlaceholder"
+text = "Mission: Sentinel-1"
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
@@ -115,9 +83,9 @@ text = "Peak El:"
 layout_mode = 1
 anchors_preset = -1
 anchor_left = 0.510991
-anchor_top = 0.520009
-anchor_right = 0.510991
-anchor_bottom = 0.520009
+anchor_top = 0.520007
+anchor_right = -0.652802
+anchor_bottom = -1.8874
 offset_left = 66.725
 offset_top = -14.0402
 offset_right = 366.725
@@ -131,78 +99,18 @@ text = "PlaceHolder"
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
-[node name="ElevationInfo" type="RichTextLabel" parent="background"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.0180389
-anchor_top = 0.953747
-anchor_right = 0.0180389
-anchor_bottom = 0.953747
-offset_left = -6.5
-offset_top = 19.0
-offset_right = 343.5
-offset_bottom = 119.0
-grow_horizontal = 2
-theme_override_fonts/normal_font = ExtResource("2_4komm")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "[color=\"#00FFFF\"]Elevation:[/color]"
-scroll_active = false
-metadata/_edit_use_anchors_ = true
-
-[node name="Value" type="Label" parent="background/ElevationInfo"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 19.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4komm")
-theme_override_font_sizes/font_size = 24
-text = "PlaceHolder"
-
-[node name="AzimuthInfo" type="RichTextLabel" parent="background"]
-layout_mode = 1
-anchors_preset = 3
-anchor_left = 1.0
-anchor_top = 1.0
-anchor_right = 1.0
-anchor_bottom = 1.0
-offset_left = -350.0
-offset_top = -30.0
-grow_horizontal = 0
-grow_vertical = 0
-theme_override_fonts/normal_font = ExtResource("2_4komm")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "[color=\"#00FFFF\"]Azimuth:[/color]"
-scroll_active = false
-
-[node name="Value" type="Label" parent="background/AzimuthInfo"]
-layout_mode = 1
-anchors_preset = 1
-anchor_left = 1.0
-anchor_right = 1.0
-offset_left = -40.0
-offset_bottom = 19.0
-grow_horizontal = 0
-theme_override_colors/font_color = Color(0, 1, 1, 1)
-theme_override_fonts/font = ExtResource("2_4komm")
-theme_override_font_sizes/font_size = 24
-text = "PlaceHolder"
-
 [node name="South" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = 5
+anchors_preset = 7
 anchor_left = 0.5
+anchor_top = 1.0
 anchor_right = 0.5
-offset_left = -6.5
-offset_top = 1037.0
-offset_right = 17.5
-offset_bottom = 1061.0
+anchor_bottom = 1.0
+offset_left = -12.0
+offset_top = -24.0
+offset_right = 12.0
 grow_horizontal = 2
+grow_vertical = 0
 theme_override_fonts/normal_font = ExtResource("2_4komm")
 theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
@@ -210,11 +118,33 @@ text = "[color=\"#00FFFF\"]S[/color]"
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
+[node name="East" type="RichTextLabel" parent="background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 1.02344
+anchor_top = 0.547363
+anchor_right = 1.02344
+anchor_bottom = 0.547363
+offset_left = -48.0
+offset_top = -11.5
+offset_right = -24.0
+offset_bottom = 12.5
+grow_horizontal = 0
+grow_vertical = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]E[/color]"
+scroll_active = false
+metadata/_edit_use_anchors_ = true
+
 [node name="West" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = 4
-anchor_top = 0.5
-anchor_bottom = 0.5
+anchors_preset = -1
+anchor_left = -0.0166016
+anchor_top = 0.547363
+anchor_right = -0.0166016
+anchor_bottom = 0.547363
 offset_left = 27.0
 offset_top = -11.5
 offset_right = 51.0
@@ -252,11 +182,11 @@ default_color = Color(1, 0.149469, 0.350274, 1)
 
 [node name="Path2D" type="Path2D" parent="SubViewport/ProjectedCourse"]
 unique_name_in_owner = true
-curve = SubResource("Curve2D_203gu")
+curve = ExtResource("4_h18ib")
 
 [node name="PathFollow2D" type="PathFollow2D" parent="SubViewport/ProjectedCourse/Path2D"]
-position = Vector2(802.205, 49.841)
-rotation = 1.83368
+position = Vector2(800, 200)
+rotation = 1.8909
 loop = false
 
 [node name="sat_pos" type="ColorRect" parent="SubViewport/ProjectedCourse"]
