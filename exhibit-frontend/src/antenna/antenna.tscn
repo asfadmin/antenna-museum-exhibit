@@ -38,7 +38,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.760
 material_override = ExtResource("2_7pgxy")
 
 [node name="Horizontal Rotator" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.317264, 16.8599, -2.97598)
+transform = Transform3D(0.991678, 0, 0.128744, 0, 1, 0, -0.128744, 0, 0.991678, -0.317264, 16.8599, -2.97598)
 
 [node name="3_-_Pivot_Point" parent="Horizontal Rotator" instance=ExtResource("5_2dns4")]
 transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -0.173912, 5.30043, -0.56586)
@@ -47,7 +47,7 @@ transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -0.173
 material_override = ExtResource("2_7pgxy")
 
 [node name="Antenna Rotator" type="Node3D" parent="Horizontal Rotator"]
-transform = Transform3D(1, 0, 0, 0, 0.999418, 0.0340971, 0, -0.0340971, 0.999418, 0, 6.11736, 0)
+transform = Transform3D(1, 0, 0, 0, 0.998887, -0.0471587, 0, 0.0471587, 0.998887, 0, 6.11736, 0)
 
 [node name="Weight Rotator" type="Node3D" parent="Horizontal Rotator/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.42502, 0)

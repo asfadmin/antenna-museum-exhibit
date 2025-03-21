@@ -1,9 +1,12 @@
-[gd_scene load_steps=13 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=20 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
 [ext_resource type="Script" uid="uid://nuwitqjnjsod" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
+[ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="5_rlaii"]
+[ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="6_5mrjc"]
+[ext_resource type="Script" uid="uid://bo7bolnuump38" path="res://addons/icons-fonts/resources/FontIconSetting.gd" id="7_kf8lf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
 offset = Vector3(0, 0, 8.55)
@@ -33,6 +36,44 @@ size = Vector3(5, 20, 5)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vcpyd"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
+[sub_resource type="LabelSettings" id="LabelSettings_mgm53"]
+font = ExtResource("5_rlaii")
+font_size = 24
+shadow_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_uewes"]
+script = ExtResource("7_kf8lf")
+icon_font = "MaterialIcons"
+icon_name = "fast-forward-outline"
+icon_size = 24
+icon_color = Color(1, 1, 1, 1)
+outline_color = Color(1, 1, 1, 1)
+outline_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 0
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_rlaii"]
+font = ExtResource("5_rlaii")
+font_size = 24
+shadow_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_5mrjc"]
+script = ExtResource("7_kf8lf")
+icon_font = "MaterialIcons"
+icon_name = "stop"
+icon_size = 24
+icon_color = Color(1, 1, 1, 1)
+outline_color = Color(1, 1, 1, 1)
+outline_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 0
+shadow_offset = Vector2(0, 0)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -46,9 +87,7 @@ shadow_enabled = true
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -6.07865, 0.597056, 0)
 
 [node name="OrbitCamera" type="Camera3D" parent="Node3D"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 5.33023)
 keep_aspect = 0
-h_offset = -6.0
 fov = 37.8493
 script = ExtResource("2_v2ihe")
 ZOOM_SPEED = 7.215
@@ -61,22 +100,36 @@ min_distance = 10.0
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -11.9195, 0)
 mesh = SubResource("BoxMesh_pmi3b")
 
-[node name="PanelContainer" type="PanelContainer" parent="."]
-offset_right = 1075.0
-offset_bottom = 1080.0
+[node name="CSGBox3D" type="CSGBox3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.84834, 0)
+size = Vector3(3, 1, 3)
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer"]
+[node name="Antenna" parent="." instance=ExtResource("4_3cfgd")]
+transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.136787, -1.37393, 0.715678)
+
+[node name="Control" type="HBoxContainer" parent="."]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer"]
 layout_mode = 2
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer"]
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="Control" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer"]
+[node name="Control" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 5
@@ -84,12 +137,12 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer2" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer"]
+[node name="VBoxContainer2" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 2.45
 
-[node name="Label" type="Label" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+[node name="Label" type="Label" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_vertical = 3
@@ -98,90 +151,208 @@ horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
 
-[node name="Control" type="HBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+[node name="Control" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.25
 alignment = 1
 
-[node name="TrackButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
+[node name="TrackButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
 custom_minimum_size = Vector2(153.465, 0)
 layout_mode = 2
 text = "Track"
 
-[node name="PanelContainer" type="PanelContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control"]
+[node name="PanelContainer" type="PanelContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.4
 theme_override_styles/panel = SubResource("StyleBoxFlat_vcpyd")
 
-[node name="MarginContainer" type="MarginContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer"]
 layout_mode = 2
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 0.3
 alignment = 1
 
-[node name="AQUAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AQUAButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "AIRSAR"
 
-[node name="AURAButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AURAButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "AURA"
 
-[node name="IC2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="IC2Button" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "IC2"
 
-[node name="ICESATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ICESATButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "ICESAT"
 
-[node name="OCO2Button" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OCO2Button" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "OCO2"
 
-[node name="SCIS0ATButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SCIS0ATButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "SCISAT"
 
-[node name="SMAPButton" type="Button" parent="PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SMAPButton" type="Button" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 text = "SMAP"
 
-[node name="Control2" type="Control" parent="PanelContainer/VBoxContainer"]
+[node name="Control2" type="Control" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 
-[node name="HBoxContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="PlotControl" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_kylsy")]
+[node name="PlotControl" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("3_kylsy")]
 layout_mode = 2
 size_flags_horizontal = 3
 size_flags_stretch_ratio = 3.05
 
-[node name="ButtonKiosk" parent="PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_5oyyh")]
+[node name="ButtonKiosk" parent="Control/PanelContainer/VBoxContainer/HBoxContainer" instance=ExtResource("1_5oyyh")]
+visible = false
 layout_mode = 2
 size_flags_horizontal = 3
 
-[node name="CSGBox3D" type="CSGBox3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.84834, 0)
-size = Vector3(3, 1, 3)
+[node name="MarginContainer" type="MarginContainer" parent="Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.5
+theme_override_constants/margin_bottom = 5
 
-[node name="Antenna" parent="." instance=ExtResource("4_3cfgd")]
-transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.136787, -1.37393, 0.715678)
+[node name="PanelContainer" type="PanelContainer" parent="Control/MarginContainer"]
+custom_minimum_size = Vector2(300, 123.8)
+layout_mode = 2
+size_flags_horizontal = 0
+size_flags_vertical = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_top = 2
+theme_override_constants/margin_bottom = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+text = "Status"
+horizontal_alignment = 1
+
+[node name="HSeparator" type="HSeparator" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Azimuth:"
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "12.12345"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Elevation:"
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "12.6789"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(80, 0)
+layout_mode = 2
+text = "Train:"
+
+[node name="Label2" type="Label" parent="Control/MarginContainer/PanelContainer/MarginContainer/VBoxContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "13.12345"
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+
+[node name="Button" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="FontIcon" type="Label" parent="Control/MarginContainer/HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰛒"
+label_settings = SubResource("LabelSettings_mgm53")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_uewes")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[node name="ProgressBar" type="ProgressBar" parent="Control/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 1.255)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button2" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(60, 60)
+layout_mode = 2
+
+[node name="FontIcon" type="Label" parent="Control/MarginContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰓛"
+label_settings = SubResource("LabelSettings_rlaii")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_5mrjc")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
