@@ -72,7 +72,7 @@ horizontal_alignment = 2
 
 [node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
-text = "SB -LHC dB"
+text = "SB -RHC dB"
 horizontal_alignment = 1
 
 [node name="Current2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
@@ -98,7 +98,7 @@ horizontal_alignment = 2
 
 [node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
-text = "SB -LHC dB"
+text = "SB -XBAND dB"
 horizontal_alignment = 1
 
 [node name="Current3" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
@@ -123,7 +123,6 @@ show_x_ticks = false
 x_step = 60
 y_max = 6.0
 show_y_ticks = false
-show_y_numbers = false
 y_step = 1
 grid_horizontal_visible = true
 grid_horizontal_color = Color(0.364706, 1, 1, 1)
@@ -131,7 +130,7 @@ grid_vertical_visible = true
 grid_vertical_color = Color(0.364706, 1, 1, 1)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.1
+wait_time = 0.05
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
