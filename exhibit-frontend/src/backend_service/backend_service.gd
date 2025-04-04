@@ -1,6 +1,6 @@
 class_name BackendService extends HTTPRequest
 
-const URL = 'http://localhost:8080'
+const URL = 'http://localhost:8000'
 const DEFAULT_HEADERS = []
 
 # API ENDPOINTS
@@ -8,7 +8,7 @@ const CUSTOM_ENDPOINT = '/custom'
 const HOME_ENDPOINT = '/home'
 const PATH_ENDPOINT = '/path'
 const STATUS_ENDPOINT = '/status'
-const STOW_ENDPOINT = '/stow'
+const SPEED_ENDPOINT = '/speed'
 
 
 enum AXIS {
@@ -33,10 +33,10 @@ func Custom(data: Dictionary):
 	## POSTs values for train, azimuth, and elevation to /custom endpoint
 	self._make_request(self.CUSTOM_ENDPOINT, HTTPClient.METHOD_POST, data)
 
-func Home(axis: AXIS):
+func Home():
 	## POSTs axis to zero-out to /home endpoint
-	var body = {'axis': AXIS.keys()[axis]}
-	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST, body)
+	#var body = {'axis': AXIS.keys()[axis]}
+	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST)
 
 func Path(satellite: SATELLITES, path: Array[Dictionary] = []):
 	## POSTs which pre-defined path for the antenna to follow at the /path endpoint
@@ -50,9 +50,9 @@ func Status():
 	## GETs the backend's status from the /status endpoint
 	self._make_request(self.STATUS_ENDPOINT)
 
-func Stow():
-	## GETs the backend to return the antenna to the "bird bath" position using the /stow endpoint
-	self._make_request(self.STOW_ENDPOINT)
+func Speed():
+	## POSTs the backend to set the speed endpoint
+	self._make_request(self.SPEED_ENDPOINT)
 
 func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METHOD_GET, body: Dictionary = {}):
 	## backend query code for helper methods
