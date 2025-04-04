@@ -74,7 +74,7 @@ extends Control
 
 @export_group("Y Axis")
 ## Minimun value on Y-axis
-@export var y_min = 0.0:
+@export var y_min: float = 0.0:
 	set(value):
 		if value < y_max:
 			_y_step = _get_min_step(value, y_max)
@@ -84,7 +84,7 @@ extends Control
 			_update_graph()
 			_update_plots()
 ## Maximum value on Y-axis
-@export var y_max = 1.0:
+@export var y_max: float = 1.0:
 	set(value):
 		if value > y_min:
 			_y_step = _get_min_step(y_min, value)
@@ -121,13 +121,13 @@ extends Control
 		
 @export_group("Background")
 ## Background color of graph
-@export var background_color = Color.BLACK:
+@export var background_color: Color = Color.BLACK:
 	set(value):
 		background_color = value
 		if get_node_or_null("Background"):
 			get_node("Background").color = background_color
 ## Shows horizontal grid
-@export var grid_horizontal_visible = false:
+@export var grid_horizontal_visible: bool = false:
 	set(value):
 		grid_horizontal_visible = value
 		_update_graph()
@@ -137,7 +137,7 @@ extends Control
 		grid_horizontal_color = value
 		_update_graph()
 ## Shows vertical grid
-@export var grid_vertical_visible = false:
+@export var grid_vertical_visible: bool = false:
 	set(value):
 		grid_vertical_visible = value
 		_update_graph()
@@ -151,10 +151,10 @@ extends Control
 
 #region Private variables
 
-const _MARGIN_TOP = 30
-const _MARGIN_BOTTOM = 30
-const _MARGIN_LEFT = 45
-const _MARGIN_RIGHT = 30
+const _MARGIN_TOP: int    = 30
+const _MARGIN_BOTTOM: int = 30
+const _MARGIN_LEFT: int   = 45
+const _MARGIN_RIGHT: int  = 30
 
 const _Graph2DAxis = preload("res://addons/graph_2d/custom_nodes/axis.gd")
 const _Graph2DCoord = preload("res://addons/graph_2d/custom_nodes/coordinate.gd")
@@ -216,8 +216,8 @@ func _input(event: InputEvent) -> void:
 			var plot_rect: Rect2 = Rect2(Vector2.ZERO, get_node("PlotArea").size)
 			
 			if plot_rect.has_point(get_node("PlotArea").get_local_mouse_position()):
-				var pos: Vector2i = get_node("PlotArea").get_local_mouse_position()
-				var point = _pixel_to_coordinate(pos)
+				var pos: Vector2i  = get_node("PlotArea").get_local_mouse_position()
+				var point: Vector2 = _pixel_to_coordinate(pos)
 				get_node("PlotArea/Coordinate").text = "(%.3f, %.3f)" % [point.x, point.y]
 
 ## Add plot to the graph and return an instance of plot.
@@ -231,7 +231,7 @@ func add_plot_item(label = "", color = Color.WHITE, width = 1.0) -> PlotItem:
 ## Remove plot from the graph.
 func remove_plot_item(plot: PlotItem):
 	# remove from plot_list
-	var new_plot_list = _plots.filter(func(p): return p!=plot)
+	var new_plot_list: Array = _plots.filter(func(p): return p!=plot)
 	_plots = new_plot_list
 
 	plot.delete()
@@ -280,22 +280,22 @@ func _update_graph() -> void:
 	# var y_step = _get_min_step(y_min, y_max)
 	# assert(not is_inf(y_step), "y_step is infinite!")
 
-	var y_axis_range: float = y_max - y_min
-	var vert_grad_number = _get_graduation_num(y_min, y_max, y_step, "vert")
+	var y_axis_range: float   = y_max - y_min
+	var vert_grad_number: int = _get_graduation_num(y_min, y_max, y_step, "vert")
 	
 	# Horizontal Graduation
 	# var x_step = _get_min_step(x_min, x_max)
 	# assert(not is_inf(x_step), "x_step is infinite!")
 	
-	var x_axis_range: float = x_max - x_min
-	var hor_grad_number = _get_graduation_num(x_min, x_max, x_step, "hor")
+	var x_axis_range: float  = x_max - x_min
+	var hor_grad_number: int = _get_graduation_num(x_min, x_max, x_step, "hor")
 	
 	# Plot area height in pixel
-	var area_height = size.y - _MARGIN_TOP - margin_bottom
-	var vert_grad_step_px = area_height / (vert_grad_number - 1)
+	var area_height: float       = size.y - _MARGIN_TOP - margin_bottom
+	var vert_grad_step_px: float = area_height / (vert_grad_number - 1)
 	# Plot area width in pixel
-	var area_width = size.x - margin_left - _MARGIN_RIGHT
-	var hor_grad_step_px = area_width / (hor_grad_number -1)
+	var area_width: float       = size.x - margin_left - _MARGIN_RIGHT
+	var hor_grad_step_px: float = area_width / (hor_grad_number -1)
 	
 	var vert_grad: Array
 	var hor_grid: Array
@@ -306,7 +306,7 @@ func _update_graph() -> void:
 		var grad: Array = []
 		grad_px.y = _MARGIN_TOP + n * vert_grad_step_px
 		grad.append(grad_px)
-		var grad_text = "%0.1f" % (float(y_max) - n * float(y_axis_range)/(vert_grad_number-1))
+		var grad_text: String = "%0.1f" % (float(y_max) - n * float(y_axis_range)/(vert_grad_number-1))
 		grad.append(grad_text)
 		vert_grad.append(grad)
 		
@@ -333,7 +333,7 @@ func _update_graph() -> void:
 		var grad: Array = []
 		grad_px.x = margin_left + n * hor_grad_step_px
 		grad.append(grad_px)
-		var grad_text = "%0.1f" % (float(x_min) + n * float(x_axis_range)/(hor_grad_number-1))
+		var grad_text: String = "%0.1f" % (float(x_min) + n * float(x_axis_range)/(hor_grad_number-1))
 		grad.append(grad_text)
 		hor_grad.append(grad)
 		
@@ -360,7 +360,7 @@ func _update_plots():
 
 func _update_legend() -> void:
 	# Add labels to the legend
-	var labels = Array()
+	var labels: Array = Array()
 	for p in _plots:
 		labels.append({
 			name = p.label,
