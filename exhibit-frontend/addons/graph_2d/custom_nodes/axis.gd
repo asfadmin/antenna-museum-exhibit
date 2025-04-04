@@ -45,7 +45,7 @@ func _draw() -> void:
 	
 	if show_x_numbers:
 		for grad in hor_grad:
-			draw_string(default_font, grad[POINT] + Vector2(0, 20), grad[LABEL])
+			draw_string(default_font, grad[POINT] + Vector2(0, 20), str(abs(int(grad[LABEL]))))
 	
 	if show_horizontal_line == true:
 		draw_line(hor_grad.front()[POINT], hor_grad.back()[POINT], Color.WHITE)
