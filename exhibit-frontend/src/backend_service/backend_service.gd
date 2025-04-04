@@ -17,6 +17,7 @@ const HOME_ENDPOINT = '/home'
 const PATH_ENDPOINT = '/path'
 const STATUS_ENDPOINT = '/status'
 const SPEED_ENDPOINT = '/speed'
+const RESET_ENDPOINT = '/reset'
 
 
 enum AXIS {
@@ -61,6 +62,9 @@ func Status():
 func Speed():
 	## POSTs the backend to set the speed endpoint
 	self._make_request(self.SPEED_ENDPOINT)
+
+func Stop():
+	self._make_request(self.RESET_ENDPOINT, HTTPClient.METHOD_POST)
 
 func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METHOD_GET, body: Dictionary = {}):
 	## backend query code for helper methods

@@ -217,10 +217,6 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "SMAP"
 
-[node name="BackendService" type="HTTPRequest" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-script = ExtResource("3_5mrjc")
-metadata/_custom_type_script = "uid://o7em3a606bwf"
-
 [node name="Control2" type="Control" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -343,11 +339,11 @@ custom_minimum_size = Vector2(350, 1.255)
 layout_mode = 2
 size_flags_vertical = 4
 
-[node name="Button2" type="Button" parent="Control/MarginContainer/HBoxContainer"]
+[node name="StopButton" type="Button" parent="Control/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(60, 60)
 layout_mode = 2
 
-[node name="FontIcon" type="Label" parent="Control/MarginContainer/HBoxContainer/Button2"]
+[node name="FontIcon" type="Label" parent="Control/MarginContainer/HBoxContainer/StopButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -362,10 +358,15 @@ script = ExtResource("6_5mrjc")
 icon_settings = SubResource("Resource_5mrjc")
 metadata/_custom_type_script = "uid://sfoyl3fbn8so"
 
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AQUAButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["aqua"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AURAButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["aura"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/IC2Button" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["ic2"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/ICESATButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["icesat"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/OCO2Button" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["oco2"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SCIS0ATButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["scisat"]]
-[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SMAPButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["smap"]]
+[node name="BackendService" type="HTTPRequest" parent="."]
+script = ExtResource("3_5mrjc")
+metadata/_custom_type_script = "uid://o7em3a606bwf"
+
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AQUAButton" to="BackendService" method="Path" binds= ["aqua"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AURAButton" to="BackendService" method="Path" binds= ["aura"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/IC2Button" to="BackendService" method="Path" binds= ["ic2"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/ICESATButton" to="BackendService" method="Path" binds= ["icesat"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/OCO2Button" to="BackendService" method="Path" binds= ["oco2"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SCIS0ATButton" to="BackendService" method="Path" binds= ["scisat"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SMAPButton" to="BackendService" method="Path" binds= ["smap"]]
+[connection signal="button_up" from="Control/MarginContainer/HBoxContainer/StopButton" to="BackendService" method="Stop"]
