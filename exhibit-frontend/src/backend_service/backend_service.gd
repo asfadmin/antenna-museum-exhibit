@@ -3,6 +3,14 @@ class_name BackendService extends HTTPRequest
 const URL = 'http://localhost:8000'
 const DEFAULT_HEADERS = []
 
+# smap
+# aura
+# aqua
+# scisat
+# oco2
+# icesat
+# ic2
+
 # API ENDPOINTS
 const CUSTOM_ENDPOINT = '/custom'
 const HOME_ENDPOINT = '/home'
@@ -18,16 +26,16 @@ enum AXIS {
 	ELEVATION
 }
 
-enum SATELLITES {
-	SMAP,
-	AURA,
-	AQUA,
-	SCISAT,
-	OCO2,
-	ICESAT,
-	IC2,
-	CUSTOM
-}
+#enum SATELLITES {
+	#SMAP,
+	#AURA,
+	#AQUA,
+	#SCISAT,
+	#OCO2,
+	#ICESAT,
+	#IC2,
+	#CUSTOM
+#}
 
 func Custom(data: Dictionary):
 	## POSTs values for train, azimuth, and elevation to /custom endpoint
@@ -38,11 +46,11 @@ func Home():
 	#var body = {'axis': AXIS.keys()[axis]}
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST)
 
-func Path(satellite: SATELLITES, path: Array[Dictionary] = []):
+func Path(satellite: String, path: Array[Dictionary] = []):
 	## POSTs which pre-defined path for the antenna to follow at the /path endpoint
-	var body = {'satellite': SATELLITES.keys()[satellite]}
-	if satellite == SATELLITES.CUSTOM:
-		body['path'] = path
+	var body = {'satellite': satellite}
+	#if satellite == SATELLITES.CUSTOM:
+		#body['path'] = path
 	
 	self._make_request(self.PATH_ENDPOINT, HTTPClient.METHOD_POST, body)
 

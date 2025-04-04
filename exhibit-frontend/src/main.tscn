@@ -1,7 +1,8 @@
-[gd_scene load_steps=20 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=21 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
+[ext_resource type="Script" uid="uid://o7em3a606bwf" path="res://src/backend_service/backend_service.gd" id="3_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="5_rlaii"]
@@ -216,6 +217,10 @@ layout_mode = 2
 size_flags_vertical = 3
 text = "SMAP"
 
+[node name="BackendService" type="HTTPRequest" parent="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+script = ExtResource("3_5mrjc")
+metadata/_custom_type_script = "uid://o7em3a606bwf"
+
 [node name="Control2" type="Control" parent="Control/PanelContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_vertical = 3
@@ -356,3 +361,11 @@ vertical_alignment = 1
 script = ExtResource("6_5mrjc")
 icon_settings = SubResource("Resource_5mrjc")
 metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AQUAButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["aqua"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AURAButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["aura"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/IC2Button" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["ic2"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/ICESATButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["icesat"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/OCO2Button" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["oco2"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SCIS0ATButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["scisat"]]
+[connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/SMAPButton" to="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/BackendService" method="Path" binds= ["smap"]]
