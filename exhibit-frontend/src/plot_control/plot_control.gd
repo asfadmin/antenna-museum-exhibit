@@ -151,20 +151,17 @@ func _ready() -> void:
 	initialize_graph(lhc_column_data, rhc_column_data, xband_column_data)
 
 	
-func redraw(line: Array[Variant], plot: PlotItem, current, offset):
+func redraw(line: Array[Variant], plot: PlotItem, offset):
 	plot.remove_all()
 	for point in line:
 		plot.add_point(point)
-		# TODO(gjclark): This is reading the leftmost point as the current text
-		# Fix this to read from the rightmost point and make sure it is the correct y value
-		current.text = "%0.2f" % (point.y - offset)
 
 
 func shift(line) -> Array[Variant]:
 	# Sub shift_width from each x in the line
 	var shifted: Array[Variant] = []
 	for point in line:
-		point.x -=  shift_width
+		point.x -= shift_width
 		shifted.append(point)
 
 	return shifted
@@ -224,38 +221,54 @@ func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Arr
 	var rhc_offset   := offset * 1 + (offset - get_max(rhc_range))
 	var xband_offset := offset * 0
 	
+	var lhc_front: float = lhc_column_data.pop_front() as float
+	var rhc_front: float = rhc_column_data.pop_front() as float
+	var xband_front: float = xband_column_data.pop_front() as float
+	
+	var lhc_current_val: float = lhc_front
+	var rhc_current_val: float = rhc_front
+	var xband_current_val: float = xband_front
+	
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
-			var lhc_front = lhc_column_data.pop_front()
-			lhc_line.push_front(Vector2(x_max, lhc_front as float + lhc_offset))
+			lhc_current_val = lhc_front
+			lhc_line.push_front(Vector2(x_max, lhc_current_val + lhc_offset))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			var rhc_front = rhc_column_data.pop_front()
-			rhc_line.push_front(Vector2(x_max, rhc_front as float + rhc_offset))
+			rhc_current_val = rhc_front
+			rhc_line.push_front(Vector2(x_max, rhc_current_val + rhc_offset))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			var xband_front = xband_column_data.pop_front()
-			xband_line.push_front(Vector2(x_max, xband_front as float + xband_offset))
+			xband_current_val = xband_front
+			xband_line.push_front(Vector2(x_max, xband_current_val + xband_offset))
 			xband_line.pop_back()
+			
 			x = x_max
 		else:
-			lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float + lhc_offset))
-			rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + rhc_offset))
-			xband_line.push_back(Vector2(x, xband_column_data.pop_front() as float + xband_offset))
+			lhc_line.push_back(Vector2(x, lhc_front + lhc_offset))
+			rhc_line.push_back(Vector2(x, rhc_front + rhc_offset))
+			xband_line.push_back(Vector2(x, xband_front + xband_offset))
+		
 		x -= shift_width
+		
 	elif x == x_min:
-		lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float + lhc_offset))
-		rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + rhc_offset))
-		xband_line.push_back(Vector2(x_max, xband_column_data.pop_front() as float + xband_offset))
+		lhc_line.push_back(Vector2(x, lhc_front + lhc_offset))
+		rhc_line.push_back(Vector2(x, rhc_front + rhc_offset))
+		xband_line.push_back(Vector2(x_max, xband_front + xband_offset))
+		
 		looped = true
 		x = x_max
 
-	redraw(lhc_line, lhc_plot, current_1, 0)
-	redraw(rhc_line, rhc_plot, current_2, offset)
-	redraw(xband_line, xband_plot, current_3, offset*2)
+	current_1.text = "%0.2f" % lhc_current_val
+	current_2.text = "%0.2f" % rhc_current_val
+	current_3.text = "%0.2f" % xband_current_val
+
+	redraw(lhc_line, lhc_plot,  0)
+	redraw(rhc_line, rhc_plot,  offset)
+	redraw(xband_line, xband_plot,  offset*2)
 
 	
 func _on_timer_timeout() -> void:
