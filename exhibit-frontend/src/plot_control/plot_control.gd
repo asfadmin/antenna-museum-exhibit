@@ -16,7 +16,7 @@ var shift_width: int = 5
 var xband_column_data := []
 var lhc_column_data := []
 var rhc_column_data := []
-var max_range := 0
+var max_range: float = 0
 var continue_feeding := false
 const RANGES: Dictionary = {
 	"lhc": {
@@ -37,6 +37,12 @@ var fname := "aqa.csv"
 const XBAND_COLUMN_NAME := "Antenna Control Unit X-Band Strength (dB)"
 const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
 const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
+@onready var current_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/Current1
+@onready var current_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/Current2
+@onready var current_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/Current3
+var lhc_range := []
+var rhc_range := []
+var xband_range := []
 
 
 func get_min(data: Array) -> float:
@@ -68,32 +74,58 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
 
-	var xband_range := [get_min(xband_column_data), get_max(xband_column_data)]
-	var lhc_range := [get_min(lhc_column_data), get_max(lhc_column_data)]
-	var rhc_range := [get_min(rhc_column_data), get_max(rhc_column_data)]
+	lhc_range = [get_min(lhc_column_data), get_max(lhc_column_data)]
+	rhc_range = [get_min(rhc_column_data), get_max(rhc_column_data)]
+	xband_range = [get_min(xband_column_data), get_max(xband_column_data)]
 
-	var xband_length: float = xband_range.max() - xband_range.min()
 	var lhc_length: float = lhc_range.max() - lhc_range.min()
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
+	var xband_length: float = xband_range.max() - xband_range.min()
 
-	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
 	print("lhc range:   [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
 	print("rhc range:   [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
+	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
 
+	print("total distance: %s" % (xband_length + lhc_length + rhc_length))
 	max_range = get_max([xband_length, lhc_length, rhc_length])
+	print("max range: %s" % max_range)
 	
-	graph_node.y_min = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
+	var y_min: float = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
+	graph_node.y_min = y_min
 	# Setting y_max to be 3x the max range ensures that there is no overlap between graphs
-	graph_node.y_max = max_range * 3  # Upper y bound of the graph
+	var y_max = max_range * 3  # Upper y bound of the graph
+	graph_node.y_max = y_max
 	
 	var y_distance: float = graph_node.y_max - graph_node.y_min
 
 	# Distance between each vertical tick
-	graph_node.y_step = y_distance / 6
+	var y_step: float = y_distance / 6
+	graph_node.y_step = y_step
 	
-	print("y-distance: %s" % (graph_node.y_max - graph_node.y_min))
+	print("y-distance (according to graph 2d): %s" % (graph_node.y_max - graph_node.y_min))
+	print("y-distance (according to the actual line values): %s" % (y_max - y_min))
 	print("y-step:     %s" % graph_node.y_step)
+	print("y-max:      %s" % y_max)
+	print("y-min:      %s" % y_min)
 	
+	var upper_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1
+	var lower_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1
+	
+	var upper_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/UpperBound2
+	var lower_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/LowerBound2
+	
+	var upper_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/UpperBound3
+	var lower_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/LowerBound3
+	
+	
+	upper_bound_1.text = str(get_max(lhc_range))
+	lower_bound_1.text = str(get_min(lhc_range))
+	
+	upper_bound_2.text = str(get_max(rhc_range))
+	lower_bound_2.text = str(get_min(rhc_range))
+	
+	upper_bound_3.text = str(get_max(xband_range))
+	lower_bound_3.text = str(get_min(xband_range))
 
 func load_column_data() -> Dictionary:
 	var csv := get_csv(fname)
@@ -119,7 +151,7 @@ func _ready() -> void:
 	initialize_graph(lhc_column_data, rhc_column_data, xband_column_data)
 
 	
-func redraw(line, plot: PlotItem):
+func redraw(line: Array[Variant], plot: PlotItem, offset):
 	plot.remove_all()
 	for point in line:
 		plot.add_point(point)
@@ -129,7 +161,7 @@ func shift(line) -> Array[Variant]:
 	# Sub shift_width from each x in the line
 	var shifted: Array[Variant] = []
 	for point in line:
-		point.x -=  shift_width
+		point.x -= shift_width
 		shifted.append(point)
 
 	return shifted
@@ -185,38 +217,58 @@ func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column
 		
 	
 func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
+	var lhc_offset   := offset * 2 + (offset - get_max(lhc_range))
+	var rhc_offset   := offset * 1 + (offset - get_max(rhc_range))
+	var xband_offset := offset * 0
+	
+	var lhc_front: float = lhc_column_data.pop_front() as float
+	var rhc_front: float = rhc_column_data.pop_front() as float
+	var xband_front: float = xband_column_data.pop_front() as float
+	
+	var lhc_current_val: float = lhc_front
+	var rhc_current_val: float = rhc_front
+	var xband_current_val: float = xband_front
+	
 	if x > x_min:
 		if looped:
 			lhc_line = shift(lhc_line)
-			var lhc_front = lhc_column_data.pop_front()
-			lhc_line.push_front(Vector2(x_max, lhc_front as float))
+			lhc_current_val = lhc_front
+			lhc_line.push_front(Vector2(x_max, lhc_current_val + lhc_offset))
 			lhc_line.pop_back()
 
 			rhc_line = shift(rhc_line)
-			var rhc_front = rhc_column_data.pop_front()
-			rhc_line.push_front(Vector2(x_max, rhc_front as float + offset))
+			rhc_current_val = rhc_front
+			rhc_line.push_front(Vector2(x_max, rhc_current_val + rhc_offset))
 			rhc_line.pop_back()
 
 			xband_line = shift(xband_line)
-			var xband_front = xband_column_data.pop_front()
-			xband_line.push_front(Vector2(x_max, xband_front as float + offset*2))
+			xband_current_val = xband_front
+			xband_line.push_front(Vector2(x_max, xband_current_val + xband_offset))
 			xband_line.pop_back()
+			
 			x = x_max
 		else:
-			lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float))
-			rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + offset))
-			xband_line.push_back(Vector2(x, xband_column_data.pop_front() as float + offset*2))
+			lhc_line.push_back(Vector2(x, lhc_front + lhc_offset))
+			rhc_line.push_back(Vector2(x, rhc_front + rhc_offset))
+			xband_line.push_back(Vector2(x, xband_front + xband_offset))
+		
 		x -= shift_width
+		
 	elif x == x_min:
-		lhc_line.push_back(Vector2(x, lhc_column_data.pop_front() as float))
-		rhc_line.push_back(Vector2(x, rhc_column_data.pop_front() as float + offset))
-		xband_line.push_back(Vector2(x_max, xband_column_data.pop_front() as float + offset*2))
+		lhc_line.push_back(Vector2(x, lhc_front + lhc_offset))
+		rhc_line.push_back(Vector2(x, rhc_front + rhc_offset))
+		xband_line.push_back(Vector2(x_max, xband_front + xband_offset))
+		
 		looped = true
 		x = x_max
 
-	redraw(lhc_line, lhc_plot)
-	redraw(rhc_line, rhc_plot)
-	redraw(xband_line, xband_plot)
+	current_1.text = "%0.2f" % lhc_current_val
+	current_2.text = "%0.2f" % rhc_current_val
+	current_3.text = "%0.2f" % xband_current_val
+
+	redraw(lhc_line, lhc_plot,  0)
+	redraw(rhc_line, rhc_plot,  offset)
+	redraw(xband_line, xband_plot,  offset*2)
 
 	
 func _on_timer_timeout() -> void:

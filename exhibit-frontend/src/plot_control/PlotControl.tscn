@@ -36,24 +36,25 @@ layout_mode = 2
 size_flags_horizontal = 3
 alignment = 1
 
-[node name="GridContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="GridContainer1" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="UpperBound1" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
-[node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1"]
 layout_mode = 2
 text = "SB -LHC dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="Current1" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1"]
 layout_mode = 2
 text = "29.570"
+horizontal_alignment = 1
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer"]
+[node name="LowerBound1" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1"]
 layout_mode = 2
 text = "-10
 "
@@ -65,21 +66,22 @@ layout_mode = 2
 [node name="GridContainer2" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="UpperBound2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
 [node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
-text = "SB -LHC dB"
+text = "SB -RHC dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="Current2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "29.570"
+horizontal_alignment = 1
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
+[node name="LowerBound2" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2"]
 layout_mode = 2
 text = "-10
 "
@@ -91,21 +93,22 @@ layout_mode = 2
 [node name="GridContainer3" type="VBoxContainer" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 layout_mode = 2
 
-[node name="TopRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
+[node name="UpperBound3" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "50"
 horizontal_alignment = 2
 
 [node name="LHC" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
-text = "SB -LHC dB"
+text = "SB -XBAND dB"
 horizontal_alignment = 1
 
-[node name="Button" type="Button" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
+[node name="Current3" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "29.570"
+horizontal_alignment = 1
 
-[node name="BottomRight" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
+[node name="LowerBound3" type="Label" parent="HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3"]
 layout_mode = 2
 text = "-10
 "
@@ -122,6 +125,8 @@ x_label = "Time (sec)"
 show_x_ticks = false
 x_step = 60
 y_max = 6.0
+show_y_ticks = false
+show_y_numbers = false
 y_step = 1
 grid_horizontal_visible = true
 grid_horizontal_color = Color(0.364706, 1, 1, 1)
@@ -129,7 +134,7 @@ grid_vertical_visible = true
 grid_vertical_color = Color(0.364706, 1, 1, 1)
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 0.5
+wait_time = 0.019
 autostart = true
 
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
