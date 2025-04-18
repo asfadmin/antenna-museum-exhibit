@@ -2,22 +2,30 @@ extends MarginContainer
 
 @export var graph_node: Graph2D
 
-var lhc_plot: PlotItem
-var rhc_plot: PlotItem
-var xband_plot: PlotItem
-var lhc_line: Array[Variant] = []
-var rhc_line: Array[Variant] = []
-var xband_line: Array[Variant] = []
+
 var x_max: int = 0
 var x_min: int = -360
 var x: int = x_max
+
 var looped: bool = false
+
 var shift_width: int = 5
-var xband_column_data := []
-var lhc_column_data := []
-var rhc_column_data := []
 var max_range: float = 0
 var continue_feeding := false
+
+var lhc_plot: PlotItem
+var rhc_plot: PlotItem
+var xband_plot: PlotItem
+
+var lhc_line: Array[Variant] = []
+var rhc_line: Array[Variant] = []
+var xband_line: Array[Variant] = []
+
+var lhc_column_data := []
+var rhc_column_data := []
+var xband_column_data := []
+
+
 const RANGES: Dictionary = {
 	"lhc": {
 		"low": 1,
@@ -33,7 +41,7 @@ const RANGES: Dictionary = {
 	},
 }
 # var fname := "test_data.csv"
-var fname := "aqa.csv"
+var fname := "sci.csv"
 const XBAND_COLUMN_NAME := "Antenna Control Unit X-Band Strength (dB)"
 const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
 const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
@@ -44,6 +52,14 @@ var lhc_range := []
 var rhc_range := []
 var xband_range := []
 
+var upper_bound_1
+var lower_bound_1
+				 
+var upper_bound_2
+var lower_bound_2
+				 
+var upper_bound_3
+var lower_bound_3
 
 func get_min(data: Array) -> float:
 	var m: float = data[0] as float
@@ -108,14 +124,14 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	print("y-max:      %s" % y_max)
 	print("y-min:      %s" % y_min)
 	
-	var upper_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1
-	var lower_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1
+	upper_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1
+	lower_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1
 	
-	var upper_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/UpperBound2
-	var lower_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/LowerBound2
+	upper_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/UpperBound2
+	lower_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/LowerBound2
 	
-	var upper_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/UpperBound3
-	var lower_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/LowerBound3
+	upper_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/UpperBound3
+	lower_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/LowerBound3
 	
 	
 	upper_bound_1.text = str(get_max(lhc_range))
@@ -149,6 +165,10 @@ func _ready() -> void:
 	xband_column_data = column_data["xband_column_data"]
 	
 	initialize_graph(lhc_column_data, rhc_column_data, xband_column_data)
+	
+	lhc_column_data = constrain_to_graph(column_data["lhc_column_data"], lower_bound_1.text as float, upper_bound_1.text as float)
+	rhc_column_data = constrain_to_graph(column_data["rhc_column_data"], lower_bound_2.text as float, upper_bound_2.text as float)
+	xband_column_data = constrain_to_graph(column_data["xband_column_data"], lower_bound_3.text as float, upper_bound_3.text as float)
 
 	
 func redraw(line: Array[Variant], plot: PlotItem, offset):
@@ -216,6 +236,15 @@ func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column
 	return xband_column_data.size() == 0 or lhc_column_data.size() == 0 or rhc_column_data.size() == 0
 		
 	
+func constrain_to_graph(column_data: Array, lower_bound: float, upper_bound: float):
+	for i in len(column_data):
+		var d: float = column_data[i] as float
+		if d < lower_bound:
+			column_data[i] = lower_bound as String
+		elif d > upper_bound:
+			column_data[i] = upper_bound as String
+	return column_data
+	
 func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
 	var lhc_offset   := offset * 2 + (offset - get_max(lhc_range))
 	var rhc_offset   := offset * 1 + (offset - get_max(rhc_range))
@@ -275,7 +304,7 @@ func _on_timer_timeout() -> void:
 	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
 		print("Ran out of data, reloading arrays and continuing to feed")
 		var column_data := load_column_data()
-		lhc_column_data = column_data["lhc_column_data"]
-		rhc_column_data = column_data["rhc_column_data"]
-		xband_column_data = column_data["xband_column_data"]
+		lhc_column_data = constrain_to_graph(column_data["lhc_column_data"], lower_bound_1.text as float, upper_bound_1.text as float)
+		rhc_column_data = constrain_to_graph(column_data["rhc_column_data"], lower_bound_2.text as float, upper_bound_2.text as float)
+		xband_column_data = constrain_to_graph(column_data["xband_column_data"], lower_bound_3.text as float, upper_bound_3.text as float)
 	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
