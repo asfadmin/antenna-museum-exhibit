@@ -126,7 +126,6 @@ show_x_ticks = false
 x_step = 60
 y_max = 6.0
 show_y_ticks = false
-show_y_numbers = false
 y_step = 1
 grid_horizontal_visible = true
 grid_horizontal_color = Color(0.364706, 1, 1, 1)
