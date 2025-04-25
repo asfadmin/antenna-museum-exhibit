@@ -22,10 +22,10 @@ var AUTOTRACK_STATUS = "Autotrack Status"
 # Called when the node enters the scene tree for the first time.
 
 func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
-	var azi_radians = deg_to_rad(azimuth - 90)
+	var azi_radians = deg_to_rad(azimuth + 90)
 	var ele_radians = deg_to_rad(elevation - 90)
-	var x = 250 * cos(azi_radians) * sin(ele_radians)
-	var y = -250 * sin(azi_radians) * sin(ele_radians)
+	var x = 400 * cos(azi_radians) * sin(ele_radians)
+	var y = 400 * sin(azi_radians) * sin(ele_radians)
 	#var z = 1.0 * sin(lat)
 	
 	return Vector2(x, y)
