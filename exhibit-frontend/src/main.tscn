@@ -1,13 +1,15 @@
-[gd_scene load_steps=21 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=28 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="PackedScene" uid="uid://knpf8lihjx0u" path="res://src/button_kiosk/button_kiosk.tscn" id="1_5oyyh"]
-[ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
-[ext_resource type="Script" uid="uid://o7em3a606bwf" path="res://src/backend_service/backend_service.gd" id="3_5mrjc"]
+[ext_resource type="Script" uid="uid://nuwitqjnjsod" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="3_kylsy"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
+[ext_resource type="PackedScene" uid="uid://pyqxiujpu271" path="res://src/track_status/track_status.tscn" id="5_5mrjc"]
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="5_rlaii"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="6_5mrjc"]
 [ext_resource type="Script" uid="uid://bo7bolnuump38" path="res://addons/icons-fonts/resources/FontIconSetting.gd" id="7_kf8lf"]
+[ext_resource type="StyleBox" uid="uid://dlb4t6pt5gsag" path="res://src/theme_components/background_panel.tres" id="8_mgm53"]
+[ext_resource type="Script" uid="uid://o7em3a606bwf" path="res://src/backend_service/backend_service.gd" id="9_kf8lf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
 offset = Vector3(0, 0, 8.55)
@@ -64,6 +66,47 @@ shadow_color = Color(1, 1, 1, 1)
 shadow_offset = Vector2(0, 0)
 
 [sub_resource type="Resource" id="Resource_5mrjc"]
+script = ExtResource("7_kf8lf")
+icon_font = "MaterialIcons"
+icon_name = "stop"
+icon_size = 24
+icon_color = Color(1, 1, 1, 1)
+outline_color = Color(1, 1, 1, 1)
+outline_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 0
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
+
+[sub_resource type="LabelSettings" id="LabelSettings_gkxjx"]
+font = ExtResource("5_rlaii")
+font_size = 24
+shadow_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_fs5cc"]
+script = ExtResource("7_kf8lf")
+icon_font = "MaterialIcons"
+icon_name = "fast-forward-outline"
+icon_size = 24
+icon_color = Color(1, 1, 1, 1)
+outline_color = Color(1, 1, 1, 1)
+outline_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_size = 0
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="LabelSettings" id="LabelSettings_ya46p"]
+font = ExtResource("5_rlaii")
+font_size = 24
+shadow_size = 0
+shadow_color = Color(1, 1, 1, 1)
+shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_75kda"]
 script = ExtResource("7_kf8lf")
 icon_font = "MaterialIcons"
 icon_name = "stop"
@@ -358,9 +401,629 @@ script = ExtResource("6_5mrjc")
 icon_settings = SubResource("Resource_5mrjc")
 metadata/_custom_type_script = "uid://sfoyl3fbn8so"
 
+[node name="Ui" type="Control" parent="."]
+visible = false
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui"]
+visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("8_mgm53")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/HBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AspectRatioContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/PanelContainer2/MarginContainer" instance=ExtResource("5_5mrjc")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 85
+theme_override_constants/margin_right = 18
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(431.485, 405.905)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Control" type="VBoxContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_gkxjx")
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="HFlowContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(307.075, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="AQUAButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "AIRSAR"
+
+[node name="AURAButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "AURA"
+
+[node name="IC2Button" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "IC2"
+
+[node name="ICESATButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "ICESAT"
+
+[node name="OCO2Button" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "OCO2"
+
+[node name="SCIS0ATButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "SCISAT"
+
+[node name="SMAPButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "SMAP"
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.45
+
+[node name="Label" type="Label" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+text = "Airsar is used primarily for things to do with really cool things. It can do really cool stuff, and has a lot of cool uses in a lot of geospatial science cases. Here’s some examples if we want to put some examples maybe, and maybe also what kind of data gets exported out from this."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Control2" type="Control" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="HBoxContainer" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+alignment = 1
+
+[node name="TrackButton" type="Button" parent="Ui/HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
+custom_minimum_size = Vector2(153.465, 0)
+layout_mode = 2
+text = "Track"
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+alignment = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(0, 250)
+layout_mode = 2
+theme_override_styles/panel = ExtResource("8_mgm53")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer"]
+layout_mode = 2
+alignment = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_right = 75
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="PanelContainer2" type="PanelContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(348.85, 66.08)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Currently:
+Tracking NISAR"
+
+[node name="VSeparator" type="VSeparator" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Positions"
+
+[node name="Label3" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Track: 52.32"
+
+[node name="Label2" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Azimuth: 52.32"
+
+[node name="PanelContainer3" type="PanelContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
+custom_minimum_size = Vector2(359.62, 60)
+layout_mode = 2
+size_flags_horizontal = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FontIcon" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰛒"
+label_settings = SubResource("LabelSettings_gkxjx")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_fs5cc")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[node name="ProgressBar" type="ProgressBar" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 1.255)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button2" type="Button" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FontIcon" type="Label" parent="Ui/HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰓛"
+label_settings = SubResource("LabelSettings_ya46p")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_75kda")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[node name="PanelContainer2" type="PanelContainer" parent="Ui/HBoxContainer"]
+layout_mode = 2
+theme_override_styles/panel = ExtResource("8_mgm53")
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/HBoxContainer/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_top = 85
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Ui/HBoxContainer/PanelContainer2/MarginContainer"]
+layout_mode = 2
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(507.38, 300)
+layout_mode = 2
+
+[node name="PlotControl" parent="Ui/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2/PanelContainer" instance=ExtResource("3_kylsy")]
+layout_mode = 2
+
+[node name="Control" type="Control" parent="Ui/HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(0, 49.53)
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 2
+alignment = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/VBoxContainer"]
+layout_mode = 2
+theme_override_constants/separation = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="Ui/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(348.85, 66.08)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 15
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="Label" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Currently:
+Tracking NISAR"
+
+[node name="VSeparator" type="VSeparator" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Positions"
+
+[node name="Label3" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Track: 52.32"
+
+[node name="Label2" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+layout_mode = 2
+text = "Azimuth: 52.32"
+
+[node name="PanelContainer3" type="PanelContainer" parent="Ui/VBoxContainer/VBoxContainer"]
+custom_minimum_size = Vector2(359.62, 60)
+layout_mode = 2
+size_flags_horizontal = 8
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_right = 5
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FontIcon" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰛒"
+label_settings = SubResource("LabelSettings_gkxjx")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_fs5cc")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[node name="ProgressBar" type="ProgressBar" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(350, 1.255)
+layout_mode = 2
+size_flags_vertical = 4
+
+[node name="Button2" type="Button" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+custom_minimum_size = Vector2(40, 40)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="FontIcon" type="Label" parent="Ui/VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button2"]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+text = "󰓛"
+label_settings = SubResource("LabelSettings_ya46p")
+horizontal_alignment = 1
+vertical_alignment = 1
+script = ExtResource("6_5mrjc")
+icon_settings = SubResource("Resource_75kda")
+metadata/_custom_type_script = "uid://sfoyl3fbn8so"
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/VBoxContainer"]
+custom_minimum_size = Vector2(0, 246.54)
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="Ui/VBoxContainer/PanelContainer"]
+layout_mode = 2
+
+[node name="MarginContainer2" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer2" type="PanelContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2"]
+custom_minimum_size = Vector2(400, 400)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer2"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="AspectRatioContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/PanelContainer2/MarginContainer" instance=ExtResource("5_5mrjc")]
+layout_mode = 2
+
+[node name="PlotControl" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer" instance=ExtResource("3_kylsy")]
+custom_minimum_size = Vector2(831.88, 0)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/margin_left = 0
+theme_override_constants/margin_top = 0
+theme_override_constants/margin_right = 0
+theme_override_constants/margin_bottom = 0
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer"]
+custom_minimum_size = Vector2(431.485, 405.905)
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.2
+
+[node name="Control" type="VBoxContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="PanelContainer" type="PanelContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 0.4
+theme_override_styles/panel = SubResource("StyleBoxFlat_gkxjx")
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="HFlowContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
+custom_minimum_size = Vector2(307.075, 0)
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_stretch_ratio = 0.3
+alignment = 1
+
+[node name="AQUAButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "AIRSAR"
+
+[node name="AURAButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "AURA"
+
+[node name="IC2Button" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "IC2"
+
+[node name="ICESATButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "ICESAT"
+
+[node name="OCO2Button" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "OCO2"
+
+[node name="SCIS0ATButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "SCISAT"
+
+[node name="SMAPButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "SMAP"
+
+[node name="MarginContainer" type="MarginContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 2.45
+
+[node name="Label" type="Label" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+custom_minimum_size = Vector2(60, 0)
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 14
+text = "Airsar is used primarily for things to do with really cool things. It can do really cool stuff, and has a lot of cool uses in a lot of geospatial science cases. Here’s some examples if we want to put some examples maybe, and maybe also what kind of data gets exported out from this."
+horizontal_alignment = 1
+vertical_alignment = 1
+autowrap_mode = 2
+
+[node name="Control2" type="Control" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Control" type="HBoxContainer" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.25
+alignment = 1
+
+[node name="TrackButton" type="Button" parent="Ui/VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
+custom_minimum_size = Vector2(153.465, 0)
+layout_mode = 2
+text = "Track"
+
 [node name="BackendService" type="HTTPRequest" parent="."]
-script = ExtResource("3_5mrjc")
-metadata/_custom_type_script = "uid://o7em3a606bwf"
+script = ExtResource("9_kf8lf")
 
 [connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AQUAButton" to="BackendService" method="Path" binds= ["aqua"]]
 [connection signal="button_up" from="Control/PanelContainer/VBoxContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer/AURAButton" to="BackendService" method="Path" binds= ["aura"]]

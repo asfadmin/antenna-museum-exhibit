@@ -32,7 +32,7 @@ func _ready() -> void:
 	var column_data := load_column_data()
 	azimuth_data = column_data["commanded_azimuth"]
 	elevation_data = column_data["commanded_elevation"]
-	print(azimuth_data)
+	# print(azimuth_data)
 	self.completed_course = get_child(0)
 	
 	self.path_2d = get_child(1)

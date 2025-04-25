@@ -19,7 +19,6 @@ const STATUS_ENDPOINT = '/status'
 const SPEED_ENDPOINT = '/speed'
 const RESET_ENDPOINT = '/reset'
 
-
 enum AXIS {
 	ALL,
 	TRAIN,

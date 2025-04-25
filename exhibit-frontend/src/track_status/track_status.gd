@@ -62,11 +62,11 @@ func _draw():
 	draw_line(l2p1, l2p2, green, line_width)
 
 	var font_size = 18
-	draw_string(font, Vector2.ONE * 10, 'SMP', 0, -1, font_size, cyan)
-	draw_string(font, Vector2.ONE * 10 + Vector2.DOWN * font_size, 'Peak EL: %s' % 'PLACEHOLDER', 0, -1, font_size, cyan)
+	# draw_string(font, Vector2.ONE * 10, 'SMP', 0, -1, font_size, cyan)
+	# draw_string(font, Vector2.ONE * 10 + Vector2.DOWN * font_size, 'Peak EL: %s' % 'PLACEHOLDER', 0, -1, font_size, cyan)
 	
-	draw_string(font, (Vector2.DOWN * font_size) + 2.0 * size * Vector2.RIGHT, 'Limit', 0, -1, font_size, red)
-	draw_string(font, (Vector2.DOWN * font_size * 2) + 2.0 * size * Vector2.RIGHT, 'Track', 0, -1, font_size, yellow)
-	draw_string(font, (Vector2.DOWN * font_size * 3) + 2.0 * size * Vector2.RIGHT, 'Autotrack', 0, -1, font_size, green)
+	# draw_string(font, (Vector2.DOWN * font_size) + 2.0 * size * Vector2.RIGHT, 'Limit', 0, -1, font_size, red)
+	# draw_string(font, (Vector2.DOWN * font_size * 2) + 2.0 * size * Vector2.RIGHT, 'Track', 0, -1, font_size, yellow)
+	# draw_string(font, (Vector2.DOWN * font_size * 3) + 2.0 * size * Vector2.RIGHT, 'Autotrack', 0, -1, font_size, green)
 	
-	draw_string(font, (Vector2.UP * font_size) + size * Vector2.ONE, 'Azimuth %s' % 'PLACEHOLDER', 0, -1, font_size, green, HORIZONTAL_ALIGNMENT_RIGHT)
+	# draw_string(font, (Vector2.UP * font_size) + size * Vector2.ONE, 'Azimuth %s' % 'PLACEHOLDER', 0, -1, font_size, green, HORIZONTAL_ALIGNMENT_RIGHT)
