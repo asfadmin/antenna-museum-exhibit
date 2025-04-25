@@ -16,15 +16,16 @@ var ACTUAL_AZIMUTH_COLUMN = "Actual Az."
 var ACTUAL_ELEVATION_COLUMN = "Actual El."
 var COMMANDED_AZIMUTH_COLUMN = "Commanded Az."
 var COMMANDED_ELEVATION_COLUMN = "Commanded El."
+var AUTOTRACK_STATUS = "Autotrack Status"
 
 #var full_points = []
 # Called when the node enters the scene tree for the first time.
 
-func spherical_to_cartesian(lat:float, lon: float) -> Vector2:
-	lat = deg_to_rad(lat)
-	lon = deg_to_rad(lon)
-	var x = viewport.get_parent().size.x * cos(lat) * sin(lon)
-	var y = viewport.get_parent().size.y * cos(lat) * cos(lon)
+func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
+	var azi_radians = deg_to_rad(azimuth - 90)
+	var ele_radians = deg_to_rad(elevation - 90)
+	var x = 250 * cos(azi_radians) * sin(ele_radians)
+	var y = -250 * sin(azi_radians) * sin(ele_radians)
 	#var z = 1.0 * sin(lat)
 	
 	return Vector2(x, y)
@@ -32,6 +33,8 @@ func _ready() -> void:
 	var column_data := load_column_data()
 	azimuth_data = column_data["commanded_azimuth"]
 	elevation_data = column_data["commanded_elevation"]
+	var autotrack_status = column_data["autotrack_status"]
+
 	# print(azimuth_data)
 	self.completed_course = get_child(0)
 	
@@ -41,7 +44,8 @@ func _ready() -> void:
 	
 	var azm_elev = []
 	for idx in range(0, len(azimuth_data)):
-		azm_elev.append(spherical_to_cartesian(azimuth_data[idx], elevation_data[idx]))
+		if autotrack_status[idx] != 0:
+			azm_elev.append(spherical_to_cartesian(azimuth_data[idx], elevation_data[idx]))
 
 	var _final_path = []
 	var viewport_parent = viewport.get_parent()
@@ -50,7 +54,7 @@ func _ready() -> void:
 		#var offset = Vector2(viewport.size.x, viewport.size.y) / 2.0
 		#print(viewport.size.x)
 		#print(offset)
-		_final_path.append(point + offset)
+		_final_path.append(point + offset  + Vector2.DOWN * 50)
 	
 	self.points = _final_path
 	#self.path_2d.curve.get_closest_point()
@@ -118,6 +122,7 @@ func load_column_data() -> Dictionary:
 		"actual_elevation": get_csv_column_data(csv["headers"][ACTUAL_ELEVATION_COLUMN], csv["content"]),
 		"commanded_azimuth": get_csv_column_data(csv["headers"][COMMANDED_AZIMUTH_COLUMN], csv["content"]),
 		"commanded_elevation": get_csv_column_data(csv["headers"][COMMANDED_ELEVATION_COLUMN], csv["content"]),
+		"autotrack_status": get_csv_column_data(csv["headers"][AUTOTRACK_STATUS], csv["content"]),
 	}
 
 	# The csv data is heavy

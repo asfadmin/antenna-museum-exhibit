@@ -3,6 +3,9 @@ extends Control
 
 @export var font: Font
 @export var line_width: float = 1.0
+var min_radius: float = 1024
+var max_radius: float = 1024
+var origin = Vector2.ZERO;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	queue_redraw()
@@ -10,6 +13,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _init() -> void:
+	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
 	queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,10 +30,10 @@ func _draw():
 
 	var size = self.size.x
 	#var border_scale_factor = 2.5
-	var origin = self.get_rect().get_center() + Vector2.DOWN * 20
+	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
 	#var origin = Vector2.ONE * size * (border_scale_factor / 2.0)
-	var min_radius = (size / 12) * .8
-	var max_radius = (size / 2) * .8
+	self.min_radius = (size / 12) * .8
+	self.max_radius = (size / 2) * .8
 	
 	#draw_rect(Rect2(0.0, 0.0, size * border_scale_factor, size * border_scale_factor), Color.BLACK)
 	# cyan circles
