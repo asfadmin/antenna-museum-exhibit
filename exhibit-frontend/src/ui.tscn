@@ -1,4 +1,4 @@
-[gd_scene load_steps=23 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=24 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -6,6 +6,7 @@
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="4_4dnhj"]
 [ext_resource type="StyleBox" uid="uid://dlb4t6pt5gsag" path="res://src/theme_components/background_panel.tres" id="4_gkxjx"]
 [ext_resource type="PackedScene" uid="uid://pyqxiujpu271" path="res://src/track_status/track_status.tscn" id="5_irs2y"]
+[ext_resource type="Script" uid="uid://5xtucs376evk" path="res://src/ui_components/status_menu.gd" id="7_ryeci"]
 [ext_resource type="Script" uid="uid://ubq7ph0pay6t" path="res://src/ui_components/dataset_button.gd" id="7_ya46p"]
 [ext_resource type="Script" uid="uid://cjtowq518rbsq" path="res://src/ui_components/dataset_resource.gd" id="8_75kda"]
 [ext_resource type="Script" uid="uid://cu51q3rrse2ww" path="res://src/ui_components/function_button.gd" id="9_75kda"]
@@ -55,43 +56,43 @@ shadow_offset = Vector2(0, 0)
 [sub_resource type="Resource" id="Resource_ya46p"]
 script = ExtResource("8_75kda")
 dataset_id = "AQUA"
-description = "AIRSAR is used for something."
+description = "AQUA is used to collect information about everything from clouds to soil moisture to sea ice."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_skx36"]
 script = ExtResource("8_75kda")
 dataset_id = "AURA"
-description = "AURA does something."
+description = "AURA is used to detect signatures of trace gases in the atmosphere, including pollutants such as ozone, carbon monoxide, and aerosols.  Measurements made by Aura's four instruments help scientists answer questions about ozone trends, air quality changes, and how these fluctuations contribute to climate change."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_ryeci"]
 script = ExtResource("8_75kda")
 dataset_id = "IC2"
-description = "IC2 does something."
+description = "ICESAT-2 carries a photon-counting laser altimeter that allows scientists to measure the elevation of ice sheets, glaciers, sea ice, and more in unprecedented detail"
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_g1sg1"]
 script = ExtResource("8_75kda")
 dataset_id = "ICESAT"
-description = "ICESAT does something."
+description = "ICESAT measures ice-sheet mass balance as well as cloud and aerosol heights. ICESat revealed cloud properties, including stratospheric clouds over polar regions, as well as surface topography and vegetation data from around the globe.."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_34em3"]
 script = ExtResource("8_75kda")
 dataset_id = "OCO2"
-description = "OCO2 does something."
+description = "OCO2 acquires space-based global measurements of atmospheric carbon dioxide (CO2) with the precision, resolution, and coverage needed to characterize its sources and sinks (fluxes) on regional scales (≥1000km)."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_243qu"]
 script = ExtResource("8_75kda")
 dataset_id = "SCISAT"
-description = "SCISAT does something."
+description = "SCISAT measures the chemical and dynamic processes that control the distribution of ozone in the stratosphere, especially at high latitudes."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_ie5qo"]
 script = ExtResource("8_75kda")
 dataset_id = "SMAP"
-description = "SMAP does something."
+description = "SMAP measures surface soil conditions everywhere on Earth every two to three days, distinguishing between ground that is frozen or thawed. In ground that is not frozen or covered in water, SMAP measures how much water is in the top layer of soil. "
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [node name="Ui" type="Control"]
@@ -448,10 +449,11 @@ custom_minimum_size = Vector2(348.85, 66.08)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2"]
+[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2"]
 layout_mode = 2
+script = ExtResource("7_ryeci")
 
-[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 15
@@ -459,16 +461,16 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "Currently:
 Tracking NISAR"
 
-[node name="VSeparator" type="VSeparator" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="VSeparator" type="VSeparator" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
 
-[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer"]
+[node name="MarginContainer2" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/margin_left = 10
@@ -476,19 +478,19 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2"]
 layout_mode = 2
 alignment = 1
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Positions"
 
-[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Track: 52.32"
 
-[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Azimuth: 52.32"
 
@@ -640,7 +642,7 @@ alignment = 1
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
-text = "AIRSAR"
+text = "AQUA"
 script = ExtResource("7_ya46p")
 dataset = SubResource("Resource_ya46p")
 default = true
@@ -677,7 +679,7 @@ text = "OCO2"
 script = ExtResource("7_ya46p")
 dataset = SubResource("Resource_34em3")
 
-[node name="SCIS0ATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
+[node name="SCISATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
