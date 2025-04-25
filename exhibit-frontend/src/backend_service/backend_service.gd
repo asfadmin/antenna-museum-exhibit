@@ -29,9 +29,10 @@ enum AXIS {
 enum INTERACTION {
 	STOP,
 	SPEED_UP,
-	TRACK
+	TRACK,
+	STOWED,
+	REHOME
 }
-
 
 var current_dataset: Dataset
 
@@ -62,14 +63,18 @@ func Home():
 	## POSTs axis to zero-out to /home endpoint
 	#var body = {'axis': AXIS.keys()[axis]}
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST)
+	AntennaState.set_current_action(AntennaState.ACTION.REHOME)
 
 func Path(satellite: String, path: Array[Dictionary] = []):
 	## POSTs which pre-defined path for the antenna to follow at the /path endpoint
 	var body = {'satellite': satellite}
 	#if satellite == SATELLITES.CUSTOM:
 		#body['path'] = path
-	
+
 	self._make_request(self.PATH_ENDPOINT, HTTPClient.METHOD_POST, body)
+	AntennaState.set_tracked_dataset(current_dataset)
+	AntennaState.set_current_action(INTERACTION.TRACK)
+
 
 func Status():
 	## GETs the backend's status from the /status endpoint
@@ -79,8 +84,10 @@ func Speed():
 	## POSTs the backend to set the speed endpoint
 	self._make_request(self.SPEED_ENDPOINT)
 
+
 func Stop():
 	self._make_request(self.RESET_ENDPOINT, HTTPClient.METHOD_POST)
+	AntennaState.set_current_action(INTERACTION.STOP)
 
 func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METHOD_GET, body: Dictionary = {}):
 	## backend query code for helper methods

@@ -1,19 +1,15 @@
-[gd_scene load_steps=24 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=23 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
 [ext_resource type="Script" uid="uid://bo7bolnuump38" path="res://addons/icons-fonts/resources/FontIconSetting.gd" id="3_irs2y"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="4_4dnhj"]
-[ext_resource type="StyleBox" uid="uid://dlb4t6pt5gsag" path="res://src/theme_components/background_panel.tres" id="4_gkxjx"]
 [ext_resource type="PackedScene" uid="uid://pyqxiujpu271" path="res://src/track_status/track_status.tscn" id="5_irs2y"]
 [ext_resource type="Script" uid="uid://5xtucs376evk" path="res://src/ui_components/status_menu.gd" id="7_ryeci"]
 [ext_resource type="Script" uid="uid://ubq7ph0pay6t" path="res://src/ui_components/dataset_button.gd" id="7_ya46p"]
 [ext_resource type="Script" uid="uid://cjtowq518rbsq" path="res://src/ui_components/dataset_resource.gd" id="8_75kda"]
 [ext_resource type="Script" uid="uid://cu51q3rrse2ww" path="res://src/ui_components/function_button.gd" id="9_75kda"]
 [ext_resource type="Script" uid="uid://dhu0sfrejkdvk" path="res://src/ui_components/dataset_description.gd" id="10_skx36"]
-
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
-bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
 [sub_resource type="LabelSettings" id="LabelSettings_gkxjx"]
 font = ExtResource("1_02y5j")
@@ -52,6 +48,9 @@ outline_size = 0
 shadow_color = Color(1, 1, 1, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
+bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
 [sub_resource type="Resource" id="Resource_ya46p"]
 script = ExtResource("8_75kda")
@@ -104,332 +103,6 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="HBoxContainer" type="HBoxContainer" parent="."]
-visible = false
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-theme_override_constants/separation = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("4_gkxjx")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/PanelContainer"]
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
-custom_minimum_size = Vector2(400, 400)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/PanelContainer2"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="AspectRatioContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/PanelContainer2/MarginContainer" instance=ExtResource("5_irs2y")]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 85
-theme_override_constants/margin_right = 18
-theme_override_constants/margin_bottom = 0
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(431.485, 405.905)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.2
-
-[node name="Control" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 0.4
-theme_override_styles/panel = SubResource("StyleBoxFlat_gkxjx")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="HFlowContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer"]
-custom_minimum_size = Vector2(307.075, 0)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_stretch_ratio = 0.3
-alignment = 1
-
-[node name="AQUAButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "AIRSAR"
-
-[node name="AURAButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "AURA"
-
-[node name="IC2Button" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "IC2"
-
-[node name="ICESATButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "ICESAT"
-
-[node name="OCO2Button" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "OCO2"
-
-[node name="SCIS0ATButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "SCISAT"
-
-[node name="SMAPButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "SMAP"
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_vertical = 3
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-size_flags_stretch_ratio = 2.45
-
-[node name="Label" type="Label" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(60, 0)
-layout_mode = 2
-size_flags_vertical = 3
-theme_override_font_sizes/font_size = 14
-text = "Airsar is used primarily for things to do with really cool things. It can do really cool stuff, and has a lot of cool uses in a lot of geospatial science cases. Here’s some examples if we want to put some examples maybe, and maybe also what kind of data gets exported out from this."
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
-[node name="Control2" type="Control" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-
-[node name="Control" type="HBoxContainer" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
-layout_mode = 2
-size_flags_vertical = 3
-size_flags_stretch_ratio = 0.25
-alignment = 1
-
-[node name="TrackButton" type="Button" parent="HBoxContainer/PanelContainer/VBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
-custom_minimum_size = Vector2(153.465, 0)
-layout_mode = 2
-text = "Track"
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-alignment = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/VBoxContainer"]
-custom_minimum_size = Vector2(0, 250)
-layout_mode = 2
-theme_override_styles/panel = ExtResource("4_gkxjx")
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer"]
-layout_mode = 2
-alignment = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer"]
-layout_mode = 2
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_right = 75
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2"]
-layout_mode = 2
-theme_override_constants/separation = 0
-
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(348.85, 66.08)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2"]
-layout_mode = 2
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 15
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-text = "Currently:
-Tracking NISAR"
-
-[node name="VSeparator" type="VSeparator" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
-layout_mode = 2
-
-[node name="MarginContainer2" type="MarginContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer"]
-layout_mode = 2
-size_flags_horizontal = 3
-theme_override_constants/margin_left = 10
-theme_override_constants/margin_top = 5
-theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
-
-[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2"]
-layout_mode = 2
-alignment = 1
-
-[node name="Label" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Positions"
-
-[node name="Label3" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Track: 52.32"
-
-[node name="Label2" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer2/HBoxContainer/MarginContainer2/VBoxContainer"]
-layout_mode = 2
-text = "Azimuth: 52.32"
-
-[node name="PanelContainer3" type="PanelContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer"]
-custom_minimum_size = Vector2(359.62, 60)
-layout_mode = 2
-size_flags_horizontal = 4
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3"]
-layout_mode = 2
-theme_override_constants/margin_left = 5
-theme_override_constants/margin_right = 5
-
-[node name="HBoxContainer" type="HBoxContainer" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer"]
-layout_mode = 2
-
-[node name="Button" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="FontIcon" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "󰛒"
-label_settings = SubResource("LabelSettings_gkxjx")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("2_4dnhj")
-icon_settings = SubResource("Resource_fs5cc")
-metadata/_custom_type_script = "uid://sfoyl3fbn8so"
-
-[node name="ProgressBar" type="ProgressBar" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(350, 1.255)
-layout_mode = 2
-size_flags_vertical = 4
-
-[node name="Button2" type="Button" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
-custom_minimum_size = Vector2(40, 40)
-layout_mode = 2
-size_flags_horizontal = 4
-size_flags_vertical = 4
-
-[node name="FontIcon" type="Label" parent="HBoxContainer/VBoxContainer/PanelContainer/VBoxContainer/MarginContainer2/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button2"]
-layout_mode = 1
-anchors_preset = 15
-anchor_right = 1.0
-anchor_bottom = 1.0
-grow_horizontal = 2
-grow_vertical = 2
-text = "󰓛"
-label_settings = SubResource("LabelSettings_ya46p")
-horizontal_alignment = 1
-vertical_alignment = 1
-script = ExtResource("2_4dnhj")
-icon_settings = SubResource("Resource_75kda")
-metadata/_custom_type_script = "uid://sfoyl3fbn8so"
-
-[node name="PanelContainer2" type="PanelContainer" parent="HBoxContainer"]
-layout_mode = 2
-theme_override_styles/panel = ExtResource("4_gkxjx")
-
-[node name="MarginContainer" type="MarginContainer" parent="HBoxContainer/PanelContainer2"]
-layout_mode = 2
-theme_override_constants/margin_top = 85
-
-[node name="VBoxContainer2" type="VBoxContainer" parent="HBoxContainer/PanelContainer2/MarginContainer"]
-layout_mode = 2
-
-[node name="PanelContainer" type="PanelContainer" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(507.38, 300)
-layout_mode = 2
-
-[node name="PlotControl" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2/PanelContainer" instance=ExtResource("4_4dnhj")]
-layout_mode = 2
-
-[node name="Control" type="Control" parent="HBoxContainer/PanelContainer2/MarginContainer/VBoxContainer2"]
-custom_minimum_size = Vector2(0, 49.53)
-layout_mode = 2
-
 [node name="VBoxContainer" type="VBoxContainer" parent="."]
 layout_mode = 1
 anchors_preset = 15
@@ -449,9 +122,12 @@ custom_minimum_size = Vector2(348.85, 66.08)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2"]
+[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2" node_paths=PackedStringArray("current_label", "track_label", "azimuth_label")]
 layout_mode = 2
 script = ExtResource("7_ryeci")
+current_label = NodePath("MarginContainer/VBoxContainer/Label")
+track_label = NodePath("MarginContainer2/VBoxContainer/Label3")
+azimuth_label = NodePath("MarginContainer2/VBoxContainer/Label2")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
@@ -461,11 +137,18 @@ theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 5
 
-[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer"]
+layout_mode = 2
+
+[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "Currently:
-Tracking NISAR"
+text = "Currently:"
+
+[node name="Label" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Stowed"
 
 [node name="VSeparator" type="VSeparator" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
@@ -558,7 +241,6 @@ icon_settings = SubResource("Resource_75kda")
 metadata/_custom_type_script = "uid://sfoyl3fbn8so"
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer"]
-custom_minimum_size = Vector2(0, 246.54)
 layout_mode = 2
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer"]
@@ -593,13 +275,8 @@ layout_mode = 2
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_constants/margin_left = 0
-theme_override_constants/margin_top = 0
-theme_override_constants/margin_right = 0
-theme_override_constants/margin_bottom = 0
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer"]
-custom_minimum_size = Vector2(431.485, 405.905)
 layout_mode = 2
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer"]
