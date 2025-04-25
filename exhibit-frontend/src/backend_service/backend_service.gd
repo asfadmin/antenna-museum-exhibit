@@ -26,16 +26,33 @@ enum AXIS {
 	ELEVATION
 }
 
-#enum SATELLITES {
-	#SMAP,
-	#AURA,
-	#AQUA,
-	#SCISAT,
-	#OCO2,
-	#ICESAT,
-	#IC2,
-	#CUSTOM
-#}
+enum INTERACTION {
+	STOP,
+	SPEED_UP,
+	TRACK
+}
+
+
+var current_dataset: Dataset
+
+func _ready() -> void:
+	Events.dataset_selected.connect(_update_dataset)
+	Events.functional_button_pressed.connect(_on_functional_button_pressed)
+
+	var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
+	Events.emit_dataset_selected(first_dataset)
+
+func _update_dataset(dataset: Dataset):
+	current_dataset = dataset
+
+func _on_functional_button_pressed(type: INTERACTION):
+	if type == INTERACTION.STOP:
+		Stop()
+	elif type == INTERACTION.SPEED_UP:
+		Speed()
+	elif type == INTERACTION.TRACK && current_dataset:
+		Path(current_dataset.dataset_id)
+
 
 func Custom(data: Dictionary):
 	## POSTs values for train, azimuth, and elevation to /custom endpoint

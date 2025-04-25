@@ -20,6 +20,7 @@ addons/icon_finder/preview_size=24
 
 AntennaState="*res://src/singletons/antenna_state.gd"
 IconsFonts="*res://addons/icons-fonts/icons_fonts/IconsFonts.gd"
+Events="*res://src/singletons/events.gd"
 
 [display]
 

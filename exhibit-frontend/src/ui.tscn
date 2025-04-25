@@ -1,4 +1,4 @@
-[gd_scene load_steps=12 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=23 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -6,6 +6,10 @@
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="4_4dnhj"]
 [ext_resource type="StyleBox" uid="uid://dlb4t6pt5gsag" path="res://src/theme_components/background_panel.tres" id="4_gkxjx"]
 [ext_resource type="PackedScene" uid="uid://pyqxiujpu271" path="res://src/track_status/track_status.tscn" id="5_irs2y"]
+[ext_resource type="Script" uid="uid://ubq7ph0pay6t" path="res://src/ui_components/dataset_button.gd" id="7_ya46p"]
+[ext_resource type="Script" uid="uid://cjtowq518rbsq" path="res://src/ui_components/dataset_resource.gd" id="8_75kda"]
+[ext_resource type="Script" uid="uid://cu51q3rrse2ww" path="res://src/ui_components/function_button.gd" id="9_75kda"]
+[ext_resource type="Script" uid="uid://dhu0sfrejkdvk" path="res://src/ui_components/dataset_description.gd" id="10_skx36"]
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
@@ -47,6 +51,48 @@ outline_size = 0
 shadow_color = Color(1, 1, 1, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
+
+[sub_resource type="Resource" id="Resource_ya46p"]
+script = ExtResource("8_75kda")
+dataset_id = "AQUA"
+description = "AIRSAR is used for something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_skx36"]
+script = ExtResource("8_75kda")
+dataset_id = "AURA"
+description = "AURA does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_ryeci"]
+script = ExtResource("8_75kda")
+dataset_id = "IC2"
+description = "IC2 does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_g1sg1"]
+script = ExtResource("8_75kda")
+dataset_id = "ICESAT"
+description = "ICESAT does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_34em3"]
+script = ExtResource("8_75kda")
+dataset_id = "OCO2"
+description = "OCO2 does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_243qu"]
+script = ExtResource("8_75kda")
+dataset_id = "SCISAT"
+description = "SCISAT does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_ie5qo"]
+script = ExtResource("8_75kda")
+dataset_id = "SMAP"
+description = "SMAP does something."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [node name="Ui" type="Control"]
 layout_mode = 3
@@ -464,6 +510,8 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("9_75kda")
+type = 1
 
 [node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button"]
 layout_mode = 1
@@ -490,6 +538,7 @@ custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+script = ExtResource("9_75kda")
 
 [node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button2"]
 layout_mode = 1
@@ -587,47 +636,62 @@ size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.3
 alignment = 1
 
-[node name="AQUAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AQUAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "AIRSAR"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_ya46p")
+default = true
 
-[node name="AURAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="AURAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "AURA"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_skx36")
 
-[node name="IC2Button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="IC2Button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "IC2"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_ryeci")
 
-[node name="ICESATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="ICESATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "ICESAT"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_g1sg1")
 
-[node name="OCO2Button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="OCO2Button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "OCO2"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_34em3")
 
-[node name="SCIS0ATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SCIS0ATButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "SCISAT"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_243qu")
 
-[node name="SMAPButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="SMAPButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
 size_flags_vertical = 3
 text = "SMAP"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_ie5qo")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control"]
 layout_mode = 2
@@ -652,6 +716,7 @@ text = "Airsar is used primarily for things to do with really cool things. It ca
 horizontal_alignment = 1
 vertical_alignment = 1
 autowrap_mode = 2
+script = ExtResource("10_skx36")
 
 [node name="Control2" type="Control" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2"]
 layout_mode = 2
@@ -667,3 +732,5 @@ alignment = 1
 custom_minimum_size = Vector2(153.465, 0)
 layout_mode = 2
 text = "Track"
+script = ExtResource("9_75kda")
+type = 2
