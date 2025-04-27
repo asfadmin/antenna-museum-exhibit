@@ -53,16 +53,16 @@ shadow_offset = Vector2(0, 0)
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
 bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
 
-[sub_resource type="Resource" id="Resource_ya46p"]
-script = ExtResource("8_75kda")
-dataset_id = "AQUA"
-description = "AQUA is used to collect information about everything from clouds to soil moisture to sea ice."
-metadata/_custom_type_script = "uid://cjtowq518rbsq"
-
 [sub_resource type="Resource" id="Resource_skx36"]
 script = ExtResource("8_75kda")
 dataset_id = "AURA"
 description = "AURA is used to detect signatures of trace gases in the atmosphere, including pollutants such as ozone, carbon monoxide, and aerosols.  Measurements made by Aura's four instruments help scientists answer questions about ozone trends, air quality changes, and how these fluctuations contribute to climate change."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[sub_resource type="Resource" id="Resource_ya46p"]
+script = ExtResource("8_75kda")
+dataset_id = "AQUA"
+description = "AQUA is used to collect information about everything from clouds to soil moisture to sea ice."
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="Resource" id="Resource_ryeci"]
@@ -391,6 +391,14 @@ size_flags_horizontal = 4
 size_flags_stretch_ratio = 0.3
 alignment = 1
 
+[node name="AURAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
+custom_minimum_size = Vector2(72.1, 10.575)
+layout_mode = 2
+size_flags_vertical = 3
+text = "AURA"
+script = ExtResource("7_ya46p")
+dataset = SubResource("Resource_skx36")
+
 [node name="AQUAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
 layout_mode = 2
@@ -399,14 +407,6 @@ text = "AQUA"
 script = ExtResource("7_ya46p")
 dataset = SubResource("Resource_ya46p")
 default = true
-
-[node name="AURAButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
-custom_minimum_size = Vector2(72.1, 10.575)
-layout_mode = 2
-size_flags_vertical = 3
-text = "AURA"
-script = ExtResource("7_ya46p")
-dataset = SubResource("Resource_skx36")
 
 [node name="IC2Button" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" groups=["Dataset Button"]]
 custom_minimum_size = Vector2(72.1, 10.575)
@@ -489,6 +489,6 @@ layout_mode = 2
 text = "Track"
 script = ExtResource("9_75kda")
 type = 2
-debounce_time = 1
+debounce_time = 5
 default_text = "Track"
 disabled_text = "Waiting"
