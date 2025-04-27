@@ -30,6 +30,7 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.148
 
 [node name="1 - Base" parent="1_-_Base" index="0"]
 material_override = ExtResource("2_7pgxy")
+lod_bias = 26.505
 
 [node name="2_-_Base_2" parent="." instance=ExtResource("4_6hgws")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.760994, 14.9275, -2.17999)
