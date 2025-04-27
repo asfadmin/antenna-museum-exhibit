@@ -85,7 +85,7 @@ func get_max(data: Array) -> float:
 	
 func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array):
 	# Initialize the three lines to plot 
-	print("Initializing graph")
+	# print("Initializing graph")
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
@@ -98,13 +98,13 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
 	var xband_length: float = xband_range.max() - xband_range.min()
 
-	print("lhc range:   [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
-	print("rhc range:   [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
-	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
+	# print("lhc range:   [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
+	# print("rhc range:   [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
+	# print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
 
-	print("total distance: %s" % (xband_length + lhc_length + rhc_length))
+	# print("total distance: %s" % (xband_length + lhc_length + rhc_length))
 	max_range = get_max([xband_length, lhc_length, rhc_length])
-	print("max range: %s" % max_range)
+	# print("max range: %s" % max_range)
 	
 	var y_min: float = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
 	graph_node.y_min = y_min
@@ -118,11 +118,11 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	var y_step: float = y_distance / 6
 	graph_node.y_step = y_step
 	
-	print("y-distance (according to graph 2d): %s" % (graph_node.y_max - graph_node.y_min))
-	print("y-distance (according to the actual line values): %s" % (y_max - y_min))
-	print("y-step:     %s" % graph_node.y_step)
-	print("y-max:      %s" % y_max)
-	print("y-min:      %s" % y_min)
+	# print("y-distance (according to graph 2d): %s" % (graph_node.y_max - graph_node.y_min))
+	# print("y-distance (according to the actual line values): %s" % (y_max - y_min))
+	# print("y-step:     %s" % graph_node.y_step)
+	# print("y-max:      %s" % y_max)
+	# print("y-min:      %s" % y_min)
 	
 	upper_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1
 	lower_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1

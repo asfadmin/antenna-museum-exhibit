@@ -179,14 +179,15 @@ snap_2d_vertices_to_pixel = true
 size = Vector2i(1024, 1024)
 render_target_update_mode = 4
 
-[node name="ProjectedCourse" type="Line2D" parent="SubViewport"]
+[node name="ProjectedCourse" type="Line2D" parent="SubViewport" node_paths=PackedStringArray("completed_course", "path_2d", "sat_position", "bounding_box")]
 width = 5.0
 default_color = Color(0.783531, 0.329321, 0.349288, 1)
 texture_mode = 2
 script = ExtResource("3_ibwx6")
-
-[node name="CompletedCourse" type="Line2D" parent="SubViewport/ProjectedCourse"]
-default_color = Color(1, 0.149469, 0.350274, 1)
+completed_course = NodePath("CompletedCourse")
+path_2d = NodePath("Path2D")
+sat_position = NodePath("sat_pos")
+bounding_box = NodePath("../..")
 
 [node name="Path2D" type="Path2D" parent="SubViewport/ProjectedCourse"]
 unique_name_in_owner = true
@@ -196,6 +197,9 @@ curve = ExtResource("4_h18ib")
 position = Vector2(800, 200)
 rotation = 1.8909
 loop = false
+
+[node name="CompletedCourse" type="Line2D" parent="SubViewport/ProjectedCourse"]
+default_color = Color(1, 0.149469, 0.350274, 1)
 
 [node name="sat_pos" type="ColorRect" parent="SubViewport/ProjectedCourse"]
 offset_right = 10.0
