@@ -15,7 +15,7 @@ var expected_time: float = 5.0
 var cursor_pos: Vector2 = Vector2.ZERO
 @onready var viewport: SubViewport = get_parent() as SubViewport
 
-
+var timer: Timer
 
 
 func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
@@ -30,12 +30,21 @@ func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
 func _ready() -> void:
 	DataManager.data_loaded.connect(load_data)
 	sat_position.visible = false
+	timer = Timer.new()
+	timer.autostart = false
+	add_child(timer)
+	timer.timeout.connect(_on_timer_timeout)
+
 
 func load_data(data):
 	if data == null:
+		current_idx = 0
+		points = []
+		completed_course.points = []
+		sat_position.visible = false
+		timer.stop()
 		return
 	var column_data = data
-	sat_position.visible = true
 
 	azimuth_data = column_data["commanded_azimuth"]
 	elevation_data = column_data["commanded_elevation"]
@@ -54,7 +63,9 @@ func load_data(data):
 
 	self.points = _final_path
 
-	get_tree().create_timer(1.0).timeout.connect(_active_timer, CONNECT_ONE_SHOT)
+	sat_position.position = self.points[self.current_idx]
+	sat_position.visible = true
+	timer.start(1)
 
 
 
@@ -64,6 +75,8 @@ func _draw() -> void:
 	if self.current_idx < self.points.size():
 		draw_circle(self.points[self.current_idx], 15, Color.MAGENTA, false, 3)
 
+func _on_timer_timeout():
+	_active_timer()
 
 func _active_timer():
 	self.completed_course.add_point(self.points[self.current_idx])
@@ -71,7 +84,8 @@ func _active_timer():
 	self.queue_redraw()
 	if self.points.size() != self.current_idx:
 		self.sat_position.position = self.points[self.current_idx]
-		get_tree().create_timer(0.1).timeout.connect(_active_timer, CONNECT_ONE_SHOT)
+		timer.start(0.05)
 	else:
 		self.sat_position.visible = false
+		timer.stop()
 

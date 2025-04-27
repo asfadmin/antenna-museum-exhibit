@@ -14,13 +14,12 @@ func _ready() -> void:
     AntennaState.current_action_changed.connect(_on_action_changed)
 
 
-
 func _on_action_changed(action: BackendService.INTERACTION):
     if action == BackendService.INTERACTION.TRACK:
         load_data('AQUA')
         pass # load data
-    elif action == BackendService.INTERACTION.REHOME:
-        pass # clear data
+    elif action == BackendService.INTERACTION.REHOME or action == BackendService.INTERACTION.STOP:
+        clear_data()
 
 func load_data(dataset_id):
     load_column_data(filenames[dataset_id])
@@ -30,7 +29,7 @@ func get_data():
     pass
 
 func clear_data():
-    loaded_data = {}
+    loaded_data = null
     data_loaded.emit(loaded_data)
 
 var ACTUAL_AZIMUTH_COLUMN = "Actual Az."
