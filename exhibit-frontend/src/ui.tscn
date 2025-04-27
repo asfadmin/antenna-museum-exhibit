@@ -489,3 +489,6 @@ layout_mode = 2
 text = "Track"
 script = ExtResource("9_75kda")
 type = 2
+debounce_time = 1
+default_text = "Track"
+disabled_text = "Waiting"
