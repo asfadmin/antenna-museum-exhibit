@@ -3,7 +3,7 @@
 [ext_resource type="Script" uid="uid://bfcnds1ejksb5" path="res://addons/graph_2d/graph_2d.gd" id="1_02d54"]
 [ext_resource type="Script" uid="uid://niep8d0ell4x" path="res://src/plot_control/plot_control.gd" id="1_2ljep"]
 
-[node name="PlotControl" type="MarginContainer" node_paths=PackedStringArray("graph_node")]
+[node name="PlotControl" type="MarginContainer" node_paths=PackedStringArray("graph_node", "current_1", "current_2", "current_3", "upper_bound_1", "lower_bound_1", "upper_bound_2", "lower_bound_2", "upper_bound_3", "lower_bound_3", "timer")]
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
@@ -15,6 +15,16 @@ theme_override_constants/margin_right = 20
 theme_override_constants/margin_bottom = 20
 script = ExtResource("1_2ljep")
 graph_node = NodePath("HBoxContainer/Graph")
+current_1 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/Current1")
+current_2 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/Current2")
+current_3 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/Current3")
+upper_bound_1 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1")
+lower_bound_1 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1")
+upper_bound_2 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/UpperBound2")
+lower_bound_2 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/LowerBound2")
+upper_bound_3 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/UpperBound3")
+lower_bound_3 = NodePath("HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/LowerBound3")
+timer = NodePath("Timer")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="."]
 layout_mode = 2
@@ -135,6 +145,3 @@ grid_vertical_color = Color(0.364706, 1, 1, 1)
 
 [node name="Timer" type="Timer" parent="."]
 wait_time = 0.019
-autostart = true
-
-[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

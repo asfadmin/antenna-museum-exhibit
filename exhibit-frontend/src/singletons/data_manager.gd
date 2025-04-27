@@ -26,7 +26,7 @@ func load_data(dataset_id):
     data_loaded.emit(loaded_data)
 
 func get_data():
-    pass
+    return loaded_data
 
 func clear_data():
     loaded_data = null
@@ -37,7 +37,9 @@ var ACTUAL_ELEVATION_COLUMN = "Actual El."
 var COMMANDED_AZIMUTH_COLUMN = "Commanded Az."
 var COMMANDED_ELEVATION_COLUMN = "Commanded El."
 var AUTOTRACK_STATUS = "Autotrack Status"
-
+const XBAND_COLUMN_NAME := "Antenna Control Unit X-Band Strength (dB)"
+const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
+const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
 
 func get_csv(filename: String) -> Dictionary:
     var file: FileAccess = FileAccess.open("res://%s" % filename, FileAccess.READ)
@@ -74,6 +76,9 @@ func load_column_data(filename) -> Dictionary:
 		"commanded_azimuth": get_csv_column_data(csv["headers"][COMMANDED_AZIMUTH_COLUMN], csv["content"]),
 		"commanded_elevation": get_csv_column_data(csv["headers"][COMMANDED_ELEVATION_COLUMN], csv["content"]),
 		"autotrack_status": get_csv_column_data(csv["headers"][AUTOTRACK_STATUS], csv["content"]),
+		"lhc_column_data": get_csv_column_data(csv["headers"][LHC_COLUMN_NAME], csv["content"]),
+		"rhc_column_data": get_csv_column_data(csv["headers"][RHC_COLUMN_NAME], csv["content"]),
+		"xband_column_data": get_csv_column_data(csv["headers"][XBAND_COLUMN_NAME], csv["content"]),
 	}
 
 	# The csv data is heavy
