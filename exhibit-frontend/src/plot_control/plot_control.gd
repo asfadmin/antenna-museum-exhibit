@@ -162,6 +162,8 @@ func reset_graph():
 
 
 func redraw(line: Array[Variant], plot: PlotItem, _offset):
+	if plot == null:
+		return
 	plot.remove_all()
 	for point in line:
 		plot.add_point(point)

@@ -1,4 +1,4 @@
-[gd_scene load_steps=24 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=25 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -11,6 +11,7 @@
 [ext_resource type="Script" uid="uid://cjtowq518rbsq" path="res://src/ui_components/dataset_resource.gd" id="8_75kda"]
 [ext_resource type="Script" uid="uid://cu51q3rrse2ww" path="res://src/ui_components/function_button.gd" id="9_75kda"]
 [ext_resource type="Script" uid="uid://dhu0sfrejkdvk" path="res://src/ui_components/dataset_description.gd" id="10_skx36"]
+[ext_resource type="Script" uid="uid://c8dkcfgs564h6" path="res://src/ui_components/track_button.gd" id="12_g1sg1"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gkxjx"]
 font = ExtResource("1_02y5j")
@@ -487,8 +488,5 @@ alignment = 1
 custom_minimum_size = Vector2(153.465, 0)
 layout_mode = 2
 text = "Track"
-script = ExtResource("9_75kda")
+script = ExtResource("12_g1sg1")
 type = 2
-debounce_time = 5
-default_text = "Track"
-disabled_text = "Waiting"
