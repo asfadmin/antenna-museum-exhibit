@@ -21,7 +21,7 @@ shader_type spatial;
 // And You can set what textures are used by roads
 // The Normal Map helps the lighting. You can make a normal map from your height map with NormalMapOnline for free!
 // Really REALLY big Images affect performance, as you might expect.
-// This doesn't handle LOD or stitching LODs for you, sorry. 
+// This doesn't handle LOD or stitching LODs for you, sorry.
 
 
 
@@ -105,5 +105,3 @@ void fragment() {
     ALBEDO = final_albedo;
     NORMAL_MAP = texture(normalmap, texture_position).rgb;
 }
-
-

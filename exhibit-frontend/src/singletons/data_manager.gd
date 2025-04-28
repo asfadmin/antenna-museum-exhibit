@@ -20,6 +20,7 @@ func _on_action_changed(action: BackendService.INTERACTION):
         pass # load data
     elif action == BackendService.INTERACTION.REHOME or action == BackendService.INTERACTION.STOP:
         clear_data()
+        AntennaState.set_tracked_dataset(null)
 
 func load_data(dataset_id):
     load_column_data(filenames[dataset_id])
