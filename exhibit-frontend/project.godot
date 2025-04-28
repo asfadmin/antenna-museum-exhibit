@@ -32,7 +32,7 @@ window/stretch/mode="viewport"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg", "res://addons/icons-fonts/plugin.cfg", "res://addons/orbit_camera/plugin.cfg", "res://addons/rakugo-nodes/plugin.cfg", "res://addons/terrain_3d/plugin.cfg")
+enabled=PackedStringArray("res://addons/graph_2d/plugin.cfg", "res://addons/icons-fonts/plugin.cfg", "res://addons/orbit_camera/plugin.cfg", "res://addons/rakugo-nodes/plugin.cfg")
 
 [gui]
 
