@@ -1,8 +1,8 @@
 extends MarginContainer
-
 @export var graph_node: Graph2D
 
 
+var is_paused: bool = true
 var x_max: int = 0
 var x_min: int = -360
 var x: int = x_max
@@ -24,6 +24,10 @@ var xband_line: Array[Variant] = []
 var lhc_column_data := []
 var rhc_column_data := []
 var xband_column_data := []
+
+var flat_lhc_line: Array
+var flat_rhc_line: Array
+var flat_xband_line: Array
 
 
 const RANGES: Dictionary = {
@@ -83,8 +87,12 @@ func get_max(data: Array) -> float:
 			m = d
 
 	return m
-	
-	
+
+
+func pause():
+	is_paused = true
+
+
 func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array):
 	# Initialize the three lines to plot 
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
@@ -126,6 +134,7 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 
 
 func _ready() -> void:
+	pause()
 	DataManager.data_loaded.connect(data_changed)
 	timer.timeout.connect(_on_timer_timeout)
 
@@ -134,6 +143,7 @@ func data_changed(data):
 		reset_graph()
 		return
 	# var column_data = load_column_data(data)
+	reset_graph()
 	lhc_column_data = data["lhc_column_data"].duplicate()
 	rhc_column_data = data["rhc_column_data"].duplicate()
 	xband_column_data = data["xband_column_data"].duplicate()
@@ -146,7 +156,50 @@ func data_changed(data):
 	xband_column_data = constrain_to_graph(data["xband_column_data"].duplicate(), lower_bound_3.text as float, upper_bound_3.text as float)
 	timer.start(timer.wait_time)
 
+	print("graph_node.y_min: %s" % graph_node.y_min)
+	print("graph_node.y_step: %s" % graph_node.y_step)
+
+	# Hard-code for the sake of getting this done
+	var dataset = AntennaState.tracked_dataset.dataset_id
+	if dataset == "AQUA":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("90.3")
+			flat_rhc_line.append("51.0")
+			flat_xband_line.append("11.7")
+	elif dataset == "AURA":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("90.7")
+			flat_rhc_line.append("52.0")
+			flat_xband_line.append("13.3")
+	elif dataset == "IC2":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("170.2")
+			flat_rhc_line.append("90.5")
+			flat_xband_line.append("10.8")
+	elif dataset == "OCO2":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("107.3")
+			flat_rhc_line.append("62.0")
+			flat_xband_line.append("16.7")
+	elif dataset == "SCISAT":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("90.3")
+			flat_rhc_line.append("51.0")
+			flat_xband_line.append("11.7")
+	else:
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("90.3")
+			flat_rhc_line.append("51.0")
+			flat_xband_line.append("11.7")
+
+	lhc_column_data = flat_lhc_line
+	rhc_column_data = flat_rhc_line
+	xband_column_data = flat_xband_line
+
+
+
 func reset_graph():
+	graph_node.remove_all() # this seems to not actually remove everything rn
 	timer.stop()
 	lhc_line = []
 	rhc_line = []
@@ -193,11 +246,15 @@ func constrain_to_graph(column_data: Array, lower_bound: float, upper_bound: flo
 	return column_data
 
 
-func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array, offset: float):
+func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array, offset: float, is_paused: bool):
 	var lhc_offset   := offset * 2 + (offset - get_max(lhc_range))
 	var rhc_offset   := offset * 1 + (offset - get_max(rhc_range))
 	var xband_offset := offset * 0
-	
+	if is_paused:
+		lhc_offset   = 0 
+		rhc_offset   = 0 
+		xband_offset = 0 
+
 	var lhc_front: float = lhc_column_data.pop_front() as float
 	var rhc_front: float = rhc_column_data.pop_front() as float
 	var xband_front: float = xband_column_data.pop_front() as float
@@ -242,7 +299,7 @@ func feed(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Arr
 	current_1.text = "%0.2f" % lhc_current_val
 	current_2.text = "%0.2f" % rhc_current_val
 	current_3.text = "%0.2f" % xband_current_val
-
+	
 	redraw(lhc_line, lhc_plot,  0)
 	redraw(rhc_line, rhc_plot,  offset)
 	redraw(xband_line, xband_plot,  offset*2)
@@ -252,8 +309,12 @@ func _on_timer_timeout() -> void:
 	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
 		print("Ran out of data, reloading arrays and continuing to feed")
 		var column_data = DataManager.get_data()
-		print(column_data["lhc_column_data"])
-		lhc_column_data = constrain_to_graph(column_data["lhc_column_data"].duplicate(), lower_bound_1.text as float, upper_bound_1.text as float)
-		rhc_column_data = constrain_to_graph(column_data["rhc_column_data"].duplicate(), lower_bound_2.text as float, upper_bound_2.text as float)
-		xband_column_data = constrain_to_graph(column_data["xband_column_data"].duplicate(), lower_bound_3.text as float, upper_bound_3.text as float)
-	feed(xband_column_data, lhc_column_data, rhc_column_data, max_range)
+		lhc_column_data = constrain_to_graph(column_data["lhc_column_data"], lower_bound_1.text as float, upper_bound_1.text as float)
+		rhc_column_data = constrain_to_graph(column_data["rhc_column_data"], lower_bound_2.text as float, upper_bound_2.text as float)
+		xband_column_data = constrain_to_graph(column_data["xband_column_data"], lower_bound_3.text as float, upper_bound_3.text as float)
+		is_paused = false
+	if is_paused:
+		feed(flat_lhc_line, flat_rhc_line, flat_xband_line, 0, is_paused)
+	else:
+		feed(lhc_column_data, rhc_column_data, xband_column_data, max_range, is_paused)
+
