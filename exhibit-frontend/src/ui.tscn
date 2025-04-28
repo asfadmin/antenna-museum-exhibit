@@ -496,3 +496,4 @@ layout_mode = 2
 text = "Track"
 script = ExtResource("12_g1sg1")
 type = 2
+debounce_time = 5

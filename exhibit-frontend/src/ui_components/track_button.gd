@@ -39,10 +39,13 @@ func update_text():
     else:
         disabled = false
         text = 'Track'
+    if !timer.is_stopped():
+        text = 'Waiting'
+        disabled = true
 
 func _timer_ended():
     disabled = false
-    text = default_text
+    update_text()
 
 
 func _on_pressed():
