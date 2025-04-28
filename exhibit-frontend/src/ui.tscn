@@ -98,6 +98,7 @@ description = "SMAP measures surface soil conditions everywhere on Earth every t
 metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1sg1"]
+font_size = 15
 
 [node name="Ui" type="Control"]
 layout_mode = 3
@@ -461,7 +462,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 5
+theme_override_constants/margin_bottom = 0
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer"]
 layout_mode = 2
@@ -472,7 +473,6 @@ size_flags_stretch_ratio = 2.45
 custom_minimum_size = Vector2(60, 0)
 layout_mode = 2
 size_flags_vertical = 3
-theme_override_font_sizes/font_size = 14
 text = "Airsar is used primarily for things to do with really cool things. It can do really cool stuff, and has a lot of cool uses in a lot of geospatial science cases. Here’s some examples if we want to put some examples maybe, and maybe also what kind of data gets exported out from this."
 label_settings = SubResource("LabelSettings_g1sg1")
 horizontal_alignment = 1

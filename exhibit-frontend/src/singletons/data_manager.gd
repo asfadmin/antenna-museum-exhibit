@@ -17,6 +17,8 @@ var filenames = {
 var backend: BackendService
 var request_timer: Timer
 
+signal track_complete
+
 func _ready() -> void:
     AntennaState.current_action_changed.connect(_on_action_changed)
     # BackendService.request_completed.connect(_on_request_completed)
@@ -32,10 +34,15 @@ func _on_action_changed(action: BackendService.INTERACTION):
     if action == BackendService.INTERACTION.TRACK:
         load_data('AQUA')
         start_tracking()
-    elif action == BackendService.INTERACTION.REHOME or action == BackendService.INTERACTION.STOP:
+    elif action == BackendService.INTERACTION.STOP:
         clear_data()
         AntennaState.set_tracked_dataset(null)
         stop_tracking() # stopping should pause this, rehoming should reset and start tracking again, for now tho this works
+    elif action == BackendService.INTERACTION.REHOME:
+        clear_data()
+        AntennaState.set_tracked_dataset(null)
+        stop_tracking()
+        start_tracking()
 
 func load_data(dataset_id):
     load_column_data(filenames[dataset_id])
@@ -127,9 +134,10 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
         'progress': fake_progress # this will probably be some math later
     }
 
-    fake_progress += 0.01
+    fake_progress += 0.5
     if fake_progress >= 1.0:
         stop_tracking()
+        movement_complete()
     percent_complete = fake_progress
     percent_complete_changed.emit(percent_complete)
     print(percent_complete)
@@ -144,3 +152,8 @@ func start_tracking():
 
 func stop_tracking():
     request_timer.stop()
+    percent_complete_changed.emit(0.0)
+
+func movement_complete():
+    track_complete.emit()
+

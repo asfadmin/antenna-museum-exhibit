@@ -43,6 +43,14 @@ func _ready() -> void:
 
 	var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
 	Events.emit_dataset_selected(first_dataset)
+	DataManager.track_complete.connect(_on_track_complete)
+
+
+func _on_track_complete():
+	if AntennaState.current_action == INTERACTION.TRACK:
+		AntennaState.set_current_action(INTERACTION.STOP) # should this auto rehome instead of stopping?
+	elif AntennaState.current_action == INTERACTION.REHOME:
+		AntennaState.set_current_action(INTERACTION.STOWED)
 
 func _update_dataset(dataset: Dataset):
 	current_dataset = dataset
@@ -54,6 +62,8 @@ func _on_functional_button_pressed(type: INTERACTION):
 		Speed()
 	elif type == INTERACTION.TRACK && current_dataset:
 		Path(current_dataset.dataset_id)
+	elif type == INTERACTION.REHOME:
+		Home()
 
 
 func Custom(data: Dictionary):
@@ -64,7 +74,7 @@ func Home():
 	## POSTs axis to zero-out to /home endpoint
 	#var body = {'axis': AXIS.keys()[axis]}
 	self._make_request(self.HOME_ENDPOINT, HTTPClient.METHOD_POST)
-	AntennaState.set_current_action(AntennaState.ACTION.REHOME)
+	AntennaState.set_current_action(INTERACTION.REHOME)
 
 func Path(satellite: String, path: Array[Dictionary] = []):
 	## POSTs which pre-defined path for the antenna to follow at the /path endpoint

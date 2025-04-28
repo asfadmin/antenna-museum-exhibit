@@ -12,6 +12,7 @@ var timer: Timer
 
 var tracked_dataset: Dataset
 var selected_dataset: Dataset
+var current_action: BackendService.INTERACTION = BackendService.INTERACTION.STOWED
 
 func _ready() -> void:
     pressed.connect(_on_pressed)
@@ -21,21 +22,32 @@ func _ready() -> void:
     timer.timeout.connect(_timer_ended)
     AntennaState.tracked_dataset_changed.connect(_on_tracked_dataset_changed)
     Events.dataset_selected.connect(_on_dataset_selected)
+    AntennaState.current_action_changed.connect(_on_current_action_changed)
+
 
 
 func _on_tracked_dataset_changed(dataset: Dataset):
     tracked_dataset = dataset
     update_text()
 
+func _on_current_action_changed(action: BackendService.INTERACTION):
+    current_action = action
+    update_text()
+    pass
+
 func _on_dataset_selected(dataset: Dataset):
     selected_dataset = dataset
     update_text()
 
 func update_text():
+    print(current_action)
     if tracked_dataset and tracked_dataset.dataset_id == selected_dataset.dataset_id:
         # the dataset selected is the one we are currently tracking, don't give the option to retrack it
         disabled = true
         text = 'Tracking'
+    elif current_action == BackendService.INTERACTION.STOP:
+        disabled = false
+        text = 'Rehome'
     else:
         disabled = false
         text = 'Track'
@@ -53,4 +65,8 @@ func _on_pressed():
         disabled = true
         text = disabled_text
         timer.start(debounce_time)
-    Events.emit_functional_button(type)
+    if AntennaState.current_action == BackendService.INTERACTION.TRACK or current_action == BackendService.INTERACTION.STOP:
+        Events.emit_functional_button(BackendService.INTERACTION.REHOME)
+    else:
+        Events.emit_functional_button(BackendService.INTERACTION.TRACK)
+
