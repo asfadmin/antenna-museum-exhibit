@@ -1,4 +1,5 @@
-class_name BackendService extends HTTPRequest
+class_name BackendService
+extends HTTPRequest
 
 const URL = 'http://localhost:8000'
 const DEFAULT_HEADERS = []

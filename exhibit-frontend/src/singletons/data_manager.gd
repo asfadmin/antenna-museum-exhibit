@@ -5,22 +5,37 @@ signal data_loaded
 
 var loaded_data
 
+## 0-1.0 scale of track or stow being complete
+var percent_complete = 0.0
+
+signal percent_complete_changed(percent: float)
+
 var filenames = {
     'AQUA': 'aqa.csv'
 }
 
+var backend: BackendService
+var request_timer: Timer
 
 func _ready() -> void:
     AntennaState.current_action_changed.connect(_on_action_changed)
+    # BackendService.request_completed.connect(_on_request_completed)
+    backend = get_tree().get_first_node_in_group("BackendService")
+    backend.request_completed.connect(_on_request_completed)
+    request_timer = Timer.new()
+    request_timer.autostart = false
+    add_child(request_timer)
+    request_timer.timeout.connect(_on_request_timer_timeout)
 
 
 func _on_action_changed(action: BackendService.INTERACTION):
     if action == BackendService.INTERACTION.TRACK:
         load_data('AQUA')
-        pass # load data
+        start_tracking()
     elif action == BackendService.INTERACTION.REHOME or action == BackendService.INTERACTION.STOP:
         clear_data()
         AntennaState.set_tracked_dataset(null)
+        stop_tracking() # stopping should pause this, rehoming should reset and start tracking again, for now tho this works
 
 func load_data(dataset_id):
     load_column_data(filenames[dataset_id])
@@ -99,3 +114,33 @@ func get_csv_column_data(column_index: int, content: Array) -> Array[float]:
         column_data[i] = float(content[i][column_index])
 
     return column_data
+
+
+var fake_progress = 0.0
+
+# this can show even if it fails, will need some error checking possibly
+func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+    var converted = body.get_string_from_utf16() # this should give us a JSON response?
+
+    # this is definitely not what the response is but the idea should continue
+    var test = {
+        'progress': fake_progress # this will probably be some math later
+    }
+
+    fake_progress += 0.01
+    if fake_progress >= 1.0:
+        stop_tracking()
+    percent_complete = fake_progress
+    percent_complete_changed.emit(percent_complete)
+    print(percent_complete)
+
+
+func _on_request_timer_timeout():
+    backend.Status()
+
+func start_tracking():
+    fake_progress = 0.0
+    request_timer.start(0.5)
+
+func stop_tracking():
+    request_timer.stop()
