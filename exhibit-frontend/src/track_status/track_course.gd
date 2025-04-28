@@ -60,7 +60,7 @@ func load_data(data):
 	var offset = Vector2(bounding_box.size.x, bounding_box.size.y) * 1.3 # for some reason the scaling changes? not sure why this is different now
 	for point in azm_elev:
 		_final_path.append(point + offset  + Vector2.DOWN * 50)
-
+	current_idx = 0
 	self.points = _final_path
 
 	sat_position.position = self.points[self.current_idx]
