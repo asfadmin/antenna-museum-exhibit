@@ -160,7 +160,11 @@ func data_changed(data):
 	print("graph_node.y_step: %s" % graph_node.y_step)
 
 	# Hard-code for the sake of getting this done
-	var dataset = AntennaState.tracked_dataset.dataset_id
+	var dataset: String
+	if AntennaState.tracked_dataset != null:
+		dataset = AntennaState.tracked_dataset.dataset_id
+	else:
+		dataset = 'AQUA'
 	if dataset == "AQUA":
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("90.3")

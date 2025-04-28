@@ -28,6 +28,9 @@ func _ready() -> void:
     request_timer.autostart = false
     add_child(request_timer)
     request_timer.timeout.connect(_on_request_timer_timeout)
+    await get_tree().create_timer(0.1).timeout # get the plot to shift into the correct layout since idk what's going on with it
+    load_data('AQUA')
+    clear_data()
 
 
 func _on_action_changed(action: BackendService.INTERACTION):
@@ -134,13 +137,12 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
         'progress': fake_progress # this will probably be some math later
     }
 
-    fake_progress += 0.5
+    fake_progress += 0.01
     if fake_progress >= 1.0:
         stop_tracking()
         movement_complete()
     percent_complete = fake_progress
     percent_complete_changed.emit(percent_complete)
-    print(percent_complete)
 
 
 func _on_request_timer_timeout():

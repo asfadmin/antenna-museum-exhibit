@@ -45,7 +45,7 @@ func update_text():
         # the dataset selected is the one we are currently tracking, don't give the option to retrack it
         disabled = true
         text = 'Tracking'
-    elif current_action == BackendService.INTERACTION.STOP:
+    elif current_action == BackendService.INTERACTION.STOP or current_action == BackendService.INTERACTION.TRACK:
         disabled = false
         text = 'Rehome'
     else:
