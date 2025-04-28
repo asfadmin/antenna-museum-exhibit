@@ -3,6 +3,9 @@ extends Control
 
 @export var font: Font
 @export var line_width: float = 1.0
+var min_radius: float = 1024
+var max_radius: float = 1024
+var origin = Vector2.ZERO;
 # Called when the node enters the scene tree for the first time.
 func _ready() -> void:
 	queue_redraw()
@@ -10,6 +13,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _init() -> void:
+	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
 	queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -26,10 +30,10 @@ func _draw():
 
 	var size = self.size.x
 	#var border_scale_factor = 2.5
-	var origin = self.get_rect().get_center()
+	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
 	#var origin = Vector2.ONE * size * (border_scale_factor / 2.0)
-	var min_radius = (size / 12) * .9
-	var max_radius = (size / 2) * .9
+	self.min_radius = (size / 12) * .8
+	self.max_radius = (size / 2) * .8
 	
 	#draw_rect(Rect2(0.0, 0.0, size * border_scale_factor, size * border_scale_factor), Color.BLACK)
 	# cyan circles
@@ -62,11 +66,11 @@ func _draw():
 	draw_line(l2p1, l2p2, green, line_width)
 
 	var font_size = 18
-	draw_string(font, Vector2.ONE * 10, 'SMP', 0, -1, font_size, cyan)
-	draw_string(font, Vector2.ONE * 10 + Vector2.DOWN * font_size, 'Peak EL: %s' % 'PLACEHOLDER', 0, -1, font_size, cyan)
+	# draw_string(font, Vector2.ONE * 10, 'SMP', 0, -1, font_size, cyan)
+	# draw_string(font, Vector2.ONE * 10 + Vector2.DOWN * font_size, 'Peak EL: %s' % 'PLACEHOLDER', 0, -1, font_size, cyan)
 	
-	draw_string(font, (Vector2.DOWN * font_size) + 2.0 * size * Vector2.RIGHT, 'Limit', 0, -1, font_size, red)
-	draw_string(font, (Vector2.DOWN * font_size * 2) + 2.0 * size * Vector2.RIGHT, 'Track', 0, -1, font_size, yellow)
-	draw_string(font, (Vector2.DOWN * font_size * 3) + 2.0 * size * Vector2.RIGHT, 'Autotrack', 0, -1, font_size, green)
+	# draw_string(font, (Vector2.DOWN * font_size) + 2.0 * size * Vector2.RIGHT, 'Limit', 0, -1, font_size, red)
+	# draw_string(font, (Vector2.DOWN * font_size * 2) + 2.0 * size * Vector2.RIGHT, 'Track', 0, -1, font_size, yellow)
+	# draw_string(font, (Vector2.DOWN * font_size * 3) + 2.0 * size * Vector2.RIGHT, 'Autotrack', 0, -1, font_size, green)
 	
-	draw_string(font, (Vector2.UP * font_size) + size * Vector2.ONE, 'Azimuth %s' % 'PLACEHOLDER', 0, -1, font_size, green, HORIZONTAL_ALIGNMENT_RIGHT)
+	# draw_string(font, (Vector2.UP * font_size) + size * Vector2.ONE, 'Azimuth %s' % 'PLACEHOLDER', 0, -1, font_size, green, HORIZONTAL_ALIGNMENT_RIGHT)

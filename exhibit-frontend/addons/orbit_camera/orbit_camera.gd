@@ -12,6 +12,8 @@ extends Camera3D
 @export var max_distance: float = 30
 @export var min_distance: float = 3
 @export var min_x: float = 0
+@export var height_offset: float = 0
+
 # Event var
 var _move_speed: Vector2
 var _scroll_speed: float
@@ -58,7 +60,7 @@ func _process_transformation(delta: float):
 	_distance = clamp(_distance, min_distance, max_distance)
 
 	self.set_identity()
-	self.translate_object_local(Vector3(0,0,_distance))
+	self.translate_object_local(Vector3(0,height_offset,_distance))
 	_anchor_node.set_identity()
 	_anchor_node.transform.basis = Basis(Quaternion.from_euler(_rotation))
 

@@ -49,21 +49,23 @@ var fname := "sci.csv"
 const XBAND_COLUMN_NAME := "Antenna Control Unit X-Band Strength (dB)"
 const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
 const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
-@onready var current_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/Current1
-@onready var current_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/Current2
-@onready var current_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/Current3
+@export var current_1: Label
+@export var current_2: Label
+@export var current_3: Label
 var lhc_range := []
 var rhc_range := []
 var xband_range := []
 
-var upper_bound_1
-var lower_bound_1
+@export var upper_bound_1: Label
+@export var lower_bound_1: Label
 				 
-var upper_bound_2
-var lower_bound_2
+@export var upper_bound_2: Label
+@export var lower_bound_2: Label
 				 
-var upper_bound_3
-var lower_bound_3
+@export var upper_bound_3: Label
+@export var lower_bound_3: Label
+
+@export var timer: Timer
 
 func get_min(data: Array) -> float:
 	var m: float = data[0] as float
@@ -86,14 +88,13 @@ func get_max(data: Array) -> float:
 
 	return m
 
-	
+
 func pause():
 	is_paused = true
-	
-	
+
+
 func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array):
 	# Initialize the three lines to plot 
-	print("Initializing graph")
 	lhc_plot = graph_node.add_plot_item("lhc_plot", Color.THISTLE, 5.0)
 	rhc_plot = graph_node.add_plot_item("rhc_plot", Color.GAINSBORO, 5.0)
 	xband_plot = graph_node.add_plot_item("xband", Color.PERU, 5.0)
@@ -106,13 +107,8 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
 	var xband_length: float = xband_range.max() - xband_range.min()
 
-	print("lhc range:   [{0}, {1}], length: {2}".format(lhc_range + [lhc_length]))
-	print("rhc range:   [{0}, {1}], length: {2}".format(rhc_range + [rhc_length]))
-	print("xband range: [{0}, {1}], length: {2}".format(xband_range + [xband_length]))
 
-	print("total distance: %s" % (xband_length + lhc_length + rhc_length))
 	max_range = get_max([xband_length, lhc_length, rhc_length])
-	print("max range: %s" % max_range)
 	
 	var y_min: float = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
 	graph_node.y_min = y_min
@@ -125,23 +121,7 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	# Distance between each vertical tick
 	var y_step: float = y_distance / 6
 	graph_node.y_step = y_step
-	
-	print("y-distance (according to graph 2d): %s" % (graph_node.y_max - graph_node.y_min))
-	print("y-distance (according to the actual line values): %s" % (y_max - y_min))
-	print("y-step:     %s" % graph_node.y_step)
-	print("y-max:      %s" % y_max)
-	print("y-min:      %s" % y_min)
-	
-	upper_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/UpperBound1
-	lower_bound_1 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer1/LowerBound1
-	
-	upper_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/UpperBound2
-	lower_bound_2 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer2/LowerBound2
-	
-	upper_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/UpperBound3
-	lower_bound_3 = $HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/GridContainer3/LowerBound3
-	
-	
+
 	upper_bound_1.text = str(get_max(lhc_range))
 	lower_bound_1.text = str(get_min(lhc_range))
 	
@@ -150,60 +130,63 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	
 	upper_bound_3.text = str(get_max(xband_range))
 	lower_bound_3.text = str(get_min(xband_range))
-	
-func load_column_data() -> Dictionary:
-	var csv := get_csv(fname)
-	
-	var column_data := {
-		"lhc_column_data": get_csv_column_data(csv["headers"][LHC_COLUMN_NAME], csv["content"]),
-		"rhc_column_data": get_csv_column_data(csv["headers"][RHC_COLUMN_NAME], csv["content"]),
-		"xband_column_data": get_csv_column_data(csv["headers"][XBAND_COLUMN_NAME], csv["content"]),
-	}
 
-	# The csv data is heavy
-	csv = {}
-	
-	return column_data
 
 
 func _ready() -> void:
 	pause()
-	var column_data := load_column_data()
-	lhc_column_data = column_data["lhc_column_data"]
-	rhc_column_data = column_data["rhc_column_data"]
-	xband_column_data = column_data["xband_column_data"]
+	DataManager.data_loaded.connect(data_changed)
+	timer.timeout.connect(_on_timer_timeout)
+
+func data_changed(data):
+	if data == null:
+		reset_graph()
+		return
+	# var column_data = load_column_data(data)
+	reset_graph()
+	lhc_column_data = data["lhc_column_data"].duplicate()
+	rhc_column_data = data["rhc_column_data"].duplicate()
+	xband_column_data = data["xband_column_data"].duplicate()
 	
+
 	initialize_graph(lhc_column_data, rhc_column_data, xband_column_data)
 	
-	lhc_column_data = constrain_to_graph(column_data["lhc_column_data"], lower_bound_1.text as float, upper_bound_1.text as float)
-	rhc_column_data = constrain_to_graph(column_data["rhc_column_data"], lower_bound_2.text as float, upper_bound_2.text as float)
-	xband_column_data = constrain_to_graph(column_data["xband_column_data"], lower_bound_3.text as float, upper_bound_3.text as float)
+	lhc_column_data = constrain_to_graph(data["lhc_column_data"].duplicate(), lower_bound_1.text as float, upper_bound_1.text as float)
+	rhc_column_data = constrain_to_graph(data["rhc_column_data"].duplicate(), lower_bound_2.text as float, upper_bound_2.text as float)
+	xband_column_data = constrain_to_graph(data["xband_column_data"].duplicate(), lower_bound_3.text as float, upper_bound_3.text as float)
+	timer.start(timer.wait_time)
 
 	print("graph_node.y_min: %s" % graph_node.y_min)
 	print("graph_node.y_step: %s" % graph_node.y_step)
 
 	# Hard-code for the sake of getting this done
-	if fname == "aqa.csv":
+	var dataset = AntennaState.tracked_dataset.dataset_id
+	if dataset == "AQUA":
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("90.3")
 			flat_rhc_line.append("51.0")
 			flat_xband_line.append("11.7")
-	elif fname == "aur.csv":
+	elif dataset == "AURA":
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("90.7")
 			flat_rhc_line.append("52.0")
 			flat_xband_line.append("13.3")
-	elif fname == "ic2.csv":
+	elif dataset == "IC2":
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("170.2")
 			flat_rhc_line.append("90.5")
 			flat_xband_line.append("10.8")
-	elif fname == "oc2.csv":
+	elif dataset == "OCO2":
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("107.3")
 			flat_rhc_line.append("62.0")
 			flat_xband_line.append("16.7")
-	elif fname == "sci.csv":
+	elif dataset == "SCISAT":
+		for i in range(len(lhc_column_data)):
+			flat_lhc_line.append("90.3")
+			flat_rhc_line.append("51.0")
+			flat_xband_line.append("11.7")
+	else:
 		for i in range(len(lhc_column_data)):
 			flat_lhc_line.append("90.3")
 			flat_rhc_line.append("51.0")
@@ -213,7 +196,27 @@ func _ready() -> void:
 	rhc_column_data = flat_rhc_line
 	xband_column_data = flat_xband_line
 
-func redraw(line: Array[Variant], plot: PlotItem, offset):
+
+
+func reset_graph():
+	graph_node.remove_all() # this seems to not actually remove everything rn
+	timer.stop()
+	lhc_line = []
+	rhc_line = []
+	xband_line = []
+	looped = false
+	redraw(lhc_line, lhc_plot,  0)
+	redraw(rhc_line, rhc_plot,  0)
+	redraw(xband_line, xband_plot, 0 )
+	current_1.text = "0"
+	current_2.text = "0"
+	current_3.text = "0"
+
+
+
+func redraw(line: Array[Variant], plot: PlotItem, _offset):
+	if plot == null:
+		return
 	plot.remove_all()
 	for point in line:
 		plot.add_point(point)
@@ -229,55 +232,10 @@ func shift(line) -> Array[Variant]:
 	return shifted
 
 
-## Takes `column_index` and returns the column at that index in the 2d Array `content`.
-func get_csv_column_data(column_index: int, content: Array) -> Array:
-	var column_data := []
-	var content_size: int = content.size()
-
-	column_data.resize(content_size)
-
-	for i in range(0, content_size):
-		column_data[i] = content[i][column_index]
-
-	return column_data
-	
-	
-## Takes a filename `fname` and returns to memory a dictionary containing the headers and the CSV
-## content of the file represented in `headers` (a Dictionary) and `content` (an Array). 
-## TODO(gjclark): Godot 4.4. will allow us to bind types to the dictionary so
-## that we can type hint the return to Dictionary[Dictionary, Array].
-func get_csv(fname: String) -> Dictionary:
-	var file: FileAccess = FileAccess.open("res://%s" % fname, FileAccess.READ)
-
-	# Get headers to index into content using column names
-	var headers := file.get_csv_line()
-	var header_dict := {}
-
-	for i in headers.size():
-		header_dict[headers[i]] = i
-
-	var content := []
-	# Get the data itself (csv rows)
-	while file.get_position() < file.get_length():
-		var csv_line := file.get_csv_line()
-
-		if csv_line != null and csv_line.size() > 0:
-			content.append(csv_line)
-		else:
-			print("Empty line")
-		
-	file.close()
-	
-	return {
-		"headers": header_dict,
-		"content": content,
-	}
-	
-	
 func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array) -> bool:
 	return xband_column_data.size() == 0 or lhc_column_data.size() == 0 or rhc_column_data.size() == 0
-		
-	
+
+
 func constrain_to_graph(column_data: Array, lower_bound: float, upper_bound: float):
 	for i in len(column_data):
 		var d: float = column_data[i] as float
@@ -286,7 +244,8 @@ func constrain_to_graph(column_data: Array, lower_bound: float, upper_bound: flo
 		elif d > upper_bound:
 			column_data[i] = upper_bound as String
 	return column_data
-	
+
+
 func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array, offset: float, is_paused: bool):
 	var lhc_offset   := offset * 2 + (offset - get_max(lhc_range))
 	var rhc_offset   := offset * 1 + (offset - get_max(rhc_range))
@@ -295,7 +254,7 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 		lhc_offset   = 0 
 		rhc_offset   = 0 
 		xband_offset = 0 
-	
+
 	var lhc_front: float = lhc_column_data.pop_front() as float
 	var rhc_front: float = rhc_column_data.pop_front() as float
 	var xband_front: float = xband_column_data.pop_front() as float
@@ -349,7 +308,7 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 func _on_timer_timeout() -> void:
 	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
 		print("Ran out of data, reloading arrays and continuing to feed")
-		var column_data := load_column_data()
+		var column_data = DataManager.get_data()
 		lhc_column_data = constrain_to_graph(column_data["lhc_column_data"], lower_bound_1.text as float, upper_bound_1.text as float)
 		rhc_column_data = constrain_to_graph(column_data["rhc_column_data"], lower_bound_2.text as float, upper_bound_2.text as float)
 		xband_column_data = constrain_to_graph(column_data["xband_column_data"], lower_bound_3.text as float, upper_bound_3.text as float)
@@ -358,3 +317,4 @@ func _on_timer_timeout() -> void:
 		feed(flat_lhc_line, flat_rhc_line, flat_xband_line, 0, is_paused)
 	else:
 		feed(lhc_column_data, rhc_column_data, xband_column_data, max_range, is_paused)
+

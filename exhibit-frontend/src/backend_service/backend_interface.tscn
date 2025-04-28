@@ -1,0 +1,34 @@
+[gd_scene load_steps=3 format=3 uid="uid://c1ypimb2xn0mj"]
+
+[ext_resource type="Script" uid="uid://o7em3a606bwf" path="res://src/backend_service/backend_service.gd" id="1_nh23f"]
+[ext_resource type="Script" uid="uid://cbvsyx4nuthye" path="res://src/backend_service/debug_response.gd" id="2_26fpk"]
+
+[node name="BackendInterface" type="AspectRatioContainer"]
+offset_right = 693.0
+offset_bottom = 365.0
+alignment_horizontal = 0
+
+[node name="BackendService" type="HTTPRequest" parent="."]
+script = ExtResource("1_nh23f")
+metadata/_custom_type_script = "uid://o7em3a606bwf"
+
+[node name="HFlowContainer" type="HFlowContainer" parent="."]
+layout_mode = 2
+
+[node name="HBoxContainer" type="HBoxContainer" parent="."]
+layout_mode = 2
+
+[node name="VBoxContainer" type="VBoxContainer" parent="HBoxContainer"]
+layout_mode = 2
+
+[node name="Home" type="Button" parent="HBoxContainer/VBoxContainer"]
+layout_mode = 2
+text = "Home"
+
+[node name="RichTextLabel" type="RichTextLabel" parent="HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+script = ExtResource("2_26fpk")
+
+[connection signal="request_completed" from="BackendService" to="HBoxContainer/RichTextLabel" method="_on_backend_service_request_completed"]
+[connection signal="button_up" from="HBoxContainer/VBoxContainer/Home" to="BackendService" method="Home"]
