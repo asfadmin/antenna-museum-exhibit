@@ -51,7 +51,8 @@ func _ready() -> void:
 
 func _on_track_complete():
 	if AntennaState.current_action == INTERACTION.TRACK:
-		AntennaState.set_current_action(INTERACTION.STOP) # should this auto rehome instead of stopping?
+		AntennaState.set_current_action(INTERACTION.STOP) # 
+		AntennaState.set_current_action(INTERACTION.STOWED) # paths include the rehoming part already
 	elif AntennaState.current_action == INTERACTION.REHOME:
 		AntennaState.set_current_action(INTERACTION.STOWED)
 

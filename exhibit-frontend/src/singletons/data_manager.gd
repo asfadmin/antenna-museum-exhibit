@@ -11,7 +11,13 @@ var percent_complete = 0.0
 signal percent_complete_changed(percent: float)
 
 var filenames = {
-    'AQUA': 'aqa.csv'
+    'AQUA': 'aqa.csv',
+    'AURA': 'aur.csv',
+    'IC2': 'ic2.csv',
+    'ICESAT': 'ic2.csv',
+    'OCO2': 'oc2.csv',
+    'SCISAT': 'sci.csv',
+    'SMAP': 'aqa.cvs' # not seeing smap in files?
 }
 
 var backend: BackendService
@@ -35,7 +41,7 @@ func _ready() -> void:
 
 func _on_action_changed(action: BackendService.INTERACTION):
     if action == BackendService.INTERACTION.TRACK:
-        load_data('AQUA')
+        load_data(backend.current_dataset.dataset_id)
         start_tracking()
     elif action == BackendService.INTERACTION.STOP:
         clear_data()
@@ -131,6 +137,8 @@ var fake_progress = 0.0
 # this can show even if it fails, will need some error checking possibly
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
     var converted = body.get_string_from_utf16() # this should give us a JSON response?
+
+    # I think the only response we actually care about is the status response?
 
     # this is definitely not what the response is but the idea should continue
     var test = {
