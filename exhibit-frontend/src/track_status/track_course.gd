@@ -80,7 +80,7 @@ func update_track(percent: float):
 
 	self.queue_redraw()
 	if self.points.size() != self.current_idx:
-		self.sat_position.position = self.points[self.current_idx]
+		self.sat_position.position = self.points[self.current_idx] - Vector2(7.5,7.5) # center the dot on the line
 	else:
 		self.sat_position.visible = false
 

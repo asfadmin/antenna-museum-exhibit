@@ -202,5 +202,6 @@ loop = false
 default_color = Color(1, 0.149469, 0.350274, 1)
 
 [node name="sat_pos" type="ColorRect" parent="SubViewport/ProjectedCourse"]
-offset_right = 10.0
-offset_bottom = 10.0
+z_index = 2
+offset_right = 15.0
+offset_bottom = 15.0
