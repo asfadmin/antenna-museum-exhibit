@@ -1,8 +1,9 @@
-[gd_scene load_steps=14 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=17 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://7wshqwt5ss1q" path="res://src/ui.tscn" id="3_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
+[ext_resource type="Shader" uid="uid://bvg2tqpuwerfd" path="res://src/world/world_plane.gdshader" id="5_fyndt"]
 [ext_resource type="Script" uid="uid://o7em3a606bwf" path="res://src/backend_service/backend_service.gd" id="9_kf8lf"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
@@ -37,13 +38,23 @@ albedo_color = Color(0.310617, 0.310617, 0.310617, 1)
 material = SubResource("StandardMaterial3D_urn08")
 size = Vector3(5, 20, 5)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_3cfgd"]
-albedo_color = Color(0.397768, 0.416291, 0.272835, 1)
-metallic_specular = 0.0
+[sub_resource type="FastNoiseLite" id="FastNoiseLite_fyndt"]
+frequency = 0.0075
+
+[sub_resource type="NoiseTexture2D" id="NoiseTexture2D_kmhfv"]
+noise = SubResource("FastNoiseLite_fyndt")
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_kmhfv"]
+render_priority = 0
+shader = ExtResource("5_fyndt")
+shader_parameter/noise = SubResource("NoiseTexture2D_kmhfv")
+shader_parameter/base_color = Color(0.113655, 0.273393, 0.250691, 1)
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3cfgd"]
-material = SubResource("StandardMaterial3D_3cfgd")
+material = SubResource("ShaderMaterial_kmhfv")
 size = Vector2(1000, 1000)
+subdivide_width = 999
+subdivide_depth = 999
 
 [node name="Main" type="Node3D"]
 
@@ -87,5 +98,5 @@ transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.148561, 20.3518
 script = ExtResource("9_kf8lf")
 
 [node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.14135, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.18843, 0)
 mesh = SubResource("PlaneMesh_3cfgd")
