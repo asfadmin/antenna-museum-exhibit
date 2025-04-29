@@ -1,15 +1,16 @@
 extends Button
 
-@export var type: BackendService.INTERACTION
+var type: BackendService.INTERACTION = BackendService.INTERACTION.SPEED_UP
 
 ## Time in seconds
-@export var debounce_time:float = 0
-
-@export var default_text = ''
-@export var disabled_text = ''
+@export var debounce_time: float = 0
 
 var timer: Timer
 
+var going_fast = false
+@export var icon_button: FontIcon
+
+var base_icon = 'fast-forward'
 
 func _ready() -> void:
     pressed.connect(_on_pressed)
@@ -21,12 +22,18 @@ func _ready() -> void:
 
 func _timer_ended():
     disabled = false
-    text = default_text
 
+
+func update_label():
+    var output = base_icon
+    if !going_fast:
+        output += '-outline'
+    icon_button.icon_settings.icon_name = output
 
 func _on_pressed():
     if debounce_time > 0:
         disabled = true
-        text = disabled_text
         timer.start(debounce_time)
     Events.emit_functional_button(type)
+    going_fast = !going_fast
+    update_label()
