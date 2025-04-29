@@ -74,7 +74,7 @@ const LHC_COLUMN_NAME := "Antenna Control Unit S-LHC Strength (dB)"
 const RHC_COLUMN_NAME := "Antenna Control Unit S-RHC Strength (dB)"
 
 func get_csv(filename: String) -> Dictionary:
-    var file: FileAccess = FileAccess.open("res://%s" % filename, FileAccess.READ)
+    var file: FileAccess = FileAccess.open("res://assets/data/%s" % filename, FileAccess.READ)
 
 	# Get headers to index into content using column names
     var headers := file.get_csv_line()
