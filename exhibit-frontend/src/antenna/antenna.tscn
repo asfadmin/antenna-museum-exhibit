@@ -23,7 +23,6 @@ transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -7.
 
 [node name="0 - Block" parent="0_-_Block" index="0"]
 material_override = ExtResource("2_7pgxy")
-surface_material_override/0 = ExtResource("2_7pgxy")
 
 [node name="1_-_Base" parent="." instance=ExtResource("3_avsif")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.148741, 5.0558, -2.68437)
@@ -69,13 +68,13 @@ material_override = ExtResource("2_7pgxy")
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.11995, 14.2106, -2.45432)
 
 [node name="8 - Dish Prong" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/8_-_Dish_Prong" index="0"]
-material_override = ExtResource("2_7pgxy")
+transform = Transform3D(0.0246798, 0, 0, 0, 0.02468, 2.32831e-10, 0, 0, 0.0246799, 0.44696, -0.507346, 0.0239525)
 
 [node name="9_-_Dish_Wire" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("9_xwwws")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0638612, 20.0196, -3.09923)
 
 [node name="9 - Dish Wire" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/9_-_Dish_Wire" index="0"]
-material_override = ExtResource("2_7pgxy")
+transform = Transform3D(0.0246798, 0, 0, 0, 0.02468, 1.16415e-10, 0, 0, 0.0246799, 0.487221, 0, 0)
 
 [node name="RWeight" type="Node3D" parent="Horizontal Rotator/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72342, -0.0603981, -0.0636269)

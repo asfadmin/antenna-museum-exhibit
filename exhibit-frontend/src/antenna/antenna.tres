@@ -1,4 +1,6 @@
 [gd_resource type="StandardMaterial3D" format=3 uid="uid://di20wulf2k62r"]
 
 [resource]
-albedo_color = Color(0.875858, 0.831814, 0.830526, 1)
+albedo_color = Color(0.137255, 0.380392, 0.572549, 1)
+metallic = 0.49
+metallic_specular = 0.1
