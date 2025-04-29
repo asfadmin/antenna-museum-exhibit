@@ -53,8 +53,8 @@ shader_parameter/base_color = Color(0.113655, 0.273393, 0.250691, 1)
 [sub_resource type="PlaneMesh" id="PlaneMesh_3cfgd"]
 material = SubResource("ShaderMaterial_kmhfv")
 size = Vector2(1000, 1000)
-subdivide_width = 999
-subdivide_depth = 999
+subdivide_width = 100
+subdivide_depth = 100
 
 [node name="Main" type="Node3D"]
 
@@ -78,7 +78,7 @@ DEFAULT_DISTANCE = 60.0
 ROTATE_SPEED = 0.095
 ANCHOR_NODE_PATH = NodePath("..")
 max_distance = 50.0
-min_distance = 10.0
+min_distance = 28.09
 height_offset = 20.0
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="."]
