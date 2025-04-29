@@ -15,7 +15,6 @@ var expected_time: float = 5.0
 var cursor_pos: Vector2 = Vector2.ZERO
 @onready var viewport: SubViewport = get_parent() as SubViewport
 
-var timer: Timer
 
 
 func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
@@ -30,10 +29,10 @@ func spherical_to_cartesian(azimuth:float, elevation: float) -> Vector2:
 func _ready() -> void:
 	DataManager.data_loaded.connect(load_data)
 	sat_position.visible = false
-	timer = Timer.new()
-	timer.autostart = false
-	add_child(timer)
-	timer.timeout.connect(_on_timer_timeout)
+	DataManager.percent_complete_changed.connect(_on_percent_complete_changed)
+
+func _on_percent_complete_changed(value: float):
+	update_track(value)
 
 
 func load_data(data):
@@ -42,7 +41,6 @@ func load_data(data):
 		points = []
 		completed_course.points = []
 		sat_position.visible = false
-		timer.stop()
 		return
 	var column_data = data
 
@@ -65,7 +63,6 @@ func load_data(data):
 
 	sat_position.position = self.points[self.current_idx]
 	sat_position.visible = true
-	timer.start(1)
 
 
 
@@ -75,17 +72,15 @@ func _draw() -> void:
 	if self.current_idx < self.points.size():
 		draw_circle(self.points[self.current_idx], 15, Color.MAGENTA, false, 3)
 
-func _on_timer_timeout():
-	_active_timer()
 
-func _active_timer():
-	self.completed_course.add_point(self.points[self.current_idx])
-	self.current_idx += 1
+func update_track(percent: float):
+	var index_of_percent = int(len(points) * percent)
+	completed_course.points = points.slice(0,index_of_percent)
+	current_idx = index_of_percent
+
 	self.queue_redraw()
 	if self.points.size() != self.current_idx:
 		self.sat_position.position = self.points[self.current_idx]
-		timer.start(0.05)
 	else:
 		self.sat_position.visible = false
-		timer.stop()
 
