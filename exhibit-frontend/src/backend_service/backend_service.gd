@@ -35,6 +35,8 @@ enum INTERACTION {
 	REHOME
 }
 
+var request_queue = []
+
 var current_dataset: Dataset
 
 func _ready() -> void:
@@ -44,6 +46,7 @@ func _ready() -> void:
 	var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
 	Events.emit_dataset_selected(first_dataset)
 	DataManager.track_complete.connect(_on_track_complete)
+	request_completed.connect(_on_request_complete)
 
 
 func _on_track_complete():
@@ -100,6 +103,7 @@ func Stop():
 	self._make_request(self.RESET_ENDPOINT, HTTPClient.METHOD_POST)
 	AntennaState.set_current_action(INTERACTION.STOP)
 
+
 func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METHOD_GET, body: Dictionary = {}):
 	## backend query code for helper methods
 
@@ -109,8 +113,28 @@ func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METH
 
 	var url_template = "%s%s"
 	var url = url_template % [self.URL, endpoint]
+	var request_status = get_http_client_status()
+	if len(request_queue) > 0 or [HTTPClient.STATUS_CONNECTING,HTTPClient.STATUS_RESOLVING, HTTPClient.STATUS_REQUESTING, HTTPClient.STATUS_BODY ].has(request_status):
+		var queue_object = {
+			'url': url,
+			'headers': PackedStringArray(DEFAULT_HEADERS),
+			'method': method,
+			'body': body_str
+		}
+		request_queue.push_back(queue_object)
+		return
 
-	var error = self.request(url, PackedStringArray(DEFAULT_HEADERS), method, body_str)
+	var error = request(url, PackedStringArray(DEFAULT_HEADERS), method, body_str)
 
 	if error != OK:
 		push_error("An error occurred while querying the backend service.")
+
+func _on_request_complete(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray):
+	if len(request_queue) <= 0:
+		return
+	var params = request_queue.pop_front()
+	var error = request(params['url'], params['headers'], params['method'], params['body'])
+
+	if error != OK:
+		push_error("An error occurred while querying the backend service.")
+	pass
