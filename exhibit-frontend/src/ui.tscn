@@ -287,7 +287,7 @@ layout_mode = 2
 theme_override_styles/panel = ExtResource("7_g1sg1")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer/PanelContainer"]
-custom_minimum_size = Vector2(196.78, 0)
+custom_minimum_size = Vector2(197.895, 0)
 layout_mode = 2
 theme_override_constants/margin_left = 15
 theme_override_constants/margin_top = 25
@@ -308,7 +308,7 @@ layout_mode = 2
 [node name="Label2" type="Label" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
 custom_minimum_size = Vector2(0.09, 0)
 layout_mode = 2
-text = "This shows where the satellite is if you were to look straight up from the antenna. The red line is the projected path the satellite will take, and the white dot that is circled "
+text = "This shows where the satellite is if you were to look straight up from the antenna. The red line is the projected path the satellite will take, and the white dot that is circled is the satellite's position."
 autowrap_mode = 2
 
 [node name="Container" type="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
