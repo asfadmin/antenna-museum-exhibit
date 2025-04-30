@@ -55,7 +55,6 @@ func _on_functional_button_pressed(type: BackendService.INTERACTION):
     elif type == BackendService.INTERACTION.TRACK && current_dataset:
         AntennaState.set_tracked_dataset(current_dataset)
         backend.Path(current_dataset.dataset_id)
-        print(current_dataset.dataset_id)
     elif type == BackendService.INTERACTION.REHOME:
         backend.Home()
 
