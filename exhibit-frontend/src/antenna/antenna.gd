@@ -5,33 +5,30 @@ extends Node3D
 @export var antenna_rotator_node: Node3D
 
 var current_idx = 0
-var points = 0.0
-var timer: Timer
+var points = []
+#var timer: Timer
 var azimuth_data = []
 var elevation_data = []
-
+var status = 0.0
 func _ready() -> void:
 	#move_to(1,1,1)
 	DataManager.data_loaded.connect(load_data)
 	
-	timer = Timer.new()
-	timer.autostart = false
-	add_child(timer)
-	timer.timeout.connect(_on_timer_timeout)
-
+	DataManager.percent_complete_changed.connect(func (x): status=x)
+	
 func load_data(data):
 	if data == null:
 		current_idx = 0
 		points = []
 		#completed_course.points = []
 		#sat_position.visible = false
-		timer.stop()
-		move_to(0.0, 0.0, 0.0, 5.0)
+		#timer.stop()
+		move_to(90.0, 0.0, 0.0, 5.0)
 		return
 	var column_data = data
 
-	azimuth_data = column_data["commanded_azimuth"]
-	elevation_data = column_data["commanded_elevation"]
+	azimuth_data = column_data["actual_azimuth"]
+	elevation_data = column_data["actual_elevation"]
 	var autotrack_status = column_data["autotrack_status"]
 
 	self.points = []
@@ -50,28 +47,21 @@ func load_data(data):
 	#sat_position.position = self.points[self.current_idx]
 	#sat_position.visible = true
 	
-	timer.start(0.1)
+	#timer.start(0.1)
 
-func _on_timer_timeout():
-	_active_timer()
-func _active_timer():
-	#self.completed_course.add_point(self.points[self.current_idx])
-	self.current_idx += 1
-	#self.queue_redraw()
-	if self.points.size() != self.current_idx:
-		var azm_ele = self.points[self.current_idx]
-		self.move_to(azm_ele[1], azm_ele[0], 0.0)
-		#self.sat_position.position = self.points[self.current_idx]
-		timer.start(0.1)
-	else:
-		self.move_to(0.0, 0.0, 0.0)
-		timer.stop()
+func _physics_process(delta: float) -> void:
+	if self.points.size() > 0:
+		var idx = mini(roundi(len(self.points) * status), len(self.points) - 1)
+		var azm_ele = self.points[idx]
+		self.move_to(azm_ele[1], azm_ele[0], 0.0, 5.0)
+		pass
+	pass
 
 func move_to(elevation, azimuth, train, duration=0.5):
 	var tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
 	
-	var ele = Quaternion.from_euler(Vector3(deg_to_rad(elevation),0.0,0)).normalized()
+	var ele = Quaternion.from_euler(Vector3(deg_to_rad(elevation - 90.0),0.0,0)).normalized()
 	var azi = Quaternion.from_euler(Vector3(0.0, deg_to_rad(azimuth),0)).normalized()
 	#horizontal_rotation_node.quaternion.slerp(horiz, 0.1)
 	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration)

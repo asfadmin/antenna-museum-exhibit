@@ -16,7 +16,7 @@
 [node name="Antenna" type="Node3D" node_paths=PackedStringArray("horizontal_rotation_node", "antenna_rotator_node")]
 script = ExtResource("1_nx3gt")
 horizontal_rotation_node = NodePath("Horizontal Rotator")
-antenna_rotator_node = NodePath("Horizontal Rotator/Antenna Rotator")
+antenna_rotator_node = NodePath("Horizontal Rotator/Antenna Pivot/Antenna Rotator")
 
 [node name="0_-_Block" parent="." instance=ExtResource("2_2q8t5")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -7.86131, 0)
@@ -33,13 +33,14 @@ material_override = ExtResource("2_7pgxy")
 lod_bias = 26.505
 
 [node name="2_-_Base_2" parent="." instance=ExtResource("4_6hgws")]
-transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.760994, 14.9275, -2.17999)
+transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.760994, 9.90124, -2.17999)
 
 [node name="2 - Base 2" parent="2_-_Base_2" index="0"]
+transform = Transform3D(0.0246798, 0, 0, 0, 0.02468, 0, 0, 0, 0.0246799, 0, 0, -3.12801)
 material_override = ExtResource("2_7pgxy")
 
 [node name="Horizontal Rotator" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.317264, 16.8599, -2.97598)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.317264, 11.8336, -2.97598)
 
 [node name="3_-_Pivot_Point" parent="Horizontal Rotator" instance=ExtResource("5_2dns4")]
 transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -0.173912, 5.30043, -0.56586)
@@ -47,61 +48,63 @@ transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -0.173
 [node name="3 - Pivot Point" parent="Horizontal Rotator/3_-_Pivot_Point" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="Antenna Rotator" type="Node3D" parent="Horizontal Rotator"]
-transform = Transform3D(1, 0, 0, 0, 0.998887, -0.0471587, 0, 0.0471587, 0.998887, 0, 6.11736, 0)
+[node name="Antenna Pivot" type="Node3D" parent="Horizontal Rotator"]
+transform = Transform3D(1, 0, 0, 0, 0.990976, -0.134038, 0, 0.134038, 0.990976, 0, 6.11736, 0)
 
-[node name="Weight Rotator" type="Node3D" parent="Horizontal Rotator/Antenna Rotator"]
+[node name="Antenna Rotator" type="Node3D" parent="Horizontal Rotator/Antenna Pivot"]
+
+[node name="Weight Rotator" type="Node3D" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6.42502, 0)
 
-[node name="6_-_Dish_Connector" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("6_lw6s6")]
+[node name="6_-_Dish_Connector" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("6_lw6s6")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.208233, 9.13718, -1.32583)
 
-[node name="6 - Dish Connector" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/6_-_Dish_Connector" index="0"]
+[node name="6 - Dish Connector" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/6_-_Dish_Connector" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="7_-_Dish" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("7_wbuli")]
+[node name="7_-_Dish" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("7_wbuli")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.375654, 13.9249, -2.21154)
 
-[node name="7 - Dish" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/7_-_Dish" index="0"]
+[node name="7 - Dish" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/7_-_Dish" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="8_-_Dish_Prong" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("8_r7578")]
+[node name="8_-_Dish_Prong" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("8_r7578")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.11995, 14.2106, -2.45432)
 
-[node name="8 - Dish Prong" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/8_-_Dish_Prong" index="0"]
+[node name="8 - Dish Prong" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/8_-_Dish_Prong" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="9_-_Dish_Wire" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator" instance=ExtResource("9_xwwws")]
+[node name="9_-_Dish_Wire" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("9_xwwws")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0638612, 20.0196, -3.09923)
 
-[node name="9 - Dish Wire" parent="Horizontal Rotator/Antenna Rotator/Weight Rotator/9_-_Dish_Wire" index="0"]
+[node name="9 - Dish Wire" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/9_-_Dish_Wire" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="RWeight" type="Node3D" parent="Horizontal Rotator/Antenna Rotator"]
+[node name="RWeight" type="Node3D" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72342, -0.0603981, -0.0636269)
 
-[node name="4_-_R_Weight" parent="Horizontal Rotator/Antenna Rotator/RWeight" instance=ExtResource("10_l16sl")]
+[node name="4_-_R_Weight" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/RWeight" instance=ExtResource("10_l16sl")]
 transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, 3.05649, -4.50705, -0.285395)
 
-[node name="4 - R Weight" parent="Horizontal Rotator/Antenna Rotator/RWeight/4_-_R_Weight" index="0"]
+[node name="4 - R Weight" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/RWeight/4_-_R_Weight" index="0"]
 material_override = ExtResource("2_7pgxy")
 
-[node name="LWeight" type="Node3D" parent="Horizontal Rotator/Antenna Rotator"]
+[node name="LWeight" type="Node3D" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -3.65513, 0.205244, 0)
 
-[node name="5_-_L_Weight" parent="Horizontal Rotator/Antenna Rotator/LWeight" instance=ExtResource("11_wi3du")]
+[node name="5_-_L_Weight" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/LWeight" instance=ExtResource("11_wi3du")]
 transform = Transform3D(1, 0, 0, 0, -4.09782e-08, -1, 0, 1, -4.09782e-08, -2.66982, -4.89745, -0.142724)
 
-[node name="5 - L Weight" parent="Horizontal Rotator/Antenna Rotator/LWeight/5_-_L_Weight" index="0"]
+[node name="5 - L Weight" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/LWeight/5_-_L_Weight" index="0"]
 material_override = ExtResource("2_7pgxy")
 
 [editable path="0_-_Block"]
 [editable path="1_-_Base"]
 [editable path="2_-_Base_2"]
 [editable path="Horizontal Rotator/3_-_Pivot_Point"]
-[editable path="Horizontal Rotator/Antenna Rotator/Weight Rotator/6_-_Dish_Connector"]
-[editable path="Horizontal Rotator/Antenna Rotator/Weight Rotator/7_-_Dish"]
-[editable path="Horizontal Rotator/Antenna Rotator/Weight Rotator/8_-_Dish_Prong"]
-[editable path="Horizontal Rotator/Antenna Rotator/Weight Rotator/9_-_Dish_Wire"]
-[editable path="Horizontal Rotator/Antenna Rotator/RWeight/4_-_R_Weight"]
-[editable path="Horizontal Rotator/Antenna Rotator/LWeight/5_-_L_Weight"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/6_-_Dish_Connector"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/7_-_Dish"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/8_-_Dish_Prong"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/9_-_Dish_Wire"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/RWeight/4_-_R_Weight"]
+[editable path="Horizontal Rotator/Antenna Pivot/Antenna Rotator/LWeight/5_-_L_Weight"]
