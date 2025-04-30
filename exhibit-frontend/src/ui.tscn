@@ -129,12 +129,12 @@ custom_minimum_size = Vector2(348.85, 66.08)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2" node_paths=PackedStringArray("current_label", "track_label", "azimuth_label")]
+[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2" node_paths=PackedStringArray("current_label", "elevation_label", "azimuth_label")]
 layout_mode = 2
 script = ExtResource("7_ryeci")
 current_label = NodePath("MarginContainer/VBoxContainer/Label")
-track_label = NodePath("MarginContainer2/VBoxContainer/Label3")
-azimuth_label = NodePath("MarginContainer2/VBoxContainer/Label2")
+elevation_label = NodePath("MarginContainer2/VBoxContainer/ElevationLabel")
+azimuth_label = NodePath("MarginContainer2/VBoxContainer/AzimuthLabel")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
@@ -176,11 +176,11 @@ alignment = 1
 layout_mode = 2
 text = "Positions"
 
-[node name="Label3" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
+[node name="ElevationLabel" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
 layout_mode = 2
-text = "Track: 52.32"
+text = "Elevation: 52.32"
 
-[node name="Label2" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
+[node name="AzimuthLabel" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu/MarginContainer2/VBoxContainer"]
 layout_mode = 2
 text = "Azimuth: 52.32"
 
