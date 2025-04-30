@@ -17,7 +17,7 @@ var filenames = {
     'ICESAT': 'ic2.csv',
     'OCO2': 'oc2.csv',
     'SCISAT': 'sci.csv',
-    'SMAP': 'aqa.cvs' # not seeing smap in files?
+    'SMAP': 'aqa.csv' # not seeing smap in files?
 }
 
 var backend: BackendService

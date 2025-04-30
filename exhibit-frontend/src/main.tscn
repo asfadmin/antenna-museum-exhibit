@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=18 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://7wshqwt5ss1q" path="res://src/ui.tscn" id="3_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
 [ext_resource type="Shader" uid="uid://bvg2tqpuwerfd" path="res://src/world/world_plane.gdshader" id="5_fyndt"]
+[ext_resource type="Script" uid="uid://176cearkap0s" path="res://src/manager/IdleManager.gd" id="5_kmhfv"]
 
 [sub_resource type="FastNoiseLite" id="FastNoiseLite_1glr8"]
 offset = Vector3(0, 0, 8.55)
@@ -55,6 +56,9 @@ size = Vector2(1000, 1000)
 subdivide_width = 100
 subdivide_depth = 100
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyndt"]
+bg_color = Color(1, 1, 1, 0.670588)
+
 [node name="Main" type="Node3D"]
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
@@ -93,6 +97,22 @@ transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.148561, 20.3518
 
 [node name="Ui" parent="." instance=ExtResource("3_5mrjc")]
 
-[node name="MeshInstance3D2" type="MeshInstance3D" parent="."]
+[node name="Terrain" type="MeshInstance3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -1.18843, 0)
 mesh = SubResource("PlaneMesh_3cfgd")
+
+[node name="Node" type="Node" parent="." node_paths=PackedStringArray("timed_out_panel")]
+script = ExtResource("5_kmhfv")
+timed_out_panel = NodePath("TimedOutPanel")
+
+[node name="TimedOutPanel" type="Panel" parent="Node"]
+modulate = Color(0, 0, 0, 0.635294)
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+size_flags_horizontal = 3
+size_flags_vertical = 3
+mouse_filter = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_fyndt")

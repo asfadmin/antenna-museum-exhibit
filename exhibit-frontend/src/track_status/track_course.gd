@@ -60,8 +60,8 @@ func load_data(data):
 		_final_path.append(point + offset  + Vector2.DOWN * 50)
 	current_idx = 0
 	self.points = _final_path
-
-	sat_position.position = self.points[self.current_idx] #TODO: This sometimes crashes saying invalid index of 0
+	if len(points) > 0:
+		sat_position.position = self.points[self.current_idx] #TODO: This sometimes crashes saying invalid index of 0
 	sat_position.visible = true
 
 
