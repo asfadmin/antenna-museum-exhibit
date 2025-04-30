@@ -43,8 +43,6 @@ func _ready() -> void:
 	Events.dataset_selected.connect(_update_dataset)
 	Events.functional_button_pressed.connect(_on_functional_button_pressed)
 
-	var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
-	Events.emit_dataset_selected(first_dataset)
 	DataManager.track_complete.connect(_on_track_complete)
 	request_completed.connect(_on_request_complete)
 

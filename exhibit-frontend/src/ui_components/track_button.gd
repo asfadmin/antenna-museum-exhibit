@@ -23,7 +23,8 @@ func _ready() -> void:
     AntennaState.tracked_dataset_changed.connect(_on_tracked_dataset_changed)
     Events.dataset_selected.connect(_on_dataset_selected)
     AntennaState.current_action_changed.connect(_on_current_action_changed)
-
+    var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
+    Events.emit_dataset_selected(first_dataset)
 
 
 func _on_tracked_dataset_changed(dataset: Dataset):
@@ -33,14 +34,14 @@ func _on_tracked_dataset_changed(dataset: Dataset):
 func _on_current_action_changed(action: BackendService.INTERACTION):
     current_action = action
     update_text()
-    pass
+
 
 func _on_dataset_selected(dataset: Dataset):
     selected_dataset = dataset
     update_text()
 
+
 func update_text():
-    print(current_action)
     if tracked_dataset and tracked_dataset.dataset_id == selected_dataset.dataset_id:
         # the dataset selected is the one we are currently tracking, don't give the option to retrack it
         disabled = true
@@ -54,6 +55,7 @@ func update_text():
     if !timer.is_stopped():
         text = 'Waiting'
         disabled = true
+
 
 func _timer_ended():
     disabled = false

@@ -28,7 +28,9 @@ signal track_complete
 func _ready() -> void:
     AntennaState.current_action_changed.connect(_on_action_changed)
     # BackendService.request_completed.connect(_on_request_completed)
-    backend = get_tree().get_first_node_in_group("BackendService")
+    # backend = get_tree().get_first_node_in_group("BackendService")
+    backend = BackendService.new()
+    add_child(backend)
     backend.request_completed.connect(_on_request_completed)
     request_timer = Timer.new()
     request_timer.autostart = false
@@ -140,17 +142,17 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
     # I think the only response we actually care about is the status response?
 
-    # this is definitely not what the response is but the idea should continue
-    var test = {
-        'progress': fake_progress # this will probably be some math later
-    }
+    if AntennaState.current_action == BackendService.INTERACTION.TRACK or AntennaState.current_action == BackendService.INTERACTION.REHOME:
+        var test = {
+            'progress': fake_progress # this will probably be some math later
+        }
 
-    fake_progress += 0.01
-    if fake_progress >= 1.0:
-        stop_tracking()
-        movement_complete()
-    percent_complete = fake_progress
-    percent_complete_changed.emit(percent_complete)
+        fake_progress += 0.01
+        if fake_progress >= 1.0:
+            stop_tracking()
+            movement_complete()
+        percent_complete = fake_progress
+        percent_complete_changed.emit(percent_complete)
 
 
 func _on_request_timer_timeout():
