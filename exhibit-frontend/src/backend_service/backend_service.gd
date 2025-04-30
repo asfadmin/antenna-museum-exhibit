@@ -37,36 +37,6 @@ enum INTERACTION {
 
 var request_queue = []
 
-var current_dataset: Dataset
-
-func _ready() -> void:
-	Events.dataset_selected.connect(_update_dataset)
-	Events.functional_button_pressed.connect(_on_functional_button_pressed)
-
-	DataManager.track_complete.connect(_on_track_complete)
-	request_completed.connect(_on_request_complete)
-
-
-func _on_track_complete():
-	if AntennaState.current_action == INTERACTION.TRACK:
-		AntennaState.set_current_action(INTERACTION.STOP) # 
-		AntennaState.set_current_action(INTERACTION.STOWED) # paths include the rehoming part already
-	elif AntennaState.current_action == INTERACTION.REHOME:
-		AntennaState.set_current_action(INTERACTION.STOWED)
-
-func _update_dataset(dataset: Dataset):
-	current_dataset = dataset
-
-func _on_functional_button_pressed(type: INTERACTION):
-	if type == INTERACTION.STOP:
-		Stop()
-	elif type == INTERACTION.SPEED_UP:
-		Speed()
-	elif type == INTERACTION.TRACK && current_dataset:
-		Path(current_dataset.dataset_id)
-	elif type == INTERACTION.REHOME:
-		Home()
-
 
 func Custom(data: Dictionary):
 	## POSTs values for train, azimuth, and elevation to /custom endpoint
@@ -85,7 +55,6 @@ func Path(satellite: String, path: Array[Dictionary] = []):
 		#body['path'] = path
 
 	self._make_request(self.PATH_ENDPOINT, HTTPClient.METHOD_POST, body)
-	AntennaState.set_tracked_dataset(current_dataset)
 	AntennaState.set_current_action(INTERACTION.TRACK)
 
 
@@ -112,28 +81,9 @@ func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METH
 
 	var url_template = "%s%s"
 	var url = url_template % [self.URL, endpoint]
-	var request_status = get_http_client_status()
-	if len(request_queue) > 0 or [HTTPClient.STATUS_CONNECTING,HTTPClient.STATUS_RESOLVING, HTTPClient.STATUS_REQUESTING, HTTPClient.STATUS_BODY ].has(request_status):
-		var queue_object = {
-			'url': url,
-			'headers': PackedStringArray(DEFAULT_HEADERS),
-			'method': method,
-			'body': body_str
-		}
-		request_queue.push_back(queue_object)
-		return
 
 	var error = request(url, PackedStringArray(DEFAULT_HEADERS), method, body_str)
 
 	if error != OK:
 		push_error("An error occurred while querying the backend service.")
 
-func _on_request_complete(_result: int, _response_code: int, _headers: PackedStringArray, _body: PackedByteArray):
-	if len(request_queue) <= 0:
-		return
-	var params = request_queue.pop_front()
-	var error = request(params['url'], params['headers'], params['method'], params['body'])
-
-	if error != OK:
-		push_error("An error occurred while querying the backend service.")
-	pass

@@ -20,18 +20,15 @@ var filenames = {
     'SMAP': 'aqa.csv' # not seeing smap in files?
 }
 
-var backend: BackendService
 var request_timer: Timer
+var current_dataset: Dataset
 
 signal track_complete
 
 func _ready() -> void:
     AntennaState.current_action_changed.connect(_on_action_changed)
-    # BackendService.request_completed.connect(_on_request_completed)
-    # backend = get_tree().get_first_node_in_group("BackendService")
-    backend = BackendService.new()
-    add_child(backend)
-    backend.request_completed.connect(_on_request_completed)
+    Events.dataset_selected.connect(_update_dataset)
+
     request_timer = Timer.new()
     request_timer.autostart = false
     add_child(request_timer)
@@ -39,11 +36,39 @@ func _ready() -> void:
     await get_tree().create_timer(0.1).timeout # get the plot to shift into the correct layout since idk what's going on with it
     load_data('AQUA')
     clear_data()
+    DataManager.track_complete.connect(_on_track_complete)
+    Events.functional_button_pressed.connect(_on_functional_button_pressed)
 
+
+func _update_dataset(dataset: Dataset):
+    current_dataset = dataset
+
+
+func _on_functional_button_pressed(type: BackendService.INTERACTION):
+    var backend = BackendService.new()
+    add_child(backend)
+    backend.request_completed.connect(_on_request_completed.bind(backend))
+    if type == BackendService.INTERACTION.STOP:
+        backend.Stop()
+    elif type == BackendService.INTERACTION.SPEED_UP:
+        backend.Speed()
+    elif type == BackendService.INTERACTION.TRACK && current_dataset:
+        AntennaState.set_tracked_dataset(current_dataset)
+        backend.Path(current_dataset.dataset_id)
+        print(current_dataset.dataset_id)
+    elif type == BackendService.INTERACTION.REHOME:
+        backend.Home()
+
+func _on_track_complete():
+    if AntennaState.current_action == BackendService.INTERACTION.TRACK:
+        AntennaState.set_current_action(BackendService.INTERACTION.STOP) # 
+        AntennaState.set_current_action(BackendService.INTERACTION.STOWED) # paths include the rehoming part already
+    elif AntennaState.current_action == BackendService.INTERACTION.REHOME:
+        AntennaState.set_current_action(BackendService.INTERACTION.STOWED)
 
 func _on_action_changed(action: BackendService.INTERACTION):
     if action == BackendService.INTERACTION.TRACK:
-        load_data(backend.current_dataset.dataset_id)
+        load_data(current_dataset.dataset_id)
         start_tracking()
     elif action == BackendService.INTERACTION.STOP:
         clear_data()
@@ -137,12 +162,10 @@ func get_csv_column_data(column_index: int, content: Array) -> Array[float]:
 var fake_progress = 0.0
 
 # this can show even if it fails, will need some error checking possibly
-func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray):
+func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, node: Node, is_status=false):
     var converted = body.get_string_from_utf16() # this should give us a JSON response?
 
-    # I think the only response we actually care about is the status response?
-
-    if AntennaState.current_action == BackendService.INTERACTION.TRACK or AntennaState.current_action == BackendService.INTERACTION.REHOME:
+    if is_status:
         var test = {
             'progress': fake_progress # this will probably be some math later
         }
@@ -153,9 +176,12 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
             movement_complete()
         percent_complete = fake_progress
         percent_complete_changed.emit(percent_complete)
-
+    node.queue_free()
 
 func _on_request_timer_timeout():
+    var backend = BackendService.new()
+    add_child(backend)
+    backend.request_completed.connect(_on_request_completed.bind(backend,true))
     backend.Status()
 
 func start_tracking():

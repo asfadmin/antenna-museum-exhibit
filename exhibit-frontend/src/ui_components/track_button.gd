@@ -49,6 +49,9 @@ func update_text():
     elif current_action == BackendService.INTERACTION.STOP or current_action == BackendService.INTERACTION.TRACK:
         disabled = false
         text = 'Rehome'
+    elif current_action == BackendService.INTERACTION.REHOME:
+        disabled = true
+        text = 'Rehoming'
     else:
         disabled = false
         text = 'Track'
