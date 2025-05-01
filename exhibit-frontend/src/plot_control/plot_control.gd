@@ -134,7 +134,7 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 
 
 func _ready() -> void:
-	pause()
+	# pause()
 	DataManager.data_loaded.connect(data_changed)
 	timer.timeout.connect(_on_timer_timeout)
 
@@ -206,9 +206,9 @@ func data_changed(data):
 	print("flat_rhc_line: " + flat_rhc_line[0])
 	print("flat_xband_line: " + flat_xband_line[0])
 
-	lhc_column_data = flat_lhc_line
-	rhc_column_data = flat_rhc_line
-	xband_column_data = flat_xband_line
+	# lhc_column_data = flat_lhc_line
+	# rhc_column_data = flat_rhc_line
+	# xband_column_data = flat_xband_line
 
 
 
@@ -251,29 +251,31 @@ func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column
 
 
 func normalize(line_name, value, is_paused):
+	var new_max
+	var new_min
+	var old_max
+	var old_min
 	if is_paused:
 		return value
 	if line_name == 'lhc':
-		var new_max = graph_node.y_max
-		var new_min = graph_node.y_max - 2 * graph_node.y_step
-		var old_max = lhc_range[0]
-		var old_min = lhc_range[1]
+		new_max = graph_node.y_max
+		new_min = graph_node.y_max - 2 * graph_node.y_step
+		old_max = lhc_range[0]
+		old_min = lhc_range[1]
 		
-		return ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min
 	elif line_name == 'rhc':
-		var new_max = graph_node.y_max - 2 * graph_node.y_step
-		var new_min = graph_node.y_max - 4 * graph_node.y_step
-		var old_max = rhc_range[0]
-		var old_min = rhc_range[1]
+		new_max = graph_node.y_max - 2 * graph_node.y_step
+		new_min = graph_node.y_max - 4 * graph_node.y_step
+		old_max = rhc_range[0]
+		old_min = rhc_range[1]
 
-		return ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min
 	else:
-		var new_max = graph_node.y_max - 4 * graph_node.y_step
-		var new_min = graph_node.y_max - 6 * graph_node.y_step
-		var old_max = xband_range[0]
-		var old_min = xband_range[1]
+		new_max = graph_node.y_max - 4 * graph_node.y_step
+		new_min = graph_node.y_max - 6 * graph_node.y_step
+		old_max = xband_range[0]
+		old_min = xband_range[1]
 
-		return ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min
+	return ((value - old_min) / (old_max - old_min)) * (new_max - new_min) + new_min
 
 
 func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array, offset: float, is_paused: bool):
@@ -318,9 +320,9 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 		looped = true
 		x = x_max
 
-	current_1.text = "%0.2f" % lhc_current_val
-	current_2.text = "%0.2f" % rhc_current_val
-	current_3.text = "%0.2f" % xband_current_val
+	current_1.text = "%0.2f" % (lhc_range[1] -(lhc_current_val - lhc_range[0]))
+	current_2.text = "%0.2f" % (rhc_range[1] -(rhc_current_val - rhc_range[0]))
+	current_3.text = "%0.2f" % (xband_range[1] -(xband_current_val - xband_range[0]))
 	
 	redraw(lhc_line, lhc_plot,  0)
 	redraw(rhc_line, rhc_plot,  offset)
@@ -339,8 +341,6 @@ func _on_timer_timeout() -> void:
 		print("Arrays reloaded")
 		is_paused = false
 	if is_paused:
-		print("Paused and feeding flat lines")
 		feed(flat_lhc_line, flat_rhc_line, flat_xband_line, 0, is_paused)
 	else:
-		print("Not paused and feeding real lines")
 		feed(lhc_column_data, rhc_column_data, xband_column_data, max_range, is_paused)
