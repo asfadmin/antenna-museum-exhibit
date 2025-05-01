@@ -1,0 +1,9 @@
+[gd_resource type="StandardMaterial3D" format=3 uid="uid://dj74avryem8fl"]
+
+[resource]
+resource_name = "Dish"
+cull_mode = 2
+albedo_color = Color(0.137255, 0.380392, 0.572549, 1)
+metallic = 0.29
+metallic_specular = 0.05
+roughness = 0.89
