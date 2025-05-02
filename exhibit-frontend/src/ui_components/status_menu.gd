@@ -3,6 +3,7 @@ extends BoxContainer
 @export var current_label: Label
 @export var elevation_label: Label
 @export var azimuth_label: Label
+@export var debug_label: Label
 
 var azimuth = []
 var elevation = []
@@ -15,7 +16,7 @@ func _ready() -> void:
 	AntennaState.current_action_changed.connect(_on_current_action_changed)
 	DataManager.data_loaded.connect(_load_data)
 	DataManager.percent_complete_changed.connect(func (x): status=x)
-	
+	DataManager.debug_mode_toggled.connect(func (debug_mode): debug_label.visible = debug_mode)
 func _load_data(data) -> void:
 	if data == null:
 		self.azimuth = []

@@ -1,5 +1,6 @@
-[gd_scene load_steps=18 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=19 format=3 uid="uid://d376paxrwxpt1"]
 
+[ext_resource type="Script" uid="uid://cjikib32vn5fh" path="res://src/main.gd" id="1_kmhfv"]
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
 [ext_resource type="PackedScene" uid="uid://7wshqwt5ss1q" path="res://src/ui.tscn" id="3_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://qjcn72nl6tvi" path="res://src/antenna/antenna.tscn" id="4_3cfgd"]
@@ -60,6 +61,7 @@ subdivide_depth = 100
 bg_color = Color(1, 1, 1, 0.670588)
 
 [node name="Main" type="Node3D"]
+script = ExtResource("1_kmhfv")
 
 [node name="WorldEnvironment" type="WorldEnvironment" parent="."]
 environment = SubResource("Environment_e7uxs")
