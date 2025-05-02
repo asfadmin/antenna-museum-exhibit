@@ -123,12 +123,20 @@ custom_minimum_size = Vector2(348.85, 66.08)
 layout_mode = 2
 size_flags_horizontal = 8
 
-[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2" node_paths=PackedStringArray("current_label", "elevation_label", "azimuth_label")]
+[node name="StatusMenu" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2" node_paths=PackedStringArray("current_label", "elevation_label", "azimuth_label", "debug_label")]
 layout_mode = 2
 script = ExtResource("7_ryeci")
 current_label = NodePath("MarginContainer/VBoxContainer/Label")
 elevation_label = NodePath("MarginContainer2/VBoxContainer/ElevationLabel")
 azimuth_label = NodePath("MarginContainer2/VBoxContainer/AzimuthLabel")
+debug_label = NodePath("DebugLabel")
+
+[node name="DebugLabel" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
+visible = false
+layout_mode = 2
+theme_override_colors/font_color = Color(1, 0, 0, 1)
+text = "DEBUG
+MODE"
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/VBoxContainer/PanelContainer2/StatusMenu"]
 layout_mode = 2
