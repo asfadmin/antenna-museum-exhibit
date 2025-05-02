@@ -157,6 +157,7 @@ func _on_percent_complete_changed(value: float):
 		is_paused = true
 		reload_arrays_with_fake_data(dataset)
 	if percentage_completed >= 1:
+		print("100% resetting percentage complete to 0")
 		percentage_completed = 0
 		
 			
@@ -232,6 +233,7 @@ func reload_arrays_with_fake_data(dataset):
 			
 			
 func reset_graph():
+	print("Data changed, resetting graph")
 	graph_node.remove_all() # this seems to not actually remove everything rn
 	timer.stop()
 	lhc_line = []
@@ -244,6 +246,7 @@ func reset_graph():
 	current_1.text = "0"
 	current_2.text = "0"
 	current_3.text = "0"
+	percentage_completed = 0
 
 
 func redraw(line: Array[Variant], plot: PlotItem, _offset):
@@ -264,8 +267,8 @@ func shift(line) -> Array[Variant]:
 	return shifted
 
 
-func is_out_of_data(xband_column_data: Array, lhc_column_data: Array, rhc_column_data: Array) -> bool:
-	return xband_column_data.size() == 0 or lhc_column_data.size() == 0 or rhc_column_data.size() == 0
+func is_out_of_data(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Array) -> bool:
+	return lhc_column_data.size() == 0 or rhc_column_data.size() == 0 or xband_column_data.size() == 0
 
 
 func normalize(line_name, value, is_paused):
@@ -349,18 +352,23 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 	
 func reload_arrays_with_real_data():
 	var column_data = DataManager.get_data()
-	
+	if column_data == null:
+		reload_arrays_with_fake_data(dataset)
+		return
 	lhc_column_data = column_data["lhc_column_data"].duplicate()
 	rhc_column_data = column_data["rhc_column_data"].duplicate()
 	xband_column_data = column_data["xband_column_data"].duplicate()
 
 	
 func _on_timer_timeout() -> void:
-	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
-		print("Ran out of data, reloading arrays and continuing to feed")
-		reload_arrays_with_real_data()
-		print("Arrays reloaded")
 	if is_paused:
+		if is_out_of_data(flat_lhc_line, flat_rhc_line, flat_xband_line):
+			print("Ran out of data, reloading arrays and continuing to feed")
+			reload_arrays_with_fake_data(dataset)
+			print("Arrays reloaded")
 		feed(flat_lhc_line, flat_rhc_line, flat_xband_line, 0, is_paused)
 	else:
+		if is_out_of_data(lhc_column_data, rhc_column_data, xband_column_data):
+			print("Ran out of data, reloading arrays and continuing to feed")
+			reload_arrays_with_real_data()
 		feed(lhc_column_data, rhc_column_data, xband_column_data, max_range, is_paused)
