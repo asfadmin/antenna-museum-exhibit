@@ -67,6 +67,12 @@ var xband_range := []
 
 @export var timer: Timer
 
+var percentage_completed = 0.0
+var lines_to_ingest = 0
+var length_of_data = 0
+var lines_ingested = 0
+var dataset: String
+
 func get_min(data: Array) -> float:
 	var m: float = data[0] as float
 	
@@ -106,8 +112,7 @@ func initialize_graph(lhc_column_data: Array, rhc_column_data: Array, xband_colu
 	var lhc_length: float = lhc_range.max() - lhc_range.min()
 	var rhc_length: float = rhc_range.max() - rhc_range.min()
 	var xband_length: float = xband_range.max() - xband_range.min()
-
-
+	
 	max_range = get_max([xband_length, lhc_length, rhc_length])
 	
 	var y_min: float = get_min([xband_range.min(), lhc_range.min(), rhc_range.min()])  # Lower y bound of the graph
@@ -137,7 +142,26 @@ func _ready() -> void:
 	# pause()
 	DataManager.data_loaded.connect(data_changed)
 	timer.timeout.connect(_on_timer_timeout)
+	DataManager.percent_complete_changed.connect(_on_percent_complete_changed)
+	DataManager.track_complete.connect(complete)
 
+	
+func _on_percent_complete_changed(value: float):
+	percentage_completed += 0.01 
+	if percentage_completed*100 == 10:
+		print("10%, feeding real lines")
+		reload_arrays_with_real_data()
+		is_paused = false
+	if floor(percentage_completed*100) == 90:
+		print("90%, feeding flat lines")
+		is_paused = true
+		reload_arrays_with_fake_data(dataset)
+	if percentage_completed >= 1:
+		percentage_completed = 0
+		
+			
+func complete():
+	return "complete"
 	
 func data_changed(data):
 	if data == null:
@@ -157,11 +181,16 @@ func data_changed(data):
 	print("graph_node.y_step: %s" % graph_node.y_step)
 
 	# Hard-code for the sake of getting this done
-	var dataset: String
 	if AntennaState.tracked_dataset != null:
 		dataset = AntennaState.tracked_dataset.dataset_id
 	else:
 		dataset = 'AQUA'
+	
+	is_paused = true
+	reload_arrays_with_fake_data(dataset)
+	
+	
+func reload_arrays_with_fake_data(dataset):
 	flat_lhc_line = []
 	flat_rhc_line = []
 	flat_xband_line = []
@@ -200,18 +229,8 @@ func data_changed(data):
 			flat_lhc_line.append("90")
 			flat_rhc_line.append("50")
 			flat_xband_line.append("10")
-	
-	print("Dataset: " + dataset)
-	print("flat_lhc_line: " + flat_lhc_line[0])
-	print("flat_rhc_line: " + flat_rhc_line[0])
-	print("flat_xband_line: " + flat_xband_line[0])
-
-	# lhc_column_data = flat_lhc_line
-	# rhc_column_data = flat_rhc_line
-	# xband_column_data = flat_xband_line
-
-
-
+			
+			
 func reset_graph():
 	graph_node.remove_all() # this seems to not actually remove everything rn
 	timer.stop()
@@ -225,7 +244,6 @@ func reset_graph():
 	current_1.text = "0"
 	current_2.text = "0"
 	current_3.text = "0"
-
 
 
 func redraw(line: Array[Variant], plot: PlotItem, _offset):
@@ -327,19 +345,21 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 	redraw(lhc_line, lhc_plot,  0)
 	redraw(rhc_line, rhc_plot,  offset)
 	redraw(xband_line, xband_plot,  offset*2)
+	
+	
+func reload_arrays_with_real_data():
+	var column_data = DataManager.get_data()
+	
+	lhc_column_data = column_data["lhc_column_data"].duplicate()
+	rhc_column_data = column_data["rhc_column_data"].duplicate()
+	xband_column_data = column_data["xband_column_data"].duplicate()
 
-
+	
 func _on_timer_timeout() -> void:
 	if is_out_of_data(xband_column_data, lhc_column_data, rhc_column_data):
 		print("Ran out of data, reloading arrays and continuing to feed")
-		var column_data = DataManager.get_data()
-		
-		lhc_column_data = column_data["lhc_column_data"]
-		rhc_column_data = column_data["rhc_column_data"]
-		xband_column_data = column_data["xband_column_data"]
-		
+		reload_arrays_with_real_data()
 		print("Arrays reloaded")
-		is_paused = false
 	if is_paused:
 		feed(flat_lhc_line, flat_rhc_line, flat_xband_line, 0, is_paused)
 	else:
