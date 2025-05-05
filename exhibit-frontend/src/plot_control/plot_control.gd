@@ -341,13 +341,22 @@ func feed(lhc_column_data: Array, rhc_column_data: Array, xband_column_data: Arr
 		looped = true
 		x = x_max
 
-	current_1.text = "%0.2f" % (lhc_range[1] -(lhc_current_val - lhc_range[0]))
-	current_2.text = "%0.2f" % (rhc_range[1] -(rhc_current_val - rhc_range[0]))
-	current_3.text = "%0.2f" % (xband_range[1] -(xband_current_val - xband_range[0]))
+	if is_paused:
+		current_1.text = "%0.2f" % floor((lhc_range[1] - lhc_range[0])/2)
+		current_2.text = "%0.2f" % floor((rhc_range[1] - rhc_range[0])/2)
+		current_3.text = "%0.2f" % floor((xband_range[1] - xband_range[0])/2)
+	else:
+		current_1.text = "%0.2f" % invert(lhc_current_val, lhc_range[0], lhc_range[1])
+		current_2.text = "%0.2f" % invert(rhc_current_val, rhc_range[0], rhc_range[1])
+		current_3.text = "%0.2f" % invert(xband_current_val, xband_range[0], xband_range[1])
 	
 	redraw(lhc_line, lhc_plot,  0)
 	redraw(rhc_line, rhc_plot,  offset)
 	redraw(xband_line, xband_plot,  offset*2)
+	
+	
+func invert(val, _min, _max):
+	return _max - (val - _min)
 	
 	
 func reload_arrays_with_real_data():
