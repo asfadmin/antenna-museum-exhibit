@@ -13,7 +13,7 @@ var status = 0.0
 var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
 func _ready() -> void:
 	#move_to(1,1,1)
-	rehome()
+	rehome(20.0)
 	DataManager.data_loaded.connect(load_data)
 	
 	DataManager.percent_complete_changed.connect(func (x): status=x)
@@ -64,17 +64,17 @@ func rehome(duration=10.0):
 	# 2. homes elevation
 	# 3. quarter-circle azimuth
 	# 4. quarter-circle elevation (bird bath)
-	
+	var step_duration = duration / 4.0
 	var tween = get_tree().create_tween()
-	
+	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	
 	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0)).normalized()
 	var ele = Quaternion.from_euler(Vector3(deg_to_rad(90.0),0.0,0)).normalized()
 	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(45.0),0)).normalized()
 	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0)).normalized()
-	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, duration / 4.0)
-	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration / 4.0)
-	tween.tween_method(azimuth_rotation.bind(azi_2), 0.0, 1.0, duration / 4.0)
-	tween.tween_method(antenna_elevation.bind(ele_2), 0.0, 1.0, duration / 4.0)
+	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, step_duration)
+	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, step_duration)
+	tween.tween_method(azimuth_rotation.bind(azi_2), 0.0, 1.0, step_duration)
+	tween.tween_method(antenna_elevation.bind(ele_2), 0.0, 1.0, step_duration)
 	#tween.chain()
 	pass
