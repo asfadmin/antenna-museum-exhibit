@@ -1,4 +1,4 @@
-[gd_scene load_steps=17 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=22 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="Script" uid="uid://cjikib32vn5fh" path="res://src/main.gd" id="1_kmhfv"]
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
@@ -9,44 +9,69 @@
 [ext_resource type="Texture2D" uid="uid://kqc361cjoncy" path="res://assets/map/map.png" id="6_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://v3wd3kcebcwh" path="res://assets/elvey/elvey.glb" id="9_kf8lf"]
 
-[sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_kmhfv"]
-rayleigh_color = Color(0.354162, 0.465732, 0.672092, 1)
+[sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5mrjc"]
+sky_top_color = Color(0.400112, 0.451241, 0.537643, 1)
+sky_horizon_color = Color(0.767947, 0.624149, 0.497953, 1)
+sky_curve = 0.261165
+ground_bottom_color = Color(0.501724, 0.439727, 0.367978, 1)
+sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_k2a3y"]
-sky_material = SubResource("PhysicalSkyMaterial_kmhfv")
+sky_material = SubResource("ProceduralSkyMaterial_5mrjc")
+process_mode = 3
+radiance_size = 4
 
 [sub_resource type="Environment" id="Environment_e7uxs"]
 background_mode = 2
 sky = SubResource("Sky_k2a3y")
-fog_enabled = true
-fog_mode = 1
-fog_density = 1.0
-fog_aerial_perspective = 0.24
-fog_depth_curve = 1.1487
-fog_depth_begin = 20.5
+tonemap_mode = 3
+glow_bloom = 0.05
 fog_depth_end = 440.5
 
 [sub_resource type="ShaderMaterial" id="ShaderMaterial_kmhfv"]
 render_priority = 0
 shader = ExtResource("5_fyndt")
 shader_parameter/noise = ExtResource("6_5mrjc")
-shader_parameter/base_color = Color(0.113655, 0.273393, 0.250691, 1)
+shader_parameter/base_color = Color(0.556379, 0.469743, 0.213922, 1)
+shader_parameter/secondary_color = Color(0.129412, 0.32549, 0.27451, 1)
+shader_parameter/height_factor = 2.5
 
 [sub_resource type="PlaneMesh" id="PlaneMesh_3cfgd"]
+lightmap_size_hint = Vector2i(22502, 22502)
 material = SubResource("ShaderMaterial_kmhfv")
-size = Vector2(3000, 3000)
-subdivide_width = 100
-subdivide_depth = 100
+size = Vector2(4500, 4500)
+subdivide_width = 128
+subdivide_depth = 128
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_fyndt"]
 bg_color = Color(1, 1, 1, 0.670588)
 
-[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_urn08"]
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_5mrjc"]
 albedo_color = Color(0.310617, 0.310617, 0.310617, 1)
 
 [sub_resource type="BoxMesh" id="BoxMesh_pmi3b"]
-material = SubResource("StandardMaterial3D_urn08")
-size = Vector3(20, 20, 20)
+material = SubResource("StandardMaterial3D_5mrjc")
+size = Vector3(13, 13, 13)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_kf8lf"]
+albedo_color = Color(0.354144, 0.63388, 0.762125, 1)
+metallic = 0.95
+metallic_specular = 0.64
+roughness = 0.62
+
+[sub_resource type="BoxMesh" id="BoxMesh_mgm53"]
+material = SubResource("StandardMaterial3D_kf8lf")
+size = Vector3(13, 13, 13)
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_mgm53"]
+albedo_color = Color(0.65834, 0.65834, 0.65834, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_5mrjc"]
+material = SubResource("StandardMaterial3D_mgm53")
+size = Vector3(1.5, 1.5, 0.1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_kf8lf"]
+size = Vector3(0.3, 0.05, 0.1)
 
 [node name="Main" type="Node3D"]
 script = ExtResource("1_kmhfv")
@@ -57,9 +82,9 @@ environment = SubResource("Environment_e7uxs")
 [node name="DirectionalLight3D" type="DirectionalLight3D" parent="."]
 transform = Transform3D(0.757297, -0.125411, 0.640916, -0.440659, 0.626184, 0.643205, -0.481997, -0.769523, 0.418944, -0.165306, 21.3967, -8.09256)
 light_color = Color(1, 0.988235, 0.909804, 1)
-light_energy = 2.0
-light_indirect_energy = 3.0
+light_energy = 0.9
 shadow_enabled = true
+directional_shadow_mode = 1
 
 [node name="Node3D" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06563, 8.46399, 0)
@@ -67,7 +92,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06563, 8.46399, 0)
 [node name="OrbitCamera" type="Camera3D" parent="Node3D"]
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 15, 0, 0)
 keep_aspect = 0
-fov = 37.8493
+fov = 45.0
 script = ExtResource("2_v2ihe")
 ZOOM_SPEED = 7.215
 DEFAULT_DISTANCE = 60.0
@@ -88,7 +113,9 @@ transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.149, 20.497, 0.
 [node name="Ui" parent="." instance=ExtResource("3_5mrjc")]
 
 [node name="Terrain" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -341.236, -184.231, 130.659)
 mesh = SubResource("PlaneMesh_3cfgd")
+skeleton = NodePath("")
 
 [node name="Node" type="Node" parent="." node_paths=PackedStringArray("timed_out_panel")]
 script = ExtResource("5_kmhfv")
@@ -113,3 +140,25 @@ transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.6027, 10.9336, 0)
 transform = Transform3D(0.142857, 0, 0, 0, 0.142857, 0, 0, 0, 0.142857, -0.0130995, -0.990521, 0.002)
 mesh = SubResource("BoxMesh_pmi3b")
 skeleton = NodePath("../..")
+
+[node name="MeshInstance3D2" type="MeshInstance3D" parent="elvey"]
+transform = Transform3D(0.142857, 0, 0, 0, 0.142857, 0, 0, 0, 0.142857, -0.00331008, 0.29408, 0.002)
+mesh = SubResource("BoxMesh_mgm53")
+skeleton = NodePath("../..")
+
+[node name="RightDoor" type="MeshInstance3D" parent="elvey/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1.87639, 0, 0, 0, 1, -0.778359, 4.71401, -6.48459)
+mesh = SubResource("BoxMesh_5mrjc")
+
+[node name="handle" type="MeshInstance3D" parent="elvey/MeshInstance3D2/RightDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.538018, 0.0823364, -0.0571289)
+mesh = SubResource("BoxMesh_kf8lf")
+
+[node name="LeftDoor" type="MeshInstance3D" parent="elvey/MeshInstance3D2"]
+transform = Transform3D(1, 0, 0, 0, 1.87639, 0, 0, 0, 1, 0.783996, 4.71401, -6.48459)
+mesh = SubResource("BoxMesh_5mrjc")
+
+[node name="handle" type="MeshInstance3D" parent="elvey/MeshInstance3D2/LeftDoor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.524245, 0.0823364, -0.0571289)
+mesh = SubResource("BoxMesh_kf8lf")
+skeleton = NodePath("../../RightDoor")
