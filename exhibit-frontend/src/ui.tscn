@@ -1,4 +1,4 @@
-[gd_scene load_steps=27 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=28 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -94,6 +94,11 @@ metadata/_custom_type_script = "uid://cjtowq518rbsq"
 
 [sub_resource type="LabelSettings" id="LabelSettings_g1sg1"]
 font_size = 15
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_243qu"]
+bg_color = Color(0.233925, 0.233925, 0.233925, 1)
+shadow_color = Color(0.188235, 0.188235, 0.188235, 0.580392)
+shadow_size = 5
 
 [node name="Ui" type="Control"]
 layout_mode = 3
@@ -449,7 +454,7 @@ size_flags_vertical = 3
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_right = 5
-theme_override_constants/margin_bottom = 0
+theme_override_constants/margin_bottom = 8
 
 [node name="VBoxContainer2" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer"]
 layout_mode = 2
@@ -478,8 +483,9 @@ size_flags_stretch_ratio = 0.25
 alignment = 1
 
 [node name="TrackButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
-custom_minimum_size = Vector2(153.465, 0)
+custom_minimum_size = Vector2(153.465, 32)
 layout_mode = 2
+theme_override_styles/normal = SubResource("StyleBoxFlat_243qu")
 text = "Track"
 script = ExtResource("12_g1sg1")
 type = 2
