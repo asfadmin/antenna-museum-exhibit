@@ -95,6 +95,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.06563, 8.46399, 0)
 transform = Transform3D(0, 0, 1, 0, 1, 0, -1, 0, 0, 15, 0, 0)
 keep_aspect = 0
 fov = 45.0
+far = 1500.0
 script = ExtResource("2_v2ihe")
 ZOOM_SPEED = 7.215
 DEFAULT_DISTANCE = 60.0
@@ -115,7 +116,7 @@ transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.149, 20.497, 0.
 [node name="Ui" parent="." instance=ExtResource("3_5mrjc")]
 
 [node name="Terrain" type="MeshInstance3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -341.236, -184.231, 130.659)
+transform = Transform3D(-1, 0, 8.74228e-08, 0, 1, 0, -8.74228e-08, 0, -1, 605.701, -184.231, 130.659)
 mesh = SubResource("PlaneMesh_3cfgd")
 skeleton = NodePath("")
 
