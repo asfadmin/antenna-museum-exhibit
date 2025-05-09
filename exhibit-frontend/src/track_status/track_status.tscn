@@ -20,25 +20,6 @@ color = Color(0, 0, 0, 1)
 script = ExtResource("1_u6mlq")
 line_width = 3.0
 
-[node name="North" type="RichTextLabel" parent="background"]
-layout_mode = 1
-anchors_preset = -1
-anchor_left = 0.500488
-anchor_top = 0.0507812
-anchor_right = 0.500488
-anchor_bottom = 0.0507812
-offset_left = -6.5
-offset_top = 19.0
-offset_right = 17.5
-offset_bottom = 43.0
-grow_horizontal = 2
-theme_override_fonts/normal_font = ExtResource("2_4komm")
-theme_override_font_sizes/normal_font_size = 24
-bbcode_enabled = true
-text = "[color=\"#00FFFF\"]N[/color]"
-scroll_active = false
-metadata/_edit_use_anchors_ = true
-
 [node name="Key" type="RichTextLabel" parent="background"]
 visible = false
 layout_mode = 1
@@ -101,11 +82,29 @@ text = "PlaceHolder"
 scroll_active = false
 metadata/_edit_use_anchors_ = true
 
+[node name="North" type="RichTextLabel" parent="background"]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.492188
+anchor_right = 0.5
+offset_left = -6.00031
+offset_top = 5.0
+offset_right = 17.9997
+offset_bottom = 32.0
+grow_horizontal = 2
+theme_override_fonts/normal_font = ExtResource("2_4komm")
+theme_override_font_sizes/normal_font_size = 24
+bbcode_enabled = true
+text = "[color=\"#00FFFF\"]N[/color]"
+scroll_active = false
+horizontal_alignment = 1
+metadata/_edit_use_anchors_ = true
+
 [node name="South" type="RichTextLabel" parent="background"]
 layout_mode = 1
-anchors_preset = 7
+anchors_preset = -1
 anchor_left = 0.5
-anchor_top = 1.0
+anchor_top = 0.987305
 anchor_right = 0.5
 anchor_bottom = 1.0
 offset_left = -12.0
@@ -118,19 +117,20 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[color=\"#00FFFF\"]S[/color]"
 scroll_active = false
+horizontal_alignment = 1
 metadata/_edit_use_anchors_ = true
 
 [node name="East" type="RichTextLabel" parent="background"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = 1.02344
-anchor_top = 0.547363
-anchor_right = 1.02344
-anchor_bottom = 0.547363
-offset_left = -48.0
-offset_top = -11.5
-offset_right = -24.0
-offset_bottom = 12.5
+anchor_left = 1.0
+anchor_top = 0.5
+anchor_right = 1.0
+anchor_bottom = 0.5
+offset_left = -23.9974
+offset_top = -12.0
+offset_right = 0.00256348
+offset_bottom = 37.0
 grow_horizontal = 0
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_4komm")
@@ -143,14 +143,12 @@ metadata/_edit_use_anchors_ = true
 [node name="West" type="RichTextLabel" parent="background"]
 layout_mode = 1
 anchors_preset = -1
-anchor_left = -0.0166016
-anchor_top = 0.547363
-anchor_right = -0.0166016
-anchor_bottom = 0.547363
-offset_left = 27.0
-offset_top = -11.5
-offset_right = 51.0
-offset_bottom = 12.5
+anchor_top = 0.5
+anchor_bottom = 0.5
+offset_left = 9.99996
+offset_top = -12.0
+offset_right = 34.0
+offset_bottom = 32.0
 grow_vertical = 2
 theme_override_fonts/normal_font = ExtResource("2_4komm")
 theme_override_font_sizes/normal_font_size = 24

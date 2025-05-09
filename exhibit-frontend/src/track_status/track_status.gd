@@ -13,7 +13,7 @@ func _ready() -> void:
 	pass # Replace with function body.
 
 func _init() -> void:
-	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
+	self.origin = self.get_rect().get_center()
 	queue_redraw()
 # Called every frame. 'delta' is the elapsed time since the previous frame.
 func _process(delta: float) -> void:
@@ -30,7 +30,7 @@ func _draw():
 
 	var size = self.size.x
 	#var border_scale_factor = 2.5
-	self.origin = self.get_rect().get_center() + Vector2.DOWN * 20
+	self.origin = self.get_rect().get_center()
 	#var origin = Vector2.ONE * size * (border_scale_factor / 2.0)
 	self.min_radius = (size / 12) * .8
 	self.max_radius = (size / 2) * .8

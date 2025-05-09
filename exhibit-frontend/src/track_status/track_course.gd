@@ -66,7 +66,7 @@ func load_data(data):
 	var offset = Vector2(bounding_box.size.x, bounding_box.size.y) * 1.3 # for some reason the scaling changes? not sure why this is different now
 	
 	for point_idx in len(azm_elev):
-		var p = azm_elev[point_idx] + offset  + Vector2.DOWN * 50
+		var p = azm_elev[point_idx] + offset  + Vector2.DOWN * 30
 		if autotrack_status[point_idx] != 0:
 			_final_path.append(p)
 		_unmasked_points.append(p)
