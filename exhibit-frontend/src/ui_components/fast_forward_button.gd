@@ -37,3 +37,4 @@ func _on_pressed():
     Events.emit_functional_button(type)
     going_fast = !going_fast
     update_label()
+    Events.emit_audio_event(AudioManager.Type.FAST_FORWARD)

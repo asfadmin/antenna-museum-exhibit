@@ -45,3 +45,4 @@ func _update_background():
 
 func _on_pressed():
     Events.emit_dataset_selected(dataset)
+    Events.emit_audio_event(AudioManager.Type.SELECT_DATASET)

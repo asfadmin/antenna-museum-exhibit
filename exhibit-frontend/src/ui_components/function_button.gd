@@ -30,3 +30,5 @@ func _on_pressed():
         text = disabled_text
         timer.start(debounce_time)
     Events.emit_functional_button(type)
+    if type == BackendService.INTERACTION.STOP:
+        Events.emit_audio_event(AudioManager.Type.STOP)

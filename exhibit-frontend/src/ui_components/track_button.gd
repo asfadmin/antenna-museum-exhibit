@@ -72,6 +72,8 @@ func _on_pressed():
         timer.start(debounce_time)
     if AntennaState.current_action == BackendService.INTERACTION.TRACK or current_action == BackendService.INTERACTION.STOP:
         Events.emit_functional_button(BackendService.INTERACTION.REHOME)
+        Events.emit_audio_event(AudioManager.Type.REHOME)
     else:
         Events.emit_functional_button(BackendService.INTERACTION.TRACK)
+        Events.emit_audio_event(AudioManager.Type.TRACK)
 
