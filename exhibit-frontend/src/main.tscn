@@ -1,4 +1,4 @@
-[gd_scene load_steps=18 format=3 uid="uid://d376paxrwxpt1"]
+[gd_scene load_steps=17 format=3 uid="uid://d376paxrwxpt1"]
 
 [ext_resource type="Script" uid="uid://cjikib32vn5fh" path="res://src/main.gd" id="1_kmhfv"]
 [ext_resource type="Script" uid="uid://crg2503w43hpw" path="res://addons/orbit_camera/orbit_camera.gd" id="2_v2ihe"]
@@ -7,7 +7,6 @@
 [ext_resource type="Shader" uid="uid://bvg2tqpuwerfd" path="res://src/world/world_plane.gdshader" id="5_fyndt"]
 [ext_resource type="Script" uid="uid://176cearkap0s" path="res://src/manager/IdleManager.gd" id="5_kmhfv"]
 [ext_resource type="Texture2D" uid="uid://kqc361cjoncy" path="res://assets/map/map.png" id="6_5mrjc"]
-[ext_resource type="Script" uid="uid://byn6k2st0t3t2" path="res://src/terrain.gd" id="6_rlaii"]
 [ext_resource type="PackedScene" uid="uid://v3wd3kcebcwh" path="res://assets/elvey/elvey.glb" id="9_kf8lf"]
 
 [sub_resource type="PhysicalSkyMaterial" id="PhysicalSkyMaterial_kmhfv"]
@@ -90,8 +89,6 @@ transform = Transform3D(0.205, 0, 0, 0, 0.205, 0, 0, 0, 0.205, 0.149, 20.497, 0.
 
 [node name="Terrain" type="MeshInstance3D" parent="."]
 mesh = SubResource("PlaneMesh_3cfgd")
-script = ExtResource("6_rlaii")
-data_map = "uid://bm4hacnsfk7wj"
 
 [node name="Node" type="Node" parent="." node_paths=PackedStringArray("timed_out_panel")]
 script = ExtResource("5_kmhfv")
