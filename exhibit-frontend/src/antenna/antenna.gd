@@ -13,11 +13,15 @@ var status = 0.0
 var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
 func _ready() -> void:
 	#move_to(1,1,1)
-	rehome(20.0)
+	rehome(5.0)
 	DataManager.data_loaded.connect(load_data)
-	
+	AntennaState.current_action_changed.connect(on_antenna_state_changed)
 	DataManager.percent_complete_changed.connect(func (x): status=x)
-	
+
+func on_antenna_state_changed(state: BackendService.INTERACTION):
+	if state == BackendService.INTERACTION.REHOME:
+		self.rehome()
+
 func load_data(data):
 	if data == null:
 		current_idx = 0
@@ -69,12 +73,13 @@ func rehome(duration=10.0):
 	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	
 	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0)).normalized()
-	var ele = Quaternion.from_euler(Vector3(deg_to_rad(90.0),0.0,0)).normalized()
+	var ele = Quaternion.from_euler(Vector3(deg_to_rad(-90.0),0.0,0)).normalized()
 	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(45.0),0)).normalized()
 	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0)).normalized()
 	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, step_duration)
 	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, step_duration)
 	tween.tween_method(azimuth_rotation.bind(azi_2), 0.0, 1.0, step_duration)
 	tween.tween_method(antenna_elevation.bind(ele_2), 0.0, 1.0, step_duration)
+	tween.tween_callback(func (): AntennaState.set_current_action(BackendService.INTERACTION.STOWED))
 	#tween.chain()
 	pass

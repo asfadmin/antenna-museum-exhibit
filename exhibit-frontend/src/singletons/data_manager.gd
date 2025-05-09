@@ -79,7 +79,7 @@ func _on_action_changed(action: BackendService.INTERACTION):
 		clear_data()
 		AntennaState.set_tracked_dataset(null)
 		stop_tracking()
-		start_tracking()
+		#start_tracking()
 
 func load_data(dataset_id):
 	load_column_data(filenames[dataset_id])
