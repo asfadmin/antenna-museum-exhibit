@@ -19,6 +19,7 @@ const PATH_ENDPOINT = '/path'
 const STATUS_ENDPOINT = '/status'
 const SPEED_ENDPOINT = '/speed'
 const RESET_ENDPOINT = '/reset'
+const STOP_ENDPOINT = '/stop'
 
 enum AXIS {
 	ALL,
@@ -68,7 +69,7 @@ func Speed():
 
 
 func Stop():
-	self._make_request(self.RESET_ENDPOINT, HTTPClient.METHOD_POST)
+	self._make_request(self.STOP_ENDPOINT, HTTPClient.METHOD_POST)
 	AntennaState.set_current_action(INTERACTION.STOP)
 
 

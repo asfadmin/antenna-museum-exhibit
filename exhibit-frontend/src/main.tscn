@@ -8,7 +8,7 @@
 [ext_resource type="Script" uid="uid://176cearkap0s" path="res://src/manager/IdleManager.gd" id="5_kmhfv"]
 [ext_resource type="Texture2D" uid="uid://kqc361cjoncy" path="res://assets/map/map.png" id="6_5mrjc"]
 [ext_resource type="PackedScene" uid="uid://v3wd3kcebcwh" path="res://assets/elvey/elvey.glb" id="9_kf8lf"]
-[ext_resource type="Script" uid="uid://bmmxfivtkclvf" path="res://src/ui_components/audio_player.gd" id="9_mgm53"]
+[ext_resource type="Script" path="res://src/ui_components/audio_player.gd" id="9_mgm53"]
 [ext_resource type="AudioStream" uid="uid://dtee1q1of5pfl" path="res://assets/audio/select.wav" id="10_mgm53"]
 
 [sub_resource type="ProceduralSkyMaterial" id="ProceduralSkyMaterial_5mrjc"]
@@ -173,4 +173,3 @@ select_dataset_button_press = ExtResource("10_mgm53")
 track_button_press = ExtResource("10_mgm53")
 stop_button_press = ExtResource("10_mgm53")
 fast_forward_button_press = ExtResource("10_mgm53")
-metadata/_custom_type_script = "uid://bmmxfivtkclvf"

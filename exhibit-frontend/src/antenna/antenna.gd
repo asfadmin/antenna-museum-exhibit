@@ -13,6 +13,7 @@ var status = 0.0
 var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
 func _ready() -> void:
 	#move_to(1,1,1)
+	rehome()
 	DataManager.data_loaded.connect(load_data)
 	
 	DataManager.percent_complete_changed.connect(func (x): status=x)
@@ -48,11 +49,32 @@ func move_to(elevation, azimuth, train, duration=1.66):
 	
 	var ele = Quaternion.from_euler(Vector3(deg_to_rad(elevation - 90.0),0.0,0)).normalized()
 	var azi = Quaternion.from_euler(Vector3(0.0, deg_to_rad(-azimuth),0)).normalized()
-	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration)
-	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, duration)
+	tween.parallel().tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration)
+	tween.parallel().tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, duration)
 
 func antenna_elevation(weight: float, value: Quaternion):
 	antenna_rotator_node.quaternion = antenna_rotator_node.quaternion.slerp(value, weight).normalized()
 	
 func azimuth_rotation(weight: float, value: Quaternion):
 	horizontal_rotation_node.quaternion = horizontal_rotation_node.quaternion.slerp(value, weight).normalized()
+
+func rehome(duration=10.0):
+	# approximates the rehoming functionality of the physical antenna model
+	# 1. homes azimuth
+	# 2. homes elevation
+	# 3. quarter-circle azimuth
+	# 4. quarter-circle elevation (bird bath)
+	
+	var tween = get_tree().create_tween()
+	
+	
+	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0)).normalized()
+	var ele = Quaternion.from_euler(Vector3(deg_to_rad(90.0),0.0,0)).normalized()
+	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(45.0),0)).normalized()
+	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0)).normalized()
+	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, duration / 4.0)
+	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration / 4.0)
+	tween.tween_method(azimuth_rotation.bind(azi_2), 0.0, 1.0, duration / 4.0)
+	tween.tween_method(antenna_elevation.bind(ele_2), 0.0, 1.0, duration / 4.0)
+	#tween.chain()
+	pass
