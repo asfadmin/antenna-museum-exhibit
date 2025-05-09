@@ -12,6 +12,7 @@ extends Camera3D
 @export var max_distance: float = 30
 @export var min_distance: float = 3
 @export var min_x: float = 0
+@export var max_x: float = 40
 @export var height_offset: float = 0
 
 # Event var
@@ -44,8 +45,8 @@ func _process_transformation(delta: float):
 	# Update rotation
 	_rotation.x += -_move_speed.y * delta * ROTATE_SPEED
 	_rotation.y += -_move_speed.x * delta * ROTATE_SPEED
-	if _rotation.x < -PI/2:
-		_rotation.x = -PI/2
+	if _rotation.x < -PI/8:
+		_rotation.x = -PI/8
 	if _rotation.x > PI/2:
 		_rotation.x = PI/2
 	_move_speed = Vector2()

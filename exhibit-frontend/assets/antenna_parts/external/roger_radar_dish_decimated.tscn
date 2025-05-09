@@ -1,0 +1,11 @@
+[gd_scene load_steps=4 format=3 uid="uid://cctt0byhdwgt6"]
+
+[ext_resource type="PackedScene" uid="uid://b2dgc35neypla" path="res://assets/antenna_parts/external/roger_radar_dish_decimated.glb" id="1_ere6s"]
+[ext_resource type="Material" uid="uid://d0dimofysrgu0" path="res://assets/antenna_parts/InnerDish.tres" id="2_vm7ie"]
+[ext_resource type="Material" uid="uid://di20wulf2k62r" path="res://src/antenna/antenna.tres" id="3_6bsam"]
+
+[node name="roger_radar_dish_decimated" instance=ExtResource("1_ere6s")]
+
+[node name="as2_part05_dish_obj" parent="." index="0"]
+surface_material_override/0 = ExtResource("2_vm7ie")
+surface_material_override/1 = ExtResource("3_6bsam")

@@ -86,4 +86,3 @@ func _make_request(endpoint: String, method: HTTPClient.Method = HTTPClient.METH
 
 	if error != OK:
 		push_error("An error occurred while querying the backend service.")
-

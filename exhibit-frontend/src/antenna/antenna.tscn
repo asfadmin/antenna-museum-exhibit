@@ -1,4 +1,4 @@
-[gd_scene load_steps=14 format=3 uid="uid://qjcn72nl6tvi"]
+[gd_scene load_steps=15 format=3 uid="uid://qjcn72nl6tvi"]
 
 [ext_resource type="Script" uid="uid://c5ui2e33ng278" path="res://src/antenna/antenna.gd" id="1_nx3gt"]
 [ext_resource type="PackedScene" uid="uid://b3opwuplxgqx0" path="res://assets/antenna_parts/0_-_Block.glb" id="2_2q8t5"]
@@ -13,6 +13,7 @@
 [ext_resource type="PackedScene" uid="uid://cvsfhkxsifivr" path="res://assets/antenna_parts/9_-_Dish_Wire.glb" id="9_xwwws"]
 [ext_resource type="PackedScene" uid="uid://bdf8gvu1xau3i" path="res://assets/antenna_parts/4_-_R_Weight.glb" id="10_l16sl"]
 [ext_resource type="PackedScene" uid="uid://c5twodvirj3d5" path="res://assets/antenna_parts/5_-_L_Weight.glb" id="11_wi3du"]
+[ext_resource type="PackedScene" uid="uid://cctt0byhdwgt6" path="res://assets/antenna_parts/external/roger_radar_dish_decimated.tscn" id="12_6hgws"]
 
 [node name="Antenna" type="Node3D" node_paths=PackedStringArray("horizontal_rotation_node", "antenna_rotator_node")]
 script = ExtResource("1_nx3gt")
@@ -21,6 +22,7 @@ antenna_rotator_node = NodePath("Horizontal Rotator/Antenna Pivot/Antenna Rotato
 
 [node name="0_-_Block" parent="." instance=ExtResource("2_2q8t5")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, 0, -7.86131, 0)
+visible = false
 
 [node name="0 - Block" parent="0_-_Block" index="0"]
 material_override = ExtResource("3_6hgws")
@@ -65,18 +67,24 @@ material_override = ExtResource("3_6hgws")
 
 [node name="7_-_Dish" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("7_wbuli")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.375654, 13.9249, -2.21154)
+visible = false
 
 [node name="8_-_Dish_Prong" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("8_r7578")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.11995, 14.2106, -2.45432)
+visible = false
 
 [node name="8 - Dish Prong" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/8_-_Dish_Prong" index="0"]
 material_override = ExtResource("3_6hgws")
 
 [node name="9_-_Dish_Wire" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("9_xwwws")]
 transform = Transform3D(1, 0, 0, 0, -4.37114e-08, -1, 0, 1, -4.37114e-08, -0.0638612, 20.0196, -3.09923)
+visible = false
 
 [node name="9 - Dish Wire" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator/9_-_Dish_Wire" index="0"]
 material_override = ExtResource("3_6hgws")
+
+[node name="roger_radar_dish_decimated2" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("12_6hgws")]
+transform = Transform3D(-1.09278e-06, 25, 0, -25, -1.09278e-06, -9.53674e-07, -9.53674e-07, 0, 25, -0.0638612, 11.1008, -1.89289)
 
 [node name="RWeight" type="Node3D" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72342, -0.0603981, -0.0636269)

@@ -1,0 +1,132 @@
+newmtl 9thFloorStripes
+Kd 0.25098 0.188235 0
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl airstack
+Kd 0.831373 0.831373 0.831373
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl Default
+Kd 0.666667 0.666667 0.666667
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl surfaceDetails
+Kd 0.490196 0.619608 1
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl windows_blank
+Kd 0.164706 0.164706 0.164706
+Ke 0 0 0
+Ka 0.95 0.95 0.95
+Ks 0.05 0.05 0.05
+Ns 500
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl windows_lit
+Kd 1 0.937255 0.752941
+Ke 0 0 0
+Ka 0.3 0.3 0.3
+Ks 0.05 0.05 0.05
+Ns 500
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl 9thFloorStripes
+Kd 0.25098 0.188235 0
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl airstack
+Kd 0.831373 0.831373 0.831373
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl Default
+Kd 0.666667 0.666667 0.666667
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl surfaceDetails
+Kd 0.490196 0.619608 1
+Ke 0 0 0
+Ka 1 1 1
+Ks 0.5 0.5 0.5
+Ns 400
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl windows_blank
+Kd 0.164706 0.164706 0.164706
+Ke 0 0 0
+Ka 0.95 0.95 0.95
+Ks 0.05 0.05 0.05
+Ns 500
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+
+newmtl windows_lit
+Kd 1 0.937255 0.752941
+Ke 0 0 0
+Ka 0.3 0.3 0.3
+Ks 0.05 0.05 0.05
+Ns 500
+Tr 0
+d 1
+Ni 1.5
+Tf 1 1 1
+

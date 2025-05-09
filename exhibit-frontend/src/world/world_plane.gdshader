@@ -7,7 +7,9 @@ uniform vec4 base_color: source_color;
 void vertex() {
 	// Called for every vertex the material is visible on.
 	float offset = texture(noise, UV).r;
-	VERTEX.y += offset * 10.0;
+	VERTEX.y -= offset * 15.0;
+
+
 }
 
 void fragment() {
