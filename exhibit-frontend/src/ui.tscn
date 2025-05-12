@@ -1,4 +1,4 @@
-[gd_scene load_steps=28 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=32 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -13,7 +13,9 @@
 [ext_resource type="Script" uid="uid://cu51q3rrse2ww" path="res://src/ui_components/function_button.gd" id="9_75kda"]
 [ext_resource type="Script" uid="uid://dhu0sfrejkdvk" path="res://src/ui_components/dataset_description.gd" id="10_skx36"]
 [ext_resource type="PackedScene" uid="uid://ioldwmuh2v7l" path="res://src/ui_components/dataset_button.tscn" id="11_ie5qo"]
+[ext_resource type="Script" uid="uid://bnu3p5g4f708" path="res://src/ui_components/dataset_panel.gd" id="12_f8cqp"]
 [ext_resource type="Script" uid="uid://c8dkcfgs564h6" path="res://src/ui_components/track_button.gd" id="12_g1sg1"]
+[ext_resource type="Theme" uid="uid://gb7kwv263336" path="res://src/main_theme.tres" id="12_ie5qo"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gkxjx"]
 font = ExtResource("1_02y5j")
@@ -53,8 +55,16 @@ shadow_color = Color(1, 1, 1, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
 
+[sub_resource type="Gradient" id="Gradient_f8cqp"]
+offsets = PackedFloat32Array(0, 0.444079, 0.697368, 1)
+colors = PackedColorArray(0, 0.284998, 0.651124, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0.583142, 0.450307, 0, 1)
+
+[sub_resource type="GradientTexture2D" id="GradientTexture2D_hy4b6"]
+gradient = SubResource("Gradient_f8cqp")
+fill_to = Vector2(0, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_gkxjx"]
-bg_color = Color(0.223529, 0.223529, 0.223529, 0.380392)
+bg_color = Color(0.223529, 0.223529, 0.223529, 0)
 
 [sub_resource type="Resource" id="Resource_f8cqp"]
 script = ExtResource("8_75kda")
@@ -96,7 +106,11 @@ metadata/_custom_type_script = "uid://cjtowq518rbsq"
 font_size = 15
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_243qu"]
-bg_color = Color(0.233925, 0.233925, 0.233925, 1)
+bg_color = Color(0.94902, 0.756863, 0.219608, 1)
+corner_radius_top_left = 15
+corner_radius_top_right = 15
+corner_radius_bottom_right = 15
+corner_radius_bottom_left = 15
 shadow_color = Color(0.188235, 0.188235, 0.188235, 0.580392)
 shadow_size = 5
 
@@ -279,6 +293,7 @@ theme_override_constants/margin_bottom = 5
 
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2"]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 
 [node name="PanelContainer" type="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer"]
 layout_mode = 2
@@ -327,6 +342,7 @@ layout_mode = 2
 [node name="Container" type="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 3
+theme = ExtResource("12_ie5qo")
 
 [node name="VBoxContainer" type="HBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/Container"]
 layout_mode = 2
@@ -365,6 +381,7 @@ autowrap_mode = 2
 custom_minimum_size = Vector2(760.05, 0)
 layout_mode = 2
 size_flags_vertical = 3
+theme = ExtResource("12_ie5qo")
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2
@@ -384,6 +401,11 @@ theme_override_constants/margin_bottom = 5
 layout_mode = 2
 size_flags_vertical = 3
 size_flags_stretch_ratio = 0.2
+
+[node name="AttractPanel" type="TextureRect" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer"]
+layout_mode = 2
+texture = SubResource("GradientTexture2D_hy4b6")
+script = ExtResource("12_f8cqp")
 
 [node name="Control" type="VBoxContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer"]
 layout_mode = 2
@@ -416,34 +438,42 @@ alignment = 1
 
 [node name="AURAButton" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
+default = true
 
 [node name="AQUAButton3" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "AQUA"
 dataset = SubResource("Resource_f8cqp")
 
 [node name="IC2Button2" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "IC2"
 dataset = SubResource("Resource_hy4b6")
 
 [node name="ICESATButton" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "ICESAT"
 dataset = SubResource("Resource_au0vg")
 
 [node name="OCO2Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "OCO2"
 dataset = SubResource("Resource_cemcn")
 
 [node name="SCISATButton" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "SCISAT"
 dataset = SubResource("Resource_sasvr")
 
 [node name="SMAPButton" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/PanelContainer/MarginContainer/VBoxContainer" instance=ExtResource("11_ie5qo")]
 layout_mode = 2
+theme = ExtResource("12_ie5qo")
 text = "SMAP"
 dataset = SubResource("Resource_l2vt5")
 
@@ -483,8 +513,11 @@ size_flags_stretch_ratio = 0.25
 alignment = 1
 
 [node name="TrackButton" type="Button" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer/PanelContainer/MarginContainer/PanelContainer/Control/MarginContainer/VBoxContainer2/Control"]
-custom_minimum_size = Vector2(153.465, 32)
+custom_minimum_size = Vector2(153.465, 64)
 layout_mode = 2
+theme_override_colors/font_color = Color(0.137255, 0.380392, 0.572549, 1)
+theme_override_colors/font_pressed_color = Color(0, 1, 0, 1)
+theme_override_font_sizes/font_size = 34
 theme_override_styles/normal = SubResource("StyleBoxFlat_243qu")
 text = "Track"
 script = ExtResource("12_g1sg1")

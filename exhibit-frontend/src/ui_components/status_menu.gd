@@ -19,8 +19,8 @@ func _ready() -> void:
 	DataManager.debug_mode_toggled.connect(func (debug_mode): debug_label.visible = debug_mode)
 func _load_data(data) -> void:
 	if data == null:
-		self.azimuth = []
-		self.elevation = []
+		self.azimuth = [0.0]
+		self.elevation = [90.0]
 		return
 	
 	var column_data = data

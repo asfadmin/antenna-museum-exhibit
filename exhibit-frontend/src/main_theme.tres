@@ -1,4 +1,7 @@
 [gd_resource type="Theme" format=3 uid="uid://gb7kwv263336"]
 
 [resource]
+Button/colors/font_color = Color(0.947389, 0.7571, 0.220304, 1)
+Button/colors/font_disabled_color = Color(0.380392, 0.941176, 0.466667, 1)
 Label/font_sizes/font_size = 16
+PanelContainer/styles/panel = null
