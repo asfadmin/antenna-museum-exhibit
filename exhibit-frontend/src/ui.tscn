@@ -1,4 +1,4 @@
-[gd_scene load_steps=32 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=33 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -36,9 +36,16 @@ shadow_color = Color(1, 1, 1, 1)
 shadow_size = 0
 shadow_offset = Vector2(0, 0)
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_f8cqp"]
+bg_color = Color(1, 0, 0, 1)
+corner_radius_top_left = 4
+corner_radius_top_right = 4
+corner_radius_bottom_right = 4
+corner_radius_bottom_left = 4
+
 [sub_resource type="LabelSettings" id="LabelSettings_ya46p"]
 font = ExtResource("1_02y5j")
-font_size = 24
+font_size = 28
 shadow_size = 0
 shadow_color = Color(1, 1, 1, 1)
 shadow_offset = Vector2(0, 0)
@@ -47,7 +54,7 @@ shadow_offset = Vector2(0, 0)
 script = ExtResource("3_irs2y")
 icon_font = "MaterialIcons"
 icon_name = "stop"
-icon_size = 24
+icon_size = 28
 icon_color = Color(1, 1, 1, 1)
 outline_color = Color(1, 1, 1, 1)
 outline_size = 0
@@ -224,7 +231,7 @@ theme_override_constants/margin_bottom = 10
 [node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer"]
 layout_mode = 2
 
-[node name="Button" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer" node_paths=PackedStringArray("icon_button")]
+[node name="SpeedButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer" node_paths=PackedStringArray("icon_button")]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -233,7 +240,7 @@ script = ExtResource("2_243qu")
 debounce_time = 0.2
 icon_button = NodePath("FontIcon")
 
-[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button"]
+[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/SpeedButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -255,15 +262,16 @@ size_flags_vertical = 4
 max_value = 1.0
 script = ExtResource("6_34em3")
 
-[node name="Button2" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+[node name="StopButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+theme_override_styles/normal = SubResource("StyleBoxFlat_f8cqp")
 script = ExtResource("9_75kda")
 debounce_time = 0.1
 
-[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/Button2"]
+[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/StopButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
