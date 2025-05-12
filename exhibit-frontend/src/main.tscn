@@ -20,7 +20,6 @@ sky_top_color = Color(0.400112, 0.451241, 0.537643, 1)
 sky_horizon_color = Color(0.767947, 0.624149, 0.497953, 1)
 sky_curve = 0.261165
 ground_bottom_color = Color(0.501724, 0.439727, 0.367978, 1)
-sun_angle_max = 0.0
 
 [sub_resource type="Sky" id="Sky_k2a3y"]
 sky_material = SubResource("ProceduralSkyMaterial_5mrjc")
@@ -141,7 +140,7 @@ mouse_filter = 2
 theme_override_styles/panel = SubResource("StyleBoxFlat_fyndt")
 
 [node name="elvey" parent="." instance=ExtResource("9_kf8lf")]
-transform = Transform3D(7, 0, 0, 0, 7, 0, 0, 0, 7, 2.6027, 10.9336, 0)
+transform = Transform3D(-3.0598e-07, 0, -7, 0, 7, 0, 7, 0, -3.0598e-07, 1.67481, 10.9336, 3.03369)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="elvey"]
 transform = Transform3D(0.142857, 0, 0, 0, 0.142857, 0, 0, 0, 0.142857, -0.0130995, -0.990521, 0.002)
@@ -154,7 +153,7 @@ mesh = SubResource("BoxMesh_mgm53")
 skeleton = NodePath("../..")
 
 [node name="RightDoor" type="MeshInstance3D" parent="elvey/MeshInstance3D2"]
-transform = Transform3D(1, 0, 0, 0, 1.87639, 0, 0, 0, 1, -0.778359, 4.71401, -6.48459)
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1.87639, 0, -3.55271e-15, 0, 1, -0.778359, 4.71401, -6.60181)
 mesh = SubResource("BoxMesh_5mrjc")
 
 [node name="handle" type="MeshInstance3D" parent="elvey/MeshInstance3D2/RightDoor"]
@@ -162,7 +161,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.538018, 0.0823364, -0.05712
 mesh = SubResource("BoxMesh_kf8lf")
 
 [node name="LeftDoor" type="MeshInstance3D" parent="elvey/MeshInstance3D2"]
-transform = Transform3D(1, 0, 0, 0, 1.87639, 0, 0, 0, 1, 0.783996, 4.71401, -6.48459)
+transform = Transform3D(1, 0, 3.55271e-15, 0, 1.87639, 0, -3.55271e-15, 0, 1, 0.783996, 4.71401, -6.60181)
 mesh = SubResource("BoxMesh_5mrjc")
 
 [node name="handle" type="MeshInstance3D" parent="elvey/MeshInstance3D2/LeftDoor"]

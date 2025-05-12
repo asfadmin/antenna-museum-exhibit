@@ -85,7 +85,7 @@ visible = false
 material_override = ExtResource("3_6hgws")
 
 [node name="roger_radar_dish_decimated2" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator/Weight Rotator" instance=ExtResource("12_6hgws")]
-transform = Transform3D(-1.09278e-06, 25, 0, -25, -1.09278e-06, -9.53674e-07, -9.53674e-07, 0, 25, -0.0638612, 11.1008, -1.89289)
+transform = Transform3D(-1.08632e-06, 25, 1.18683e-07, -24.8521, -1.09278e-06, 2.71516, 2.71516, -3.55271e-15, 24.8521, -0.0638613, 9.61899, -1.60771)
 
 [node name="RWeight" type="Node3D" parent="Horizontal Rotator/Antenna Pivot/Antenna Rotator"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.72342, -0.0603981, -0.0636269)
