@@ -3,7 +3,7 @@
 [resource]
 resource_name = "Dish"
 cull_mode = 2
-albedo_color = Color(0.137255, 0.380392, 0.572549, 1)
-metallic = 0.29
-metallic_specular = 0.05
+albedo_color = Color(0.3968, 0.514347, 0.64, 1)
+metallic = 0.57
+metallic_specular = 0.1
 roughness = 0.89
