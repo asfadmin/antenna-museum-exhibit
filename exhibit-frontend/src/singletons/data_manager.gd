@@ -162,15 +162,16 @@ func get_csv_column_data(column_index: int, content: Array) -> Array[float]:
 
 var fake_progress = 0.0
 
-# this can show even if it fails, will need some error checking possibly
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, node: Node, is_status=false):
 	var converted = body.get_string_from_utf8() # this should give us a JSON response?
 	var json_body = {}
-	if len(converted) > 0:
+
+	# if the response is bad, seamlessly swap to debug data
+	if len(converted) > 0 and response_code == 200:
 		json_body = JSON.parse_string(converted)
 	if is_status:
-		if self.debug_mode:
-			fake_progress += 0.01
+		if self.debug_mode or response_code != 200:
+			fake_progress += 0.005
 			if fake_progress >= 1.0:
 				stop_tracking()
 				movement_complete()
@@ -181,6 +182,7 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 				stop_tracking()
 				movement_complete()
 			percent_complete = percentage
+			fake_progress = percentage # if the API loses contact with the hardware, resume from last percentage
 		
 		percent_complete_changed.emit(percent_complete)
 			
