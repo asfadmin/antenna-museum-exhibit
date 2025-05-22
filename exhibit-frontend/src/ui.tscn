@@ -236,6 +236,7 @@ theme_override_constants/margin_bottom = 10
 layout_mode = 2
 
 [node name="SpeedButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer" node_paths=PackedStringArray("icon_button")]
+visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
