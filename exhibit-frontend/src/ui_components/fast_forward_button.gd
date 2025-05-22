@@ -6,6 +6,7 @@ var type: BackendService.INTERACTION = BackendService.INTERACTION.SPEED_UP
 @export var debounce_time: float = 0
 
 var timer: Timer
+var night_mode = false
 
 var going_fast = false
 @export var icon_button: FontIcon
@@ -18,6 +19,7 @@ func _ready() -> void:
 	timer.one_shot = true
 	add_child(timer)
 	timer.timeout.connect(_timer_ended)
+	Events.night_mode_toggled.connect(func (is_night_mode): self.disabled = is_night_mode)
 
 
 func _timer_ended():

@@ -13,6 +13,7 @@ var timer: Timer
 var tracked_dataset: Dataset
 var selected_dataset: Dataset
 var current_action: BackendService.INTERACTION = BackendService.INTERACTION.STOWED
+var night_mode = false
 
 func _ready() -> void:
 	pressed.connect(_on_pressed)
@@ -26,6 +27,7 @@ func _ready() -> void:
 	var first_dataset = get_tree().get_nodes_in_group("Dataset Button")[0].dataset
 	Events.emit_dataset_selected(first_dataset)
 	DataManager.track_complete.connect(update_text)
+	Events.night_mode_toggled.connect(func (is_night_mode): self.night_mode = is_night_mode)
 
 func _on_tracked_dataset_changed(dataset: Dataset):
 	tracked_dataset = dataset
@@ -59,6 +61,9 @@ func update_text():
 		text = 'Track'
 	if !timer.is_stopped():
 		text = 'Waiting'
+		disabled = true
+
+	if self.night_mode:
 		disabled = true
 
 

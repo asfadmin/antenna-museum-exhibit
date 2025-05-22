@@ -1,4 +1,4 @@
-[gd_scene load_steps=33 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=35 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
@@ -16,6 +16,7 @@
 [ext_resource type="Script" uid="uid://bnu3p5g4f708" path="res://src/ui_components/dataset_panel.gd" id="12_f8cqp"]
 [ext_resource type="Script" uid="uid://c8dkcfgs564h6" path="res://src/ui_components/track_button.gd" id="12_g1sg1"]
 [ext_resource type="Theme" uid="uid://gb7kwv263336" path="res://src/main_theme.tres" id="12_ie5qo"]
+[ext_resource type="Script" uid="uid://boewk33g2aou0" path="res://src/ui_components/sleep_mode_label.gd" id="17_hy4b6"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_gkxjx"]
 font = ExtResource("1_02y5j")
@@ -120,6 +121,9 @@ corner_radius_bottom_right = 15
 corner_radius_bottom_left = 15
 shadow_color = Color(0.188235, 0.188235, 0.188235, 0.580392)
 shadow_size = 5
+
+[sub_resource type="LabelSettings" id="LabelSettings_hy4b6"]
+font_size = 26
 
 [node name="Ui" type="Control"]
 layout_mode = 3
@@ -531,3 +535,13 @@ text = "Track"
 script = ExtResource("12_g1sg1")
 type = 2
 debounce_time = 5
+
+[node name="NightModeLabel" type="Label" parent="."]
+layout_mode = 0
+offset_right = 1919.0
+offset_bottom = 1073.0
+text = "
+"
+label_settings = SubResource("LabelSettings_hy4b6")
+horizontal_alignment = 1
+script = ExtResource("17_hy4b6")

@@ -9,6 +9,7 @@ extends Button
 @export var disabled_text = ''
 
 var timer: Timer
+var night_mode = false
 
 
 func _ready() -> void:
@@ -17,7 +18,7 @@ func _ready() -> void:
 	timer.one_shot = true
 	add_child(timer)
 	timer.timeout.connect(_timer_ended)
-
+	Events.night_mode_toggled.connect(func (is_night_mode): self.disabled = is_night_mode)
 
 func _timer_ended():
 	disabled = false
