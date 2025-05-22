@@ -3,6 +3,7 @@ extends Node3D
 
 @export var horizontal_rotation_node: Node3D
 @export var antenna_rotator_node: Node3D
+@export var antenna_rotation_poll_rate = 0.75
 
 var current_idx = 0
 var points = []
@@ -11,12 +12,26 @@ var azimuth_data = []
 var elevation_data = []
 var status = 0.0
 var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
+var elev_azi_poll_timer: Timer
+
+
 func _ready() -> void:
 	#move_to(1,1,1)
 	rehome(5.0)
 	DataManager.data_loaded.connect(load_data)
 	AntennaState.current_action_changed.connect(on_antenna_state_changed)
 	DataManager.percent_complete_changed.connect(func (x): status=x)
+	
+	elev_azi_poll_timer = Timer.new()
+	add_child(elev_azi_poll_timer)
+	elev_azi_poll_timer.wait_time = antenna_rotation_poll_rate
+	elev_azi_poll_timer.timeout.connect(_on_poll_antenna_rotation)
+	elev_azi_poll_timer.start(antenna_rotation_poll_rate)
+
+func _on_poll_antenna_rotation():
+	AntennaState.ui_model_azimuth = -rad_to_deg(horizontal_rotation_node.rotation.y)
+	AntennaState.ui_model_elevation = rad_to_deg(antenna_rotator_node.rotation.x) + 90.0
+
 
 func on_antenna_state_changed(state: BackendService.INTERACTION):
 	if state == BackendService.INTERACTION.REHOME:
@@ -50,7 +65,6 @@ func _physics_process(delta: float) -> void:
 func move_to(elevation, azimuth, train, duration=1.66):
 	var tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_IN_OUT).set_trans(Tween.TRANS_CIRC)
-	
 	var ele = Quaternion.from_euler(Vector3(deg_to_rad(elevation - 90.0),0.0,0)).normalized()
 	var azi = Quaternion.from_euler(Vector3(0.0, deg_to_rad(-azimuth),0)).normalized()
 	tween.parallel().tween_method(antenna_elevation.bind(ele), 0.0, 1.0, duration)
@@ -58,11 +72,11 @@ func move_to(elevation, azimuth, train, duration=1.66):
 
 func antenna_elevation(weight: float, value: Quaternion):
 	antenna_rotator_node.quaternion = antenna_rotator_node.quaternion.slerp(value, weight).normalized()
-	
+
 func azimuth_rotation(weight: float, value: Quaternion):
 	horizontal_rotation_node.quaternion = horizontal_rotation_node.quaternion.slerp(value, weight).normalized()
-
-func rehome(duration=10.0):
+	
+func rehome(duration=20.0):
 	# approximates the rehoming functionality of the physical antenna model
 	# 1. homes azimuth
 	# 2. homes elevation
@@ -74,8 +88,9 @@ func rehome(duration=10.0):
 	
 	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0)).normalized()
 	var ele = Quaternion.from_euler(Vector3(deg_to_rad(-90.0),0.0,0)).normalized()
-	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(45.0),0)).normalized()
+	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(-90.0),0)).normalized()
 	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0)).normalized()
+	
 	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, step_duration)
 	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, step_duration)
 	tween.tween_method(azimuth_rotation.bind(azi_2), 0.0, 1.0, step_duration)

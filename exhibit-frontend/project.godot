@@ -28,7 +28,15 @@ DataManager="*res://src/singletons/data_manager.gd"
 
 window/size/viewport_width=1920
 window/size/viewport_height=1080
+window/size/mode=3
+window/size/borderless=true
 window/stretch/mode="viewport"
+
+[editor]
+
+movie_writer/mjpeg_quality=0.4
+movie_writer/movie_file="/home/kim/Documents/Code/disco/DOI/antenna-front-end-progress.avi"
+movie_writer/fps=30
 
 [editor_plugins]
 
