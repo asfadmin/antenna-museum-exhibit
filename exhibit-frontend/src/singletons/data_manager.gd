@@ -170,7 +170,11 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 	if len(converted) > 0 and response_code == 200:
 		json_body = JSON.parse_string(converted)
 	if is_status:
-		if self.debug_mode or response_code != 200:
+		# if the api is using the debug port or not
+		var is_debug_api = false
+		if json_body != null:
+			is_debug_api = json_body.get('message', 'not') == 'DEBUG'
+		if self.debug_mode or is_debug_api or response_code != 200:
 			fake_progress += 0.005
 			if fake_progress >= 1.0:
 				stop_tracking()
