@@ -11,7 +11,7 @@ var night_timer: Timer
 var day_timer: Timer
 
 var time_till_idle = 30 * 60
-var time_till_camera_idle = 10
+var time_till_camera_idle = 60
 var night_timer_poll_rate = 11
 var wakeup_poll_rate = 11
 
@@ -44,10 +44,10 @@ func _ready() -> void:
 	night_timer.start(night_timer_poll_rate)
 	
 	day_timer = Timer.new()
-	day_timer.wait_time = night_timer_poll_rate
+	day_timer.wait_time = wakeup_poll_rate
 	day_timer.timeout.connect(_on_poll_day_timer, CONNECT_ONE_SHOT)
 	add_child(day_timer)
-	day_timer.start(night_timer_poll_rate)
+	day_timer.start(wakeup_poll_rate)
 	
 	self.camera = get_viewport().get_camera_3d()
 	
@@ -90,7 +90,7 @@ func _on_poll_day_timer():
 	else:
 		if not day_timer.timeout.is_connected(_on_poll_day_timer):
 			day_timer.timeout.connect(_on_poll_day_timer, CONNECT_ONE_SHOT)
-		pass
+
 
 func should_be_closed():
 	# The Antenna should be stowed between 7PM and 8AM

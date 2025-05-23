@@ -7,7 +7,7 @@ var loaded_data
 
 ## 0-1.0 scale of track or stow being complete
 var percent_complete = 0.0
-
+var percent_change = 0.0
 signal percent_complete_changed(percent: float)
 signal debug_mode_toggled(val: bool)
 
@@ -24,6 +24,8 @@ var filenames = {
 var request_timer: Timer
 var current_dataset: Dataset
 var debug_mode: bool = false
+var pass_speed: int = 1
+var estimated_pass_speed: float = 1.0
 
 signal track_complete
 
@@ -92,6 +94,7 @@ func clear_data():
 	loaded_data = null
 	data_loaded.emit(loaded_data)
 
+var TIMESTAMP = "Timestamp"
 var ACTUAL_AZIMUTH_COLUMN = "Actual Az."
 var ACTUAL_ELEVATION_COLUMN = "Actual El."
 var COMMANDED_AZIMUTH_COLUMN = "Commanded Az."
@@ -131,6 +134,7 @@ func load_column_data(filename) -> Dictionary:
 	var csv := get_csv(filename)
 
 	var column_data := {
+		"timestamp": get_csv_column_timestamp_data(csv["headers"][TIMESTAMP], csv["content"]),
 		"actual_azimuth": get_csv_column_data(csv["headers"][ACTUAL_AZIMUTH_COLUMN], csv["content"]),
 		"actual_elevation": get_csv_column_data(csv["headers"][ACTUAL_ELEVATION_COLUMN], csv["content"]),
 		"commanded_azimuth": get_csv_column_data(csv["headers"][COMMANDED_AZIMUTH_COLUMN], csv["content"]),
@@ -159,14 +163,34 @@ func get_csv_column_data(column_index: int, content: Array) -> Array[float]:
 
 	return column_data
 
+## Takes `column_index` and returns the column at that index in the 2d Array `content`.
+func get_csv_column_timestamp_data(column_index: int, content: Array) -> Array[Dictionary]:
+	var column_data: Array[Dictionary] = []
+	var content_size: int = content.size()
+
+	column_data.resize(content_size)
+
+	for i in range(0, content_size):
+		var year_day_time = content[i][column_index].split(' ')
+		var output = {}
+		output['year'] = year_day_time[0]
+		output['day'] = year_day_time[1]
+		
+		var hour_min_sec = year_day_time[-1].split(':')
+		output['time'] = {}
+		output['time']['hour'] = hour_min_sec[0]
+		output['time']['minute'] = hour_min_sec[1]
+		output['time']['second'] = hour_min_sec[2]
+		column_data[i] = output
+
+	return column_data
 
 var fake_progress = 0.0
 
 func _on_request_completed(result: int, response_code: int, headers: PackedStringArray, body: PackedByteArray, node: Node, is_status=false):
 	var converted = body.get_string_from_utf8() # this should give us a JSON response?
 	var json_body = {}
-
-	# if the response is bad, seamlessly swap to debug data
+	# if theI response is bad, seamlessly swap to debug data
 	if len(converted) > 0 and response_code == 200:
 		json_body = JSON.parse_string(converted)
 	if is_status:
@@ -175,22 +199,36 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 		if json_body != null:
 			is_debug_api = json_body.get('message', 'not') == 'DEBUG'
 		if self.debug_mode or is_debug_api or response_code != 200:
-			fake_progress += 0.005
+			fake_progress += (1.0 / len(self.loaded_data['timestamp'])) * self.pass_speed
 			if fake_progress >= 1.0:
 				stop_tracking()
 				movement_complete()
+			percent_change = fake_progress - percent_complete
 			percent_complete = fake_progress
 		else:
+			self.pass_speed = 1
 			var percentage = json_body.get('progress', 0.0)
 			if percentage >= 1.0:
 				stop_tracking()
 				movement_complete()
+			
+			percent_change = percentage - percent_complete
 			percent_complete = percentage
 			fake_progress = percentage # if the API loses contact with the hardware, resume from last percentage
 		
+		self.estimated_pass_speed = _estimate_speed_scale()
 		percent_complete_changed.emit(percent_complete)
 			
 	node.queue_free()
+
+func _estimate_speed_scale() -> float:
+	if self.loaded_data != null:
+		if len(self.loaded_data['timestamp']) > 1:
+			var last_idx = len(self.loaded_data['timestamp']) - 1
+			var current_complete_idx = floor(min(self.percent_complete, 1.0) * last_idx)
+			
+			return (DataManager.percent_change * 100) / ((1.0 / last_idx) * 100)
+	return 1.0
 
 func _on_request_timer_timeout():
 	var backend = BackendService.new()
@@ -200,7 +238,7 @@ func _on_request_timer_timeout():
 
 func start_tracking():
 	fake_progress = 0.0
-	request_timer.start(0.5)
+	request_timer.start(1.0)
 
 func stop_tracking():
 	request_timer.stop()
@@ -212,3 +250,34 @@ func movement_complete():
 func toggle_debug_mode():
 	self.debug_mode = !self.debug_mode
 	self.debug_mode_toggled.emit(self.debug_mode)
+
+func update_pass_speed(val: int):
+	self.pass_speed = val
+
+
+class DateObject:
+	"""Date helper class for checking time intervals intervals"""
+	var year: int
+	var day: int
+	var hour: int
+	var minute: int
+	var second: int
+
+	func _init(dict: Dictionary) -> void:
+		self.year = dict['year']
+		self.day = dict['day']
+		self.hour = dict['time']['hour']
+		self.minute = dict['time']['minute']
+		self.second = dict['time']['second']
+	
+	func time_span(other_date: DateObject) -> int:
+		"""Returns the timespan in seconds"""
+		var minutes = 0
+
+		var abs_minutes =  hour * 60 + minute
+		var other_abs_minutes = other_date.hour * 60 + other_date.minute
+		
+		var abs_seconds = abs_minutes * 60 + second
+		var other_abs_seconds = other_abs_minutes * 60 +other_date.second
+		
+		return abs(abs_seconds - other_abs_seconds)

@@ -22,6 +22,7 @@ func _ready() -> void:
 	DataManager.data_loaded.connect(_load_data)
 	DataManager.percent_complete_changed.connect(func (x): status=x)
 	DataManager.debug_mode_toggled.connect(func (debug_mode): debug_label.visible = debug_mode)
+
 func _load_data(data) -> void:
 	if data == null:
 		self.azimuth = []

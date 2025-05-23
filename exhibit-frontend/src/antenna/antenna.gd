@@ -11,13 +11,13 @@ var points = []
 var azimuth_data = []
 var elevation_data = []
 var status = 0.0
-var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
+var motion_smoothing_factor = 1 / 60.0 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
 var elev_azi_poll_timer: Timer
 
 
 func _ready() -> void:
 	#move_to(1,1,1)
-	rehome(5.0)
+	#rehome(5.0)
 	DataManager.data_loaded.connect(load_data)
 	AntennaState.current_action_changed.connect(on_antenna_state_changed)
 	DataManager.percent_complete_changed.connect(func (x): status=x)
@@ -58,9 +58,7 @@ func _physics_process(delta: float) -> void:
 	if self.points.size() > 0:
 		var idx = mini(roundi(len(self.points) * status), len(self.points) - 1)
 		var azm_ele = self.points[idx]
-		self.move_to(azm_ele[1], azm_ele[0], 0.0, delta / motion_smoothing_factor)
-		pass
-	pass
+		self.move_to(azm_ele[1], azm_ele[0], 0.0, DataManager.estimated_pass_speed * (delta / motion_smoothing_factor))
 
 func move_to(elevation, azimuth, train, duration=1.66):
 	var tween = get_tree().create_tween()
@@ -86,10 +84,10 @@ func rehome(duration=20.0):
 	var tween = get_tree().create_tween()
 	tween.set_ease(Tween.EASE_IN).set_trans(Tween.TRANS_LINEAR)
 	
-	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0)).normalized()
-	var ele = Quaternion.from_euler(Vector3(deg_to_rad(-90.0),0.0,0)).normalized()
-	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(-90.0),0)).normalized()
-	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0)).normalized()
+	var azi = Quaternion.from_euler(Vector3(0.0, 0.0,0.0)).normalized()
+	var ele = Quaternion.from_euler(Vector3(deg_to_rad(-90.0),0.0,0.0)).normalized()
+	var azi_2 = Quaternion.from_euler(Vector3(0.0, deg_to_rad(-90.0),0.0)).normalized()
+	var ele_2 = Quaternion.from_euler(Vector3(deg_to_rad(0.0),0.0,0.0)).normalized()
 	
 	tween.tween_method(azimuth_rotation.bind(azi), 0.0, 1.0, step_duration)
 	tween.tween_method(antenna_elevation.bind(ele), 0.0, 1.0, step_duration)

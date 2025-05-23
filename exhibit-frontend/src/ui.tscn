@@ -1,8 +1,9 @@
-[gd_scene load_steps=35 format=3 uid="uid://7wshqwt5ss1q"]
+[gd_scene load_steps=36 format=3 uid="uid://7wshqwt5ss1q"]
 
 [ext_resource type="FontFile" uid="uid://bbfeoo2kuf30n" path="res://addons/icons-fonts/icons_fonts/MaterialIcons/material_design_icons.ttf" id="1_02y5j"]
 [ext_resource type="Script" uid="uid://sfoyl3fbn8so" path="res://addons/icons-fonts/nodes/FontIcon.gd" id="2_4dnhj"]
 [ext_resource type="Script" uid="uid://b3338q05h05x5" path="res://src/ui_components/fast_forward_button.gd" id="2_243qu"]
+[ext_resource type="Script" uid="uid://b7qxpo75mffaw" path="res://src/time_estimate.gd" id="2_au0vg"]
 [ext_resource type="Script" uid="uid://bo7bolnuump38" path="res://addons/icons-fonts/resources/FontIconSetting.gd" id="3_irs2y"]
 [ext_resource type="PackedScene" uid="uid://cvfg2agde6b5d" path="res://src/plot_control/PlotControl.tscn" id="4_4dnhj"]
 [ext_resource type="PackedScene" uid="uid://pyqxiujpu271" path="res://src/track_status/track_status.tscn" id="5_irs2y"]
@@ -232,10 +233,17 @@ theme_override_constants/margin_top = 10
 theme_override_constants/margin_right = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer"]
+[node name="VBoxContainer" type="VBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer"]
 layout_mode = 2
 
-[node name="SpeedButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer" node_paths=PackedStringArray("icon_button")]
+[node name="Estimate" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+script = ExtResource("2_au0vg")
+
+[node name="HBoxContainer" type="HBoxContainer" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="SpeedButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer" node_paths=PackedStringArray("icon_button")]
 visible = false
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
@@ -245,7 +253,7 @@ script = ExtResource("2_243qu")
 debounce_time = 0.2
 icon_button = NodePath("FontIcon")
 
-[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/SpeedButton"]
+[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer/SpeedButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
@@ -260,14 +268,14 @@ script = ExtResource("2_4dnhj")
 icon_settings = SubResource("Resource_fs5cc")
 metadata/_custom_type_script = "uid://sfoyl3fbn8so"
 
-[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+[node name="ProgressBar" type="ProgressBar" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(350, 1.255)
 layout_mode = 2
 size_flags_vertical = 4
 max_value = 1.0
 script = ExtResource("6_34em3")
 
-[node name="StopButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer"]
+[node name="StopButton" type="Button" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer"]
 custom_minimum_size = Vector2(40, 40)
 layout_mode = 2
 size_flags_horizontal = 4
@@ -276,7 +284,7 @@ theme_override_styles/normal = SubResource("StyleBoxFlat_f8cqp")
 script = ExtResource("9_75kda")
 debounce_time = 0.1
 
-[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/HBoxContainer/StopButton"]
+[node name="FontIcon" type="Label" parent="VBoxContainer/VBoxContainer/PanelContainer3/MarginContainer/VBoxContainer/HBoxContainer/StopButton"]
 layout_mode = 1
 anchors_preset = 15
 anchor_right = 1.0
