@@ -350,15 +350,20 @@ custom_minimum_size = Vector2(400, 400)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
+mouse_force_pass_scroll_events = false
 
 [node name="MarginContainer" type="MarginContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer/PanelContainer2"]
 layout_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
 theme_override_constants/margin_left = 5
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 5
 
 [node name="AspectRatioContainer" parent="VBoxContainer/PanelContainer/HBoxContainer/MarginContainer2/HBoxContainer/PanelContainer2/MarginContainer" instance=ExtResource("5_irs2y")]
 layout_mode = 2
+mouse_filter = 0
+mouse_force_pass_scroll_events = false
 
 [node name="Container" type="PanelContainer" parent="VBoxContainer/PanelContainer/HBoxContainer"]
 layout_mode = 2

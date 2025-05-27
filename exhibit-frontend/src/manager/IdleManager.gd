@@ -69,6 +69,8 @@ func _on_timer_timeout():
 func _process(delta: float) -> void:
 	if camera_idle and not museum_closed:
 		self.camera._rotation.y += camera_idle_rotate_speed*delta
+		if self.camera._rotation.y > TAU:
+			self.camera._rotation.y = fmod(self.camera._rotation.y, TAU)
 
 func _on_camera_idle():
 	var tween = create_tween()

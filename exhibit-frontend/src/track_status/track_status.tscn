@@ -98,6 +98,7 @@ bbcode_enabled = true
 text = "[color=\"#00FFFF\"]N[/color]"
 scroll_active = false
 horizontal_alignment = 1
+drag_and_drop_selection_enabled = false
 metadata/_edit_use_anchors_ = true
 
 [node name="South" type="RichTextLabel" parent="background"]
@@ -118,6 +119,7 @@ bbcode_enabled = true
 text = "[color=\"#00FFFF\"]S[/color]"
 scroll_active = false
 horizontal_alignment = 1
+drag_and_drop_selection_enabled = false
 metadata/_edit_use_anchors_ = true
 
 [node name="East" type="RichTextLabel" parent="background"]
@@ -138,6 +140,7 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[color=\"#00FFFF\"]E[/color]"
 scroll_active = false
+drag_and_drop_selection_enabled = false
 metadata/_edit_use_anchors_ = true
 
 [node name="West" type="RichTextLabel" parent="background"]
@@ -155,6 +158,7 @@ theme_override_font_sizes/normal_font_size = 24
 bbcode_enabled = true
 text = "[color=\"#00FFFF\"]W[/color]"
 scroll_active = false
+drag_and_drop_selection_enabled = false
 metadata/_edit_use_anchors_ = true
 
 [node name="Control" type="Control" parent="background"]
