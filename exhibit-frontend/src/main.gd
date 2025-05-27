@@ -1,5 +1,7 @@
 extends Node3D
 
+func _ready() -> void:
+	DataManager.update_pass_speed(5)
 
 func _process(delta: float) -> void:
 	if Input.is_action_just_pressed("toggle_debug"):

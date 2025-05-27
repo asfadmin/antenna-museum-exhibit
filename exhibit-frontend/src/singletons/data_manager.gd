@@ -199,7 +199,14 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 		if json_body != null:
 			is_debug_api = json_body.get('message', 'not') == 'DEBUG'
 		if self.debug_mode or is_debug_api or response_code != 200:
-			fake_progress += (1.0 / len(self.loaded_data['timestamp'])) * self.pass_speed
+			if self.loaded_data != null:
+				if len(self.loaded_data['timestamp']) > 1:
+					fake_progress += (0.5 / len(self.loaded_data['timestamp'])) * self.pass_speed
+				else:
+					fake_progress += 0.005
+			else:
+				fake_progress = 1.0
+
 			if fake_progress >= 1.0:
 				stop_tracking()
 				movement_complete()
@@ -223,11 +230,10 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 
 func _estimate_speed_scale() -> float:
 	if self.loaded_data != null:
-		if len(self.loaded_data['timestamp']) > 1:
-			var last_idx = len(self.loaded_data['timestamp']) - 1
-			var current_complete_idx = floor(min(self.percent_complete, 1.0) * last_idx)
-			
-			return (DataManager.percent_change * 100) / ((1.0 / last_idx) * 100)
+		if 'timestamp' in self.loaded_data:
+			if len(self.loaded_data['timestamp']) > 1:
+				var last_idx = len(self.loaded_data['timestamp']) - 1
+				return (DataManager.percent_change * 100) / ((0.5 / last_idx) * 100)
 	return 1.0
 
 func _on_request_timer_timeout():
@@ -238,7 +244,7 @@ func _on_request_timer_timeout():
 
 func start_tracking():
 	fake_progress = 0.0
-	request_timer.start(1.0)
+	request_timer.start(0.5)
 
 func stop_tracking():
 	request_timer.stop()

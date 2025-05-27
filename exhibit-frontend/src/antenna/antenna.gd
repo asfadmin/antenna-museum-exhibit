@@ -11,13 +11,13 @@ var points = []
 var azimuth_data = []
 var elevation_data = []
 var status = 0.0
-var motion_smoothing_factor = 1 / 60.0 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
+var motion_smoothing_factor = 0.01 # TODO: This is based off the fake progress placeholder rate. May need adjusting later to smaller number when working with actual antenna
 var elev_azi_poll_timer: Timer
 
 
 func _ready() -> void:
 	#move_to(1,1,1)
-	#rehome(5.0)
+	rehome(5.0)
 	DataManager.data_loaded.connect(load_data)
 	AntennaState.current_action_changed.connect(on_antenna_state_changed)
 	DataManager.percent_complete_changed.connect(func (x): status=x)

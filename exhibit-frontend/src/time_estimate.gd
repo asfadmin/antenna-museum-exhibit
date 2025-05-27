@@ -1,7 +1,6 @@
 extends Label
 
 var timestamps = []
-var rate = 1 / 60 # increments at 1 percent per second
 const display_str = "{} minutes {} seconds"
 
 func _ready() -> void:
@@ -51,7 +50,6 @@ class DateObject:
 	
 	func time_span(other_date: DateObject) -> int:
 		"""Returns the timespan in seconds"""
-		var minutes = 0
 
 		var abs_minutes =  hour * 60 + minute
 		var other_abs_minutes = other_date.hour * 60 + other_date.minute
