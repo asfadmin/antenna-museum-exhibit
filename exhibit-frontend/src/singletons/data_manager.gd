@@ -223,7 +223,8 @@ func _on_request_completed(result: int, response_code: int, headers: PackedStrin
 			percent_complete = percentage
 			fake_progress = percentage # if the API loses contact with the hardware, resume from last percentage
 		
-		self.estimated_pass_speed = _estimate_speed_scale()
+		if percent_change != 0.0:
+			self.estimated_pass_speed = _estimate_speed_scale()
 		percent_complete_changed.emit(percent_complete)
 			
 	node.queue_free()
