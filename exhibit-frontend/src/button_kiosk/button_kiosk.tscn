@@ -1,0 +1,412 @@
+[gd_scene load_steps=7 format=3 uid="uid://knpf8lihjx0u"]
+
+[ext_resource type="Script" uid="uid://cko7k3mp7ra6k" path="res://src/button_kiosk/button_kiosk.gd" id="1_i307g"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_q8j0i"]
+bg_color = Color(0.485703, 0.485704, 0.485703, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_a1wgu"]
+bg_color = Color(0.486275, 0.486275, 0.486275, 1)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_sj7u6"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_aot28"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_p3f6s"]
+
+[node name="ButtonKiosk" type="PanelContainer"]
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_i307g")
+
+[node name="MarginContainer" type="MarginContainer" parent="."]
+layout_mode = 2
+theme_override_constants/margin_left = 10
+theme_override_constants/margin_top = 10
+theme_override_constants/margin_right = 10
+theme_override_constants/margin_bottom = 10
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer"]
+layout_mode = 2
+theme_override_constants/separation = 0
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_constants/separation = 0
+
+[node name="AntennaStatsContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_stretch_ratio = 1.5
+theme_override_constants/separation = 15
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer"]
+layout_mode = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+size_flags_stretch_ratio = 0.3
+alignment = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(101.24, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Elevation"
+horizontal_alignment = 1
+
+[node name="Label3" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(101.24, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Azimuth"
+horizontal_alignment = 1
+
+[node name="Label4" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(101.24, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "Train"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(78, 0)
+layout_mode = 2
+size_flags_horizontal = 3
+text = "ACTUAL:"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ActualElevationLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ActualAzimuthLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ActualTrainLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(78, 0)
+layout_mode = 2
+text = "COMMAND:"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="CommandElevationLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="CommandAzimuthLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_a1wgu")
+
+[node name="CommandTrainLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer3/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+size_flags_vertical = 3
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(92.03, 0)
+layout_mode = 2
+text = "ERROR:"
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ErrorElevationLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer2" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ErrorAzimuthLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer2"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="PanelContainer3" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4"]
+custom_minimum_size = Vector2(100, 0)
+layout_mode = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_q8j0i")
+
+[node name="ErrorTrainLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer4/PanelContainer3"]
+unique_name_in_owner = true
+layout_mode = 2
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "14.456"
+horizontal_alignment = 2
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer"]
+visible = false
+layout_mode = 2
+size_flags_vertical = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+custom_minimum_size = Vector2(89.88, 0)
+layout_mode = 2
+size_flags_vertical = 1
+text = "Elevation"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_sj7u6")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "DWN"
+
+[node name="ElevationSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "45.5"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "UP"
+horizontal_alignment = 2
+
+[node name="ElevationSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+custom_minimum_size = Vector2(89.88, 0)
+layout_mode = 2
+text = "Azimuth"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_aot28")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "CCW"
+
+[node name="AzimuthSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "45.5"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "CW"
+horizontal_alignment = 2
+
+[node name="AzimuthSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer2/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+custom_minimum_size = Vector2(89.88, 0)
+layout_mode = 2
+text = "Train"
+horizontal_alignment = 1
+
+[node name="PanelContainer" type="PanelContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_styles/panel = SubResource("StyleBoxFlat_p3f6s")
+
+[node name="MarginContainer" type="MarginContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer"]
+layout_mode = 2
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="VBoxContainer" type="VBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="HBoxContainer" type="HBoxContainer" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "CCW"
+
+[node name="TrainSliderLabel" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "45.5"
+horizontal_alignment = 1
+
+[node name="Label2" type="Label" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer/HBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(0, 0, 0, 1)
+text = "CW"
+horizontal_alignment = 2
+
+[node name="TrainSlider" type="HSlider" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2/VBoxContainer/HBoxContainer3/PanelContainer/MarginContainer/VBoxContainer"]
+unique_name_in_owner = true
+layout_mode = 2
+size_flags_horizontal = 3
+
+[node name="Control" type="Control" parent="MarginContainer/VBoxContainer/HBoxContainer/AntennaStatsContainer/HBoxContainer2"]
+layout_mode = 2
+size_flags_horizontal = 3

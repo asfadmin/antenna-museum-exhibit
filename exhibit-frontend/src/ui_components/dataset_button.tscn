@@ -1,0 +1,19 @@
+[gd_scene load_steps=5 format=3 uid="uid://ioldwmuh2v7l"]
+
+[ext_resource type="StyleBox" uid="uid://bsye0u550184l" path="res://src/theme_components/dataset_button.tres" id="1_0ohd7"]
+[ext_resource type="Script" uid="uid://ubq7ph0pay6t" path="res://src/ui_components/dataset_button.gd" id="2_3ynkw"]
+[ext_resource type="Script" uid="uid://cjtowq518rbsq" path="res://src/ui_components/dataset_resource.gd" id="3_f2ogr"]
+
+[sub_resource type="Resource" id="Resource_skx36"]
+script = ExtResource("3_f2ogr")
+dataset_id = "AURA"
+description = "AURA is used to detect signatures of trace gases in the atmosphere, including pollutants such as ozone, carbon monoxide, and aerosols.  Measurements made by Aura's four instruments help scientists answer questions about ozone trends, air quality changes, and how these fluctuations contribute to climate change."
+metadata/_custom_type_script = "uid://cjtowq518rbsq"
+
+[node name="AURAButton" type="Button" groups=["Dataset Button"]]
+custom_minimum_size = Vector2(72.1, 10.575)
+size_flags_vertical = 3
+theme_override_styles/normal = ExtResource("1_0ohd7")
+text = "AURA"
+script = ExtResource("2_3ynkw")
+dataset = SubResource("Resource_skx36")
